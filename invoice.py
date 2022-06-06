@@ -70,7 +70,7 @@ def insert_invoice (i, items, doc, connect_sec):
                         @deMonto_imp_afec_glob = ?, @deMonto_imp2_afec_glob = ?, @deMonto_imp3_afec_glob = ?, @iRENG_NUM = ?, @sREVISADO = ?, @sTRASNFE = ?, 
                         @sco_sucu_in = ?, @sco_us_in = ?, @sMaquina = ?
                     """
-                    sp_item_params = (None, item.doc_num, item.co_art, item.des_art, item.co_uni, item.sco_uni, item.co_alma, item.co_precio, item.tipo_imp,
+                    sp_item_params = (item.dis_cen, item.doc_num, item.co_art, item.des_art, item.co_uni, item.sco_uni, item.co_alma, item.co_precio, item.tipo_imp,
                         item.tipo_imp2, item.tipo_imp3, item.total_art, item.stotal_art, item.prec_vta, item.porc_desc, item.monto_desc, item.porc_imp, 
                         item.porc_imp2, item.porc_imp3, item.reng_neto, item.pendiente, item.pendiente2, item.tipo_doc, item.rowguid_doc, item.num_doc, 
                         item.monto_imp, item.monto_imp2, item.monto_imp3, item.total_dev, item.monto_dev, item.otros, item.comentario, item.monto_desc_glob, 

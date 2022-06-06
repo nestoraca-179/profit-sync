@@ -11,9 +11,9 @@ import sync_manager as sm
 import pyodbc
 import time
 
-#variables
-item_total_inv = None
-item_saldo_doc = None
+# variables
+items_total_inv = []
+items_saldo_doc = []
 
 # conexiones
 connect_main = {
@@ -86,6 +86,14 @@ else:
 
                 if result == 1 or result == 2:
                     sm.update_item(cursor_sync, 'ItemsEliminar', item.ID)
+
+            elif item.Tipo == "COB":
+
+                result = collect.delete_collect(item, connect_sec)
+                msg.print_msg_result_delete('Cobro', item.ItemID, 'o', result)
+
+                if result == 1 or result == 2:
+                    sm.update_item(cursor_sync, 'ItemsEliminar', item.ID)
     else:
         msg.print_no_items_to_delete()
 
@@ -121,7 +129,7 @@ else:
                 else:
 
                     if item.CampoModificado == "total_neto" and item.AntiguoValor > item.NuevoValor:
-                        item_total_inv = item
+                        items_total_inv.append(item)
                     else:
 
                         result = invoice.update_invoice(item, connect_sec)
@@ -159,7 +167,7 @@ else:
                 else:
 
                     if item.CampoModificado == "saldo" and item.AntiguoValor < item.NuevoValor:
-                        item_saldo_doc = item
+                        items_saldo_doc.append(item)
                     else:
 
                         result = sale_doc.update_sale_doc(item, connect_sec)
@@ -184,22 +192,23 @@ else:
                         sm.update_item(cursor_sync, 'ItemsModificar', item.ID)
         
         # modificando campo total neto en tabla factura de venta
-        if item_total_inv is not None:
+        for total_inv in items_total_inv:
         
-            result = sale_doc.update_sale_doc(item_total_inv, connect_sec)
-            msg.print_msg_result_update('Factura', item_total_inv.ItemID, item_total_inv.CampoModificado, 'a', result)
+            result = sale_doc.update_sale_doc(total_inv, connect_sec)
+            msg.print_msg_result_update('Factura', total_inv.ItemID, total_inv.CampoModificado, 'a', result)
 
             if result == 1:
-                sm.update_item(cursor_sync, 'ItemsModificar', item_total_inv.ID)
+                sm.update_item(cursor_sync, 'ItemsModificar', total_inv.ID)
         
         # modificando campo saldo en tabla documento de venta
-        if item_saldo_doc is not None:
+        for saldo_doc in items_saldo_doc:
         
-            result = sale_doc.update_sale_doc(item_saldo_doc, connect_sec)
-            msg.print_msg_result_update('Documento de venta de la factura', item_saldo_doc.ItemID, item_saldo_doc.CampoModificado, 'o', result)
+            result = sale_doc.update_sale_doc(saldo_doc, connect_sec)
+            msg.print_msg_result_update('Documento de venta de la factura', saldo_doc.ItemID, saldo_doc.CampoModificado, 'o', result)
 
             if result == 1:
-                sm.update_item(cursor_sync, 'ItemsModificar', item_saldo_doc.ID)
+                sm.update_item(cursor_sync, 'ItemsModificar', saldo_doc.ID)
+    
     else:
         msg.print_no_items_to_update()
     

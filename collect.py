@@ -1,7 +1,7 @@
-from pyodbc import Cursor
 import pyodbc
 import socket
 import messages as msg
+from pyodbc import Cursor
 
 def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
     status = 1
@@ -46,8 +46,8 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
 
                     cursor_sec.execute(sp_tp, sp_tp_params)
 
-                movs_c = search_movs_c(cursor_main, c.cob_num) # caja
-                movs_b = search_movs_b(cursor_main, c.cob_num) # bancos
+                movs_c = search_movs_c(cursor_main, c.cob_num) # movimientos de caja
+                movs_b = search_movs_b(cursor_main, c.cob_num) # movimientos de banco
 
                 # ingresando movimientos de caja
                 for m in movs_c:
@@ -181,6 +181,77 @@ def update_collect(item, connect_sec):
         cursor_sec.close()
         con_sec.close()
     
+    return status
+
+def delete_collect(item, connect_sec):
+    status = 1
+
+    try:
+        # intento de conexion a la base secundaria
+        con_sec = pyodbc.connect(f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={connect_sec["server"]}; DATABASE={connect_sec["database"]}; UID={connect_sec["username"]}; PWD={connect_sec["password"]}')
+        con_sec.autocommit = False
+    except:
+        # error al conectar a la base secundaria
+        status = 0
+    else:
+
+        # se inicializa el cursor y se busca el cobro y sus elementos
+        cursor_sec = con_sec.cursor()
+        cob = search_collect(cursor_sec, item.ItemID)
+        cob_doc = search_rengs_doc_collect(cursor_sec, item.ItemID)
+        cob_tp = search_rengs_tp_collect(cursor_sec, item.ItemID)
+
+        if cob is None:
+            # el cobro no esta en la base secundaria
+            status = 2
+        else:
+            sp_c = f"exec pEliminarCobro @scob_numori = ?, @tsvalidador = ?, @growguid = ?, @sco_us_mo = ?, @smaquina = ?, @sco_sucu_mo = ?"
+            sp_c_params = (cob.cob_num, cob.validador, cob.rowguid, 'SYNC', socket.gethostname(), None)
+
+            try:
+                # actualizando saldos de caja
+                for tp in cob_tp:
+
+                    code = tp.cod_cta if tp.cod_cta is not None else tp.cod_caja
+                    tipo_saldo = "EF" if tp.forma_pag == "EF" else "TF"
+
+                    sp_tp = f"""exec pSaldoActualizar @sCodigo = ?,@sForma_Pag = ?, @sTipoSaldo = ?, @deMonto = ?, @bSumarSaldo = 0,
+                        @sModulo = N'COBRO', @bPermiteSaldoNegativo = 0
+                    """
+                    sp_tp_params = (code, tp.forma_pag, tipo_saldo, tp.mont_doc)
+
+                    cursor_sec.execute(sp_tp, sp_tp_params)
+                
+                movs_c = search_movs_c(cursor_sec, cob.cob_num) # movimientos de caja
+                movs_b = search_movs_b(cursor_sec, cob.cob_num) # movimientos de banco
+
+                # eliminando movimientos de caja
+                for m in movs_c:
+                    sp_mov = f"exec pEliminarMovimientoCaja @smov_numori = ?, @tsvalidador = ?, @growguid = ?, @sco_us_mo = ?, @smaquina = ?, @sco_sucu_mo = ?"
+                    sp_mov_params = (m.mov_num, m.validador, m.rowguid, 'SYNC', socket.gethostname(), None)
+
+                    cursor_sec.execute(sp_mov, sp_mov_params)
+
+                # eliminando movimientos de banco
+                for m in movs_b:
+                    sp_mov = f"exec pEliminarMovimientoBanco @smov_numori = ?, @tsvalidador = ?, @growguid = ?, @sco_us_mo = ?, @smaquina = ?, @sco_sucu_mo = ?"
+                    sp_mov_params = (m.mov_num, m.validador, m.rowguid, 'SYNC', socket.gethostname(), None)
+
+                    cursor_sec.execute(sp_mov, sp_mov_params)
+                
+                # ingresando el cobro
+                cursor_sec.execute(sp_c, sp_c_params)
+
+                # commit de script
+                con_sec.commit()
+
+            except pyodbc.Error as error:
+                # error en la ejecucion
+                msg.print_error_msg(error)
+                con_sec.rollback()
+                status = 3
+                pass
+
     return status
 
 def search_collect (cursor: Cursor, id):
