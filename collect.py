@@ -33,6 +33,9 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                 c.co_sucu_in, c.co_us_in, socket.gethostname())
 
             try:
+                rengs_iva = []
+                rengs_islr = []
+
                 # actualizando saldos de caja
                 for tp in rengs_tp:
 
@@ -114,6 +117,60 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                         doc.dpcobro_monto, doc.monto_retencion_iva, doc.monto_retencion, doc.tipo_doc, doc.num_doc, doc.rowguid_reng_ori, 
                         doc.rowguid, doc.reng_num, doc.revisado, doc.trasnfe, doc.co_sucu_in, doc.co_us_in, socket.gethostname())
 
+                    if doc.co_tipo_doc.rstrip() == 'IVAN': # retencion de iva
+                        doc_iva = search_doc_iva(cursor_main, doc.nro_doc)
+                        sp_doc_iva = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'IVAN', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
+                            @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
+                            @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
+                            @deTotal_Bruto = ?, @deTotal_Neto = ?, @deMonto_Reca = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, @deMonto_Imp3 = ?, 
+                            @deSaldo = ?, @sN_Control = ?, @sNum_Comprobante = ?, @sDis_Cen = ?, @deComis1 = ?, @deComis2 = ?, @deComis3 = ?, 
+                            @deComis4 = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @sPorc_Desc_Glob = ?, @deMonto_Desc_Glob = ?, @sPorc_Reca = ?, 
+                            @dePorc_Imp = ?, @dePorc_Imp2 = ?, @dePorc_Imp3 = ?, @sSalestax = ?, @bVen_Ter = ?, @sdFec_Venc = ?, @deComis5 = ?, 
+                            @deComis6 = ?, @sImpFis = ?, @sImpFisFac = ?, @sImp_Nro_Z = ?, @iTipo_Origen = ?, @sCampo1 = ?, @sCampo2 = ?, @sCampo3 = ?,
+                            @sCampo4 = ?, @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, 
+                            @sco_us_in = ?, @sMaquina = ?
+                        """
+                        sp_doc_iva_params = (doc_iva.nro_doc, doc_iva.co_cli, doc_iva.co_mone, doc_iva.fec_reg, doc_iva.fec_emis, doc_iva.anulado, 
+                            doc_iva.adicional, doc_iva.mov_ban, doc_iva.aut, doc_iva.contrib, doc_iva.observa, doc_iva.nro_orig, doc_iva.nro_che,
+                            doc_iva.co_ven, doc_iva.co_cta_ingr_egr, doc_iva.tasa, doc_iva.tipo_imp, doc_iva.total_bruto, doc_iva.total_neto, 
+                            doc_iva.monto_reca, doc_iva.monto_imp, doc_iva.monto_imp2, doc_iva.monto_imp3, doc_iva.saldo, doc_iva.n_control, 
+                            doc_iva.num_comprobante, doc_iva.dis_cen, doc_iva.comis1, doc_iva.comis2, doc_iva.comis3, doc_iva.comis4, doc_iva.otros1, 
+                            doc_iva.otros2, doc_iva.otros3, doc_iva.porc_desc_glob, doc_iva.monto_desc_glob, doc_iva.porc_reca, doc_iva.porc_imp, 
+                            doc_iva.porc_imp2, doc_iva.porc_imp3, doc_iva.salestax, doc_iva.ven_ter, doc_iva.fec_venc, doc_iva.comis5, doc_iva.comis6, 
+                            doc_iva.impfis, doc_iva.impfisfac, doc_iva.imp_nro_z, doc_iva.tipo_origen, doc_iva.campo1, doc_iva.campo2, doc_iva.campo3, 
+                            doc_iva.campo4, doc_iva.campo5, doc_iva.campo6, doc_iva.campo7, doc_iva.campo8, doc_iva.revisado, doc_iva.trasnfe, 
+                            doc_iva.co_sucu_in, doc_iva.co_us_in, socket.gethostname())
+
+                        rengs_iva.append(doc.rowguid)
+                        cursor_sec.execute(sp_doc_iva, sp_doc_iva_params)
+                    
+                    elif doc.co_tipo_doc.rstrip() == 'ISLR': # retencion de islr
+                        doc_islr = search_doc_islr(cursor_main, doc.nro_doc)
+                        sp_doc_islr = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'ISLR', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
+                            @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
+                            @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
+                            @deTotal_Bruto = ?, @deTotal_Neto = ?, @deMonto_Reca = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, @deMonto_Imp3 = ?, 
+                            @deSaldo = ?, @sN_Control = ?, @sNum_Comprobante = ?, @sDis_Cen = ?, @deComis1 = ?, @deComis2 = ?, @deComis3 = ?, 
+                            @deComis4 = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @sPorc_Desc_Glob = ?, @deMonto_Desc_Glob = ?, @sPorc_Reca = ?, 
+                            @dePorc_Imp = ?, @dePorc_Imp2 = ?, @dePorc_Imp3 = ?, @sSalestax = ?, @bVen_Ter = ?, @sdFec_Venc = ?, @deComis5 = ?, 
+                            @deComis6 = ?, @sImpFis = ?, @sImpFisFac = ?, @sImp_Nro_Z = ?, @iTipo_Origen = ?, @sCampo1 = ?, @sCampo2 = ?, @sCampo3 = ?,
+                            @sCampo4 = ?, @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, 
+                            @sco_us_in = ?, @sMaquina = ?
+                        """
+                        sp_doc_islr_params = (doc_islr.nro_doc, doc_islr.co_cli, doc_islr.co_mone, doc_islr.fec_reg, doc_islr.fec_emis, doc_islr.anulado, 
+                            doc_islr.adicional, doc_islr.mov_ban, doc_islr.aut, doc_islr.contrib, doc_islr.observa, doc_islr.nro_orig, doc_islr.nro_che,
+                            doc_islr.co_ven, doc_islr.co_cta_ingr_egr, doc_islr.tasa, doc_islr.tipo_imp, doc_islr.total_bruto, doc_islr.total_neto, 
+                            doc_islr.monto_reca, doc_islr.monto_imp, doc_islr.monto_imp2, doc_islr.monto_imp3, doc_islr.saldo, doc_islr.n_control, 
+                            doc_islr.num_comprobante, doc_islr.dis_cen, doc_islr.comis1, doc_islr.comis2, doc_islr.comis3, doc_islr.comis4, doc_islr.otros1, 
+                            doc_islr.otros2, doc_islr.otros3, doc_islr.porc_desc_glob, doc_islr.monto_desc_glob, doc_islr.porc_reca, doc_islr.porc_imp, 
+                            doc_islr.porc_imp2, doc_islr.porc_imp3, doc_islr.salestax, doc_islr.ven_ter, doc_islr.fec_venc, doc_islr.comis5, doc_islr.comis6, 
+                            doc_islr.impfis, doc_islr.impfisfac, doc_islr.imp_nro_z, doc_islr.tipo_origen, doc_islr.campo1, doc_islr.campo2, doc_islr.campo3, 
+                            doc_islr.campo4, doc_islr.campo5, doc_islr.campo6, doc_islr.campo7, doc_islr.campo8, doc_islr.revisado, doc_islr.trasnfe, 
+                            doc_islr.co_sucu_in, doc_islr.co_us_in, socket.gethostname())
+
+                        rengs_islr.append(doc.rowguid)
+                        cursor_sec.execute(sp_doc_islr, sp_doc_islr_params)
+                    
                     cursor_sec.execute(sp_doc, sp_doc_params)
 
                 # ingresando renglones de pago
@@ -129,8 +186,18 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
 
                     cursor_sec.execute(sp_tp, sp_tp_params)
 
+                # ingresando renglones iva
+                for iva in rengs_iva:
+                    r_iva = search_reng_iva(cursor_main, iva)
+                    print(r_iva)
+
+                # ingresando renglones islr
+                for islr in rengs_islr:
+                    r_islr = search_reng_islr(cursor_main, islr)
+                    print(r_islr)
+                
                 # commit de script
-                con_sec.commit()
+                # con_sec.commit()
 
             except pyodbc.Error as error:
                 # error en la ejecucion
@@ -272,6 +339,18 @@ def search_rengs_tp_collect (cursor: Cursor, id):
 
     return rengs
 
+def search_reng_iva (cursor: Cursor, rowguid):
+    cursor.execute(f"select * from saCobroRetenIvaReng where rowguid_reng_cob = '{rowguid}'")
+    reng = cursor.fetchone()
+
+    return reng
+
+def search_reng_islr (cursor: Cursor, rowguid):
+    cursor.execute(f"select * from saCobroRentenReng where rowguid_reng_cob = '{rowguid}'")
+    reng = cursor.fetchone()
+
+    return reng
+
 def search_movs_c (cursor: Cursor, cob):
     cursor.execute(f"select * from saMovimientoCaja where origen = 'COB' and doc_num = '{cob}'")
     movs = cursor.fetchall()
@@ -283,3 +362,15 @@ def search_movs_b (cursor: Cursor, cob):
     movs = cursor.fetchall()
 
     return movs
+
+def search_doc_iva (cursor: Cursor, nro_doc):
+    cursor.execute(f"select * from saDocumentoVenta where co_tipo_doc = 'IVAN' and nro_doc = '{nro_doc}'")
+    doc = cursor.fetchone()
+
+    return doc
+
+def search_doc_islr (cursor: Cursor, nro_doc):
+    cursor.execute(f"select * from saDocumentoVenta where co_tipo_doc = 'ISLR' and nro_doc = '{nro_doc}'")
+    doc = cursor.fetchone()
+
+    return doc

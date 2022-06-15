@@ -50,3 +50,6 @@ def print_error_msg (error):
     print('-----------------------------------------------------------------')
     print(f'Error => {error}')
     print('-----------------------------------------------------------------')
+
+def print_end_sync():
+    print("Finalizado")
