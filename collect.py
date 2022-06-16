@@ -189,15 +189,37 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                 # ingresando renglones iva
                 for iva in rengs_iva:
                     r_iva = search_reng_iva(cursor_main, iva)
-                    print(r_iva)
+
+                    sp_reng_iva = """exec pInsertarRenglonesRetenIvaCobro @gRowguid_Reng_Cob = ?, @srif_contribuyente = ?, @dePeriodo_Impositivo = ?,
+                        @sdfecha_documento = ?, @stipo_operacion = ?, @stipo_documento = ?, @srif_comprador = ?, @snumero_documento = ?,
+                        @snumero_control_documento = ?, @demonto_documento = ?, @debase_imponible = ?, @demonto_ret_imp = ?, @snumero_documento_afectado = ?,
+                        @snum_comprobante = ?, @demonto_excento = ?, @dealicuota = ?, @snumero_expediente = ?, @breten_tercero = ?, @iRENG_NUM = ?, 
+                        @sREVISADO = ?, @sTRASNFE = ?, @sco_sucu_in = ?, @sco_us_in = ?
+                    """
+                    sp_reng_iva_params = (r_iva.rowguid_reng_cob, r_iva.rif_contribuyente, r_iva.periodo_impositivo, r_iva.fecha_documento, 
+                        r_iva.tipo_operacion, r_iva.tipo_documento, r_iva.rif_comprador, r_iva.numero_documento, r_iva.numero_control_documento, 
+                        r_iva.monto_documento, r_iva.base_imponible, r_iva.monto_ret_imp, r_iva.numero_documento_afectado, r_iva.num_comprobante, 
+                        r_iva.monto_excento, r_iva.alicuota, r_iva.numero_expediente, r_iva.reten_tercero, r_iva.reng_num, r_iva.revisado, 
+                        r_iva.trasnfe, r_iva.co_sucu_in, r_iva.co_us_in)
+                        
+                    cursor_sec.execute(sp_reng_iva, sp_reng_iva_params)
 
                 # ingresando renglones islr
                 for islr in rengs_islr:
                     r_islr = search_reng_islr(cursor_main, islr)
-                    print(r_islr)
+
+                    sp_reng_islr = """exec pInsertarRenglonesRetenCobro @gRowguid_Reng_Cob = ?, @deMonto_Reten = ?, @deSustraendo = ?, @dePorc_Retn = ?, 
+                        @deMonto_Obj = ?, @sCo_Islr = ?, @bautomatica = ?, @deMonto = ?, @gRowguid_fact = ?, @iRENG_NUM = ?, @sREVISADO = ?, 
+                        @sTRASNFE = ?, @sco_sucu_in = ?, @sco_us_in = ?
+                    """
+                    sp_reng_islr_params = (r_islr.rowguid_reng_cob, r_islr.monto_reten, r_islr.sustraendo, r_islr.porc_retn, r_islr.monto_obj, 
+                        r_islr.co_islr, r_islr.automatica, r_islr.monto, r_islr.rowguid_fact, r_islr.reng_num, r_islr.revisado, r_islr.trasnfe, 
+                        r_islr.co_sucu_in, r_islr.co_us_in)
+
+                    cursor_sec.execute(sp_reng_islr, sp_reng_islr_params)
                 
                 # commit de script
-                # con_sec.commit()
+                con_sec.commit()
 
             except pyodbc.Error as error:
                 # error en la ejecucion

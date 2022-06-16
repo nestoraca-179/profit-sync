@@ -91,7 +91,7 @@ else:
     # consultando los items para UPDATE
     itemsMod = sync_manager.get_items_update()
 
-    if len(itemsMod) < 0:
+    if len(itemsMod) > 0:
         for item in itemsMod:
 
             if item.Tipo == "CLI": # CLIENTE
@@ -291,8 +291,8 @@ else:
                     msg.print_msg_result_insert('Cobro', item.ItemID, 'o', result)
 
                     # se actualiza el registro en profit sync
-                    # if result == 1 or result == 2:
-                        # sync_manager.update_item('ItemsAgregar', item.ID)
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsAgregar', item.ID)
     else:
         msg.print_no_items_to_insert()
     
