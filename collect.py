@@ -2,6 +2,7 @@ import pyodbc
 import socket
 import messages as msg
 from pyodbc import Cursor
+from sale_doc import search_sale_doc
 
 def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
     status = 1
@@ -328,9 +329,22 @@ def delete_collect(item, connect_sec):
 
                     cursor_sec.execute(sp_mov, sp_mov_params)
                 
-                # ingresando el cobro
+                # eliminando el cobro
                 cursor_sec.execute(sp_c, sp_c_params)
 
+                # eliminando documentos relacionados
+                for doc in cob_doc:
+
+                    validador = search_sale_doc(cursor_sec, doc.co_tipo_doc, doc.nro_doc).validador
+
+                    if doc.co_tipo_doc.rstrip() == 'IVAN' or doc.co_tipo_doc.rstrip() == 'ISLR':
+                        sp_d = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?, @tsvalidador = ?, @smaquina = ?, 
+                            @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
+                        """
+                        sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', None, doc.rowguid)
+                        
+                        cursor_sec.execute(sp_d, sp_d_params)
+                
                 # commit de script
                 con_sec.commit()
 

@@ -15,7 +15,7 @@ def update_sale_doc(item, connect_sec):
 
         # se inicializa el cursor y se busca el documento
         cursor_sec = con_sec.cursor()
-        d = search_sale_doc(cursor_sec, item.ItemID)
+        d = search_sale_doc(cursor_sec, 'FACT', item.ItemID)
 
         if d is None:
             # el documento no esta en la base secundaria
@@ -48,8 +48,8 @@ def update_sale_doc(item, connect_sec):
     
     return status
 
-def search_sale_doc(cursor: Cursor, id):
-    cursor.execute(f"select * from saDocumentoVenta where co_tipo_doc = 'FACT' and nro_doc = '{id}'")
+def search_sale_doc(cursor: Cursor, code, id):
+    cursor.execute(f"select * from saDocumentoVenta where co_tipo_doc = '{code}' and nro_doc = '{id}'")
     doc = cursor.fetchone()
 
     return doc

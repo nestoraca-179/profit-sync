@@ -117,11 +117,14 @@ def delete_reng_invoice (fact, reng, connect_sec):
             # el renglon no esta en la base secundaria
             status = 2
         else:
-            query = f"delete from saFacturaVentaReng where doc_num = '{fact}' and reng_num = '{reng}'"
+            sp_r = f"""exec pEliminarRenglonesFacturaVenta @sdoc_numori = ?, @ireng_numori = ?, @sco_us_mo = ?, @smaquina = ?, 
+                @sco_sucu_mo = ?, @growguid = ?
+            """
+            sp_r_params = (fact, reng, 'SYNC', socket.gethostname(), None, r.rowguid)
 
             try:
                 # ejecucion de script
-                cursor_sec.execute(query)
+                cursor_sec.execute(sp_r, sp_r_params)
                 cursor_sec.commit()
             except pyodbc.Error as error:
                 # error en la ejecucion

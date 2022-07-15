@@ -2,6 +2,7 @@
 import client
 import invoice
 import reng_invoice
+import reng_collect
 import sale_doc
 import collect
 import messages as msg
@@ -54,10 +55,11 @@ def main():
         # conexion exitosa
         msg.print_connection_success()
     except:
+        # conexion fallida
         msg.print_connection_error()
         pass
     else:
-        # cursores para las DB
+        # cursor para la DB main
         cursor_main = con_main.cursor()
 
         # consultando los items para DELETE
@@ -101,6 +103,39 @@ def main():
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+
+                elif item.Tipo == "COBDR": # COBRO DOC RENGLON
+
+                    index = str.rfind(item.ItemID, '-')
+                    cob = item.ItemID[0:index]
+                    reng = item.ItemID[index + 1:]
+
+                    c = collect.search_collect(cursor_main, cob)
+
+                    if c is None: # El cobro no esta en la base principal
+                        msg.print_item_not_found('El renglón DOC no puede ser eliminado ya que el cobro', cob)
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
+                    else:
+                        print('FUNCION POR DEFINIR')
+
+                elif item.Tipo == "COBTR": # COBRO TP RENGLON
+
+                    index = str.rfind(item.ItemID, '-')
+                    cob = item.ItemID[0:index]
+                    reng = item.ItemID[index + 1:]
+
+                    c = collect.search_collect(cursor_main, cob)
+
+                    if c is None: # El cobro no esta en la base principal
+                        msg.print_item_not_found('El renglón TP no puede ser eliminado ya que el cobro', cob)
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
+                    else:
+
+                        result = reng_collect.delete_reng_tp_collect(cob, reng, connect_sec)
+                        msg.print_msg_result_delete(f'Renglon TP N° {reng} del cobro', cob, 'o', result)
+
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsEliminar', item.ID)
         else:
             msg.print_no_items_to_delete()
 
@@ -144,7 +179,7 @@ def main():
                             if result == 1:
                                 sync_manager.update_item('ItemsModificar', item.ID)            
 
-                elif item.Tipo == "FVR": # FACTURA VENTA
+                elif item.Tipo == "FVR": # FACTURA VENTA RENGLON
 
                     index = str.rfind(item.ItemID, '-')
                     fact = item.ItemID[0:index]
@@ -165,7 +200,7 @@ def main():
         
                 elif item.Tipo == "DVF": # DOCUMENTO VENTA FACTURA
 
-                    d = sale_doc.search_sale_doc(cursor_main, item.ItemID)
+                    d = sale_doc.search_sale_doc(cursor_main, 'FACT', item.ItemID)
 
                     if d is None:
                         msg.print_item_not_found('Documento de venta de la factura', item.ItemID)
@@ -193,6 +228,44 @@ def main():
 
                         result = collect.update_collect(item, connect_sec)
                         msg.print_msg_result_update('Cobro', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+
+                elif item.Tipo == "COBDR": # COBRO DOC RENGLON
+
+                    index = str.rfind(item.ItemID, '-')
+                    cob = item.ItemID[0:index]
+                    reng = item.ItemID[index + 1:]
+
+                    c = collect.search_collect(cursor_main, cob)
+
+                    if c is None:
+                        msg.print_item_not_found('El cobro', cob)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = reng_collect.update_reng_doc_collect(item, cob, reng, connect_sec)
+                        msg.print_msg_result_update(f'Renglon Doc. N° {reng} del cobro', cob, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+
+                elif item.Tipo == "COBTR": # COBRO TP RENGLON
+
+                    index = str.rfind(item.ItemID, '-')
+                    cob = item.ItemID[0:index]
+                    reng = item.ItemID[index + 1:]
+
+                    c = collect.search_collect(cursor_main, cob)
+
+                    if c is None:
+                        msg.print_item_not_found('El cobro', cob)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = reng_collect.update_reng_tp_collect(item, cob, reng, connect_sec)
+                        msg.print_msg_result_update(f'Renglon TP N° {reng} del cobro', cob, item.CampoModificado, 'o', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -309,6 +382,33 @@ def main():
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:
                             sync_manager.update_item('ItemsAgregar', item.ID)
+
+                elif item.Tipo == "COBTR": # COBRO TP RENGLON
+
+                    # busca nro del cobro y nro de renglon
+                    index = str.rfind(item.ItemID, '-')
+                    cob = item.ItemID[0:index]
+                    reng = item.ItemID[index + 1:]
+
+                    # busca el cobro y el renglon en la base principal
+                    c = collect.search_collect(cursor_main, cob)
+                    new_reng = reng_collect.search_reng_tp_collect(cursor_main, cob, reng)
+                    
+                    if c is None: # error si la factura no esta en la base principal
+                        msg.print_item_not_found('El cobro', cob)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    elif new_reng is None: # error si el renglon no esta en la base principal
+                        msg.print_item_not_found(f'El renglón {reng} del cobro', fact)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+                        
+                        # se intenta registrar el renglon
+                        result = reng_collect.insert_reng_tp_collect(new_reng, connect_sec)
+                        msg.print_msg_result_insert(f'Renglon TP N° {reng} del cobro', cob, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
         else:
             msg.print_no_items_to_insert()
         
@@ -322,7 +422,8 @@ def main():
 
         time.sleep(3)
 
-timer_runs = threading.Event()
-timer_runs.set()
-t = threading.Thread(target=timer, args=(timer_runs,))
-t.start()
+main()
+# timer_runs = threading.Event()
+# timer_runs.set()
+# t = threading.Thread(target=timer, args=(timer_runs,))
+# t.start()
