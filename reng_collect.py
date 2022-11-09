@@ -1,4 +1,5 @@
 from pickletools import read_float8
+from unicodedata import decimal
 from pyodbc import Cursor
 import pyodbc
 import socket
@@ -134,7 +135,21 @@ def update_reng_tp_collect (item, cob, reng, connect_sec):
                                 where cob_num = '{cob}' and reng_num = '{reng}'"""
 
             try:
+                diff = float(item.AntiguoValor) - float(item.NuevoValor)
+                sign = 1 if diff < 0 else 0
+                code = r.cod_cta if r.cod_cta is not None else r.cod_caja
+                tipo_saldo = "EF" if r.forma_pag == "EF" else "TF"
+
+                if diff < 0:
+                    diff *= -1
+
+                sp_tp = f"""exec pSaldoActualizar @sCodigo = ?,@sForma_Pag = ?, @sTipoSaldo = ?, @deMonto = ?, @bSumarSaldo = ?,
+                    @sModulo = N'COBRO', @bPermiteSaldoNegativo = 0
+                """
+                sp_tp_params = (code, r.forma_pag, tipo_saldo, diff, sign)
+
                 # ejecucion de script
+                cursor_sec.execute(sp_tp, sp_tp_params)
                 cursor_sec.execute(query)
                 cursor_sec.commit()
             except pyodbc.Error as error:

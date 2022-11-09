@@ -20,19 +20,20 @@ items_saldo_doc = []
 
 # conexiones
 connect_main = {
-    "server": "AC-10\SQLS2014SE",
-    "database": "PROFIT_2",
+    "server": "IT-MOV-91\SQLS2014SE",
+    "database": "DEMOA",
     "username": "sa",
     "password": "Soporte123456"
 }
 
 connect_sec = {
-    "server": "AC-10\SQLS2014SE",
-    "database": "PROFIT_1",
+    "server": "172.16.10.20\SQLS2014STD",
+    "database": "DEMOA",
     "username": "sa",
     "password": "Soporte123456"
 }
 
+# TIMER
 def timer(timer_runs):
     i = 0
     while timer_runs.is_set():
@@ -211,11 +212,26 @@ def main():
                             items_saldo_doc.append(item)
                         else:
 
-                            result = sale_doc.update_sale_doc(item, connect_sec)
+                            result = sale_doc.update_sale_doc(item, 'FACT', connect_sec)
                             msg.print_msg_result_update('Documento de venta de la factura', item.ItemID, item.CampoModificado, 'o', result)
 
                             if result == 1:
                                 sync_manager.update_item('ItemsModificar', item.ID)
+
+                elif item.Tipo == "ADE": # DOCUMENTO VENTA ADELANTO
+
+                    d = sale_doc.search_sale_doc(cursor_main, 'ADEL', item.ItemID)
+
+                    if d is None:
+                        msg.print_item_not_found('Adelanto', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = sale_doc.update_sale_doc(item, 'ADEL', connect_sec)
+                        msg.print_msg_result_update('Adelanto', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
 
                 elif item.Tipo == "COB": # COBRO
 
@@ -325,7 +341,7 @@ def main():
                     else:
 
                         items = reng_invoice.search_all_invoice_items(cursor_main, item.ItemID) # items de la factura
-                        doc = sale_doc.search_sale_doc(cursor_main, item.ItemID) # documento de venta de la factura
+                        doc = sale_doc.search_sale_doc(cursor_main, 'FACT', item.ItemID) # documento de venta de la factura
 
                         # se intenta registrar la factura
                         result = invoice.insert_invoice(i, items, doc, connect_sec)

@@ -31,14 +31,14 @@ def insert_invoice (i, items, doc, connect_sec):
                 @deMonto_Imp = ?, @deMonto_Imp2 = ?, @deMonto_Imp3 = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @deTotal_Neto = ?, @sComentario = ?, 
                 @sDir_Ent = ?, @bContrib = ?, @bImpresa = ?, @sSalestax = ?, @sImpfis = ?, @sImpfisfac = ?, @bVen_Ter = ?, @sDis_Cen = ?, @sCampo1 = ?, 
                 @sCampo2 = ?, @sCampo3 = ?, @sCampo4 = ?, @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?,
-                @sco_sucu_in = ?, @sco_us_in = ?, @sMaquina = ?
+                @sCo_Sucu_In = ?, @sCo_Us_In = ?, @sMaquina = ?
             """
             sp_invoice_params = (i.n_control, i.doc_num, i.descrip, i.co_cli, i.co_tran, i.co_cond, i.co_ven, i.co_cta_ingr_egr, i.co_mone, i.anulado, i.fec_emis, 
                 i.fec_reg, i.fec_venc, i.status, i.tasa, i.porc_desc_glob, i.monto_desc_glob, i.porc_reca, i.monto_reca, i.saldo, i.total_bruto, 
                 i.monto_imp, i.monto_imp2, i.monto_imp3, i.otros1, i.otros2, i.otros3, i.total_neto, i.comentario, i.dir_ent, i.contrib, i.impresa, 
                 i.salestax, i.impfis, i.impfisfac, i.ven_ter, i.dis_cen, i.campo1, i.campo2, i.campo3, i.campo4, i.campo5, i.campo6, i.campo7, 
                 i.campo8, i.revisado, i.trasnfe, i.co_sucu_in, i.co_us_in, socket.gethostname())
-
+            
             sp_doc = f"""exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = ?, @sDoc_Orig = ?, @sCo_Cli = ?, @sCo_Mone = ?, @sdFec_Reg = ?, 
                 @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, 
                 @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, @deTotal_Bruto = ?, @deTotal_Neto = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, 
@@ -46,7 +46,7 @@ def insert_invoice (i, items, doc, connect_sec):
                 @deComis4 = ?, @deComis5 = ?, @deComis6 = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @sPorc_Desc_Glob = ?, @deMonto_Desc_Glob = ?, 
                 @sPorc_Reca = ?, @deMonto_Reca = ?, @dePorc_Imp = ?, @dePorc_Imp2 = ?, @dePorc_Imp3 = ?, @sSalestax = ?, @bVen_Ter = ?, @sdFec_Venc = ?, 
                 @sImpFis = ?, @sImpFisFac = ?, @sImp_Nro_Z = ?, @iTipo_Origen = ?, @sCampo1 = ?, @sCampo2 = ?, @sCampo3 = ?, @sCampo4 = ?, @sCampo5 = ?, 
-                @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, @sco_us_in = ?, @sMaquina = ?
+                @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sCo_Sucu_In = ?, @sCo_Us_In = ?, @sMaquina = ?
             """
             sp_doc_params = (doc.nro_doc, 'FACT', doc.doc_orig, doc.co_cli, doc.co_mone, doc.fec_reg, doc.fec_emis, doc.anulado, doc.adicional, 
                 doc.mov_ban, doc.aut, doc.contrib, doc.observa, doc.nro_orig, doc.nro_che, doc.co_ven, doc.co_cta_ingr_egr, doc.tasa, doc.tipo_imp, 
@@ -62,13 +62,13 @@ def insert_invoice (i, items, doc, connect_sec):
                 
                 # ingresando items de la factura
                 for item in items:
-                    sp_item = f"""exec pInsertarRenglonesFacturaVenta @sdis_cen = ?, @sDoc_Num = ?, @sCo_Art = ?, @sDes_Art = ?, @sCo_Uni = ?, @sSco_Uni = ?, 
-                        @sCo_Alma = ?, @sCo_Precio = ?, @sTipo_Imp = ?, @sTipo_Imp2 = ?, @sTipo_Imp3 = ?, @deTotal_Art = ?, @deStotal_Art = ?, @dePrec_Vta = ?, 
+                    sp_item = f"""exec pInsertarRenglonesFacturaVenta @sDis_Cen = ?, @sDoc_Num = ?, @sCo_Art = ?, @sDes_Art = ?, @sCo_Uni = ?, @sSco_Uni = ?, 
+                        @sCo_Alma = ?, @sCo_Precio = ?, @sTipo_Imp = ?, @sTipo_Imp2 = ?, @sTipo_Imp3 = ?, @deTotal_Art = ?, @deSTotal_Art = ?, @dePrec_Vta = ?, 
                         @sPorc_Desc = ?, @deMonto_Desc = ?, @dePorc_Imp = ?, @dePorc_Imp2 = ?, @dePorc_Imp3 = ?, @deReng_Neto = ?, @dePendiente = ?, @dePendiente2 = ?, 
                         @sTipo_Doc = ?, @gRowguid_Doc = ?, @sNum_Doc = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, @deMonto_Imp3 = ?, @deTotal_Dev = ?, @deMonto_Dev = ?, 
-                        @deOtros = ?, @sComentario = ?, @deMonto_Desc_Glob = ?, @deMonto_Reca_Glob = ?, @deOtros1_Glob = ?, @deOtros2_glob = ?, @deOtros3_glob = ?, 
-                        @deMonto_imp_afec_glob = ?, @deMonto_imp2_afec_glob = ?, @deMonto_imp3_afec_glob = ?, @iRENG_NUM = ?, @sREVISADO = ?, @sTRASNFE = ?, 
-                        @sco_sucu_in = ?, @sco_us_in = ?, @sMaquina = ?
+                        @deOtros = ?, @sComentario = ?, @deMonto_Desc_Glob = ?, @deMonto_reca_Glob = ?, @deOtros1_glob = ?, @deOtros2_glob = ?, @deOtros3_glob = ?, 
+                        @deMonto_imp_afec_glob = ?, @deMonto_imp2_afec_glob = ?, @deMonto_imp3_afec_glob = ?, @iReng_Num = ?, @sREVISADO = ?, @sTRASNFE = ?, 
+                        @sCo_Sucu_In = ?, @sCo_Us_In = ?, @sMaquina = ?
                     """
                     sp_item_params = (item.dis_cen, item.doc_num, item.co_art, item.des_art, item.co_uni, item.sco_uni, item.co_alma, item.co_precio, item.tipo_imp,
                         item.tipo_imp2, item.tipo_imp3, item.total_art, item.stotal_art, item.prec_vta, item.porc_desc, item.monto_desc, item.porc_imp, 
@@ -76,12 +76,12 @@ def insert_invoice (i, items, doc, connect_sec):
                         item.monto_imp, item.monto_imp2, item.monto_imp3, item.total_dev, item.monto_dev, item.otros, item.comentario, item.monto_desc_glob, 
                         item.monto_reca_glob, item.otros1_glob, item.otros2_glob, item.otros3_glob, item.monto_imp_afec_glob, item.monto_imp2_afec_glob, 
                         item.monto_imp3_afec_glob, item.reng_num, item.revisado, item.trasnfe, item.co_sucu_in, item.co_us_in, socket.gethostname())
-
+                    
                     cursor_sec.execute(sp_item, sp_item_params)
 
                 # ingresando el documento de venta
                 cursor_sec.execute(sp_doc, sp_doc_params)
-                
+
                 # commit de script
                 con_sec.commit()
 

@@ -2,7 +2,7 @@ from pyodbc import Cursor
 import pyodbc
 import messages as msg
 
-def update_sale_doc(item, connect_sec):
+def update_sale_doc(item, code, connect_sec):
     status = 1
 
     try:
@@ -15,7 +15,7 @@ def update_sale_doc(item, connect_sec):
 
         # se inicializa el cursor y se busca el documento
         cursor_sec = con_sec.cursor()
-        d = search_sale_doc(cursor_sec, 'FACT', item.ItemID)
+        d = search_sale_doc(cursor_sec, code, item.ItemID)
 
         if d is None:
             # el documento no esta en la base secundaria
@@ -24,14 +24,14 @@ def update_sale_doc(item, connect_sec):
 
             if item.NuevoValor is None:
                 query = f"""update saDocumentoVenta set {item.CampoModificado} = NULL
-                            where co_tipo_doc = 'FACT' and nro_doc = '{item.ItemID}'"""
+                            where co_tipo_doc = '{code}' and nro_doc = '{item.ItemID}'"""
             else:
                 if item.TipoDato == 'string' or item.TipoDato == 'bool':
                     query = f"""update saDocumentoVenta set {item.CampoModificado} = '{item.NuevoValor}'
-                                where co_tipo_doc = 'FACT' and nro_doc = '{item.ItemID}'"""
+                                where co_tipo_doc = '{code}' and nro_doc = '{item.ItemID}'"""
                 elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
                     query = f"""update saDocumentoVenta set {item.CampoModificado} = {item.NuevoValor}
-                                where co_tipo_doc = 'FACT' and nro_doc = '{item.ItemID}'"""
+                                where co_tipo_doc = '{code}' and nro_doc = '{item.ItemID}'"""
 
             try:
                 # ejecucion de script

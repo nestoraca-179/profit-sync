@@ -119,7 +119,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                         doc.rowguid, doc.reng_num, doc.revisado, doc.trasnfe, doc.co_sucu_in, doc.co_us_in, socket.gethostname())
 
                     if doc.co_tipo_doc.rstrip() == 'IVAN': # retencion de iva
-                        doc_iva = search_doc_iva(cursor_main, doc.nro_doc)
+                        doc_iva = search_sale_doc(cursor_main, 'IVAN', doc.nro_doc)
                         sp_doc_iva = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'IVAN', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
                             @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
                             @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
@@ -146,7 +146,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                         cursor_sec.execute(sp_doc_iva, sp_doc_iva_params)
                     
                     elif doc.co_tipo_doc.rstrip() == 'ISLR': # retencion de islr
-                        doc_islr = search_doc_islr(cursor_main, doc.nro_doc)
+                        doc_islr = search_sale_doc(cursor_main, 'ISLR', doc.nro_doc)
                         sp_doc_islr = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'ISLR', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
                             @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
                             @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
@@ -171,6 +171,35 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
 
                         rengs_islr.append(doc.rowguid)
                         cursor_sec.execute(sp_doc_islr, sp_doc_islr_params)
+
+                    elif doc.co_tipo_doc.rstrip() == 'ADEL': # adelanto
+                        doc_adel = search_sale_doc(cursor_main, 'ADEL', doc.nro_doc)
+                        doc_secu = search_sale_doc(cursor_sec, 'ADEL', doc.nro_doc)
+
+                        if doc_secu is None:
+                            sp_doc_adel = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'ADEL', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
+                                @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
+                                @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
+                                @deTotal_Bruto = ?, @deTotal_Neto = ?, @deMonto_Reca = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, @deMonto_Imp3 = ?, 
+                                @deSaldo = ?, @sN_Control = ?, @sNum_Comprobante = ?, @sDis_Cen = ?, @deComis1 = ?, @deComis2 = ?, @deComis3 = ?, 
+                                @deComis4 = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @sPorc_Desc_Glob = ?, @deMonto_Desc_Glob = ?, @sPorc_Reca = ?, 
+                                @dePorc_Imp = ?, @dePorc_Imp2 = ?, @dePorc_Imp3 = ?, @sSalestax = ?, @bVen_Ter = ?, @sdFec_Venc = ?, @deComis5 = ?, 
+                                @deComis6 = ?, @sImpFis = ?, @sImpFisFac = ?, @sImp_Nro_Z = ?, @iTipo_Origen = ?, @sCampo1 = ?, @sCampo2 = ?, @sCampo3 = ?,
+                                @sCampo4 = ?, @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, 
+                                @sco_us_in = ?, @sMaquina = ?
+                            """
+                            sp_doc_adel_params = (doc_adel.nro_doc, doc_adel.co_cli, doc_adel.co_mone, doc_adel.fec_reg, doc_adel.fec_emis, doc_adel.anulado, 
+                            doc_adel.adicional, doc_adel.mov_ban, doc_adel.aut, doc_adel.contrib, doc_adel.observa, doc_adel.nro_orig, doc_adel.nro_che,
+                            doc_adel.co_ven, doc_adel.co_cta_ingr_egr, doc_adel.tasa, doc_adel.tipo_imp, doc_adel.total_bruto, doc_adel.total_neto, 
+                            doc_adel.monto_reca, doc_adel.monto_imp, doc_adel.monto_imp2, doc_adel.monto_imp3, doc_adel.saldo, doc_adel.n_control, 
+                            doc_adel.num_comprobante, doc_adel.dis_cen, doc_adel.comis1, doc_adel.comis2, doc_adel.comis3, doc_adel.comis4, doc_adel.otros1, 
+                            doc_adel.otros2, doc_adel.otros3, doc_adel.porc_desc_glob, doc_adel.monto_desc_glob, doc_adel.porc_reca, doc_adel.porc_imp, 
+                            doc_adel.porc_imp2, doc_adel.porc_imp3, doc_adel.salestax, doc_adel.ven_ter, doc_adel.fec_venc, doc_adel.comis5, doc_adel.comis6, 
+                            doc_adel.impfis, doc_adel.impfisfac, doc_adel.imp_nro_z, doc_adel.tipo_origen, doc_adel.campo1, doc_adel.campo2, doc_adel.campo3, 
+                            doc_adel.campo4, doc_adel.campo5, doc_adel.campo6, doc_adel.campo7, doc_adel.campo8, doc_adel.revisado, doc_adel.trasnfe, 
+                            doc_adel.co_sucu_in, doc_adel.co_us_in, socket.gethostname())
+
+                            cursor_sec.execute(sp_doc_adel, sp_doc_adel_params)
                     
                     cursor_sec.execute(sp_doc, sp_doc_params)
 
@@ -398,15 +427,3 @@ def search_movs_b (cursor: Cursor, cob):
     movs = cursor.fetchall()
 
     return movs
-
-def search_doc_iva (cursor: Cursor, nro_doc):
-    cursor.execute(f"select * from saDocumentoVenta where co_tipo_doc = 'IVAN' and nro_doc = '{nro_doc}'")
-    doc = cursor.fetchone()
-
-    return doc
-
-def search_doc_islr (cursor: Cursor, nro_doc):
-    cursor.execute(f"select * from saDocumentoVenta where co_tipo_doc = 'ISLR' and nro_doc = '{nro_doc}'")
-    doc = cursor.fetchone()
-
-    return doc

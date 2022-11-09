@@ -3,7 +3,7 @@ import messages as msg
 from datetime import datetime
 
 connect_sync = {
-    "server": "AC-10\SQLS2014SE",
+    "server": "IT-MOV-91\SQLS2014SE",
     "database": "ProfitSync",
     "username": "sa",
     "password": "Soporte123456"
