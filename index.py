@@ -1,10 +1,11 @@
 # modulos
 import client
 import invoice
-import reng_invoice
-import reng_collect
 import sale_doc
+import order
+import reng_invoice
 import collect
+import reng_collect
 import messages as msg
 import sync_manager as sm
 
@@ -285,11 +286,26 @@ def main():
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
+
+                elif item.Tipo == "PV": # PEDIDO VENTA
+
+                    p = order.search_order(cursor_main, item.ItemID)
+
+                    if p is None:
+                        msg.print_item_not_found('El pedido', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = order.update_order(item, connect_sec)
+                        msg.print_msg_result_update('Pedido', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)   
             
             # modificando campo total neto en tabla factura de venta
             for total_inv in items_total_inv:
             
-                result = sale_doc.update_sale_doc(total_inv, connect_sec)
+                result = sale_doc.update_sale_doc(total_inv, 'FACT', connect_sec)
                 msg.print_msg_result_update('Factura', total_inv.ItemID, total_inv.CampoModificado, 'a', result)
 
                 if result == 1:
@@ -298,7 +314,7 @@ def main():
             # modificando campo saldo en tabla documento de venta
             for saldo_doc in items_saldo_doc:
             
-                result = sale_doc.update_sale_doc(saldo_doc, connect_sec)
+                result = sale_doc.update_sale_doc(saldo_doc, 'FACT', connect_sec)
                 msg.print_msg_result_update('Documento de venta de la factura', saldo_doc.ItemID, saldo_doc.CampoModificado, 'o', result)
 
                 if result == 1:
@@ -421,6 +437,26 @@ def main():
                         # se intenta registrar el renglon
                         result = reng_collect.insert_reng_tp_collect(new_reng, connect_sec)
                         msg.print_msg_result_insert(f'Renglon TP N° {reng} del cobro', cob, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+
+                elif item.Tipo == "PV": # PEDIDO VENTA
+
+                    # busca el pedido en la base principal
+                    p = order.search_order(cursor_main, item.ItemID)
+
+                    if p is None: # error si el pedido no esta en la base principal
+                        msg.print_item_not_found('El pedido', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        items = order.search_all_order_items(cursor_main, item.ItemID) # items del pedido
+
+                        # se intenta registrar el pedido
+                        result = order.insert_order(p, items, connect_sec)
+                        msg.print_msg_result_insert('Pedido', item.ItemID, 'o', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:
