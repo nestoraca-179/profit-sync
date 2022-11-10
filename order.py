@@ -120,11 +120,63 @@ def update_order (item, connect_sec):
     
     return status
 
+def update_reng_order (item, ord, reng, connect_sec):
+    status = 1
+
+    try:
+        # intento de conexion a la base secundaria
+        con_sec = pyodbc.connect(f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={connect_sec["server"]}; DATABASE={connect_sec["database"]}; UID={connect_sec["username"]}; PWD={connect_sec["password"]}')
+    except:
+        # error al conectar a la base secundaria
+        status = 0
+    else:
+
+        # se inicializa el cursor y se busca el renglon
+        cursor_sec = con_sec.cursor()
+        r = search_reng_order(cursor_sec, ord, reng)
+
+        if r is None:
+            # el renglon no esta en la base secundaria
+            status = 2
+        else:
+
+            if item.NuevoValor is None:
+                query = f"""update saPedidoVentaReng set {item.CampoModificado} = NULL
+                            where doc_num = '{ord}' and reng_num = '{reng}'"""
+            else:
+                if item.TipoDato == 'string' or item.TipoDato == 'bool':
+                    query = f"""update saPedidoVentaReng set {item.CampoModificado} = '{item.NuevoValor}'
+                                where doc_num = '{ord}' and reng_num = '{reng}'"""
+                elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
+                    query = f"""update saPedidoVentaReng set {item.CampoModificado} = {item.NuevoValor}
+                                where doc_num = '{ord}' and reng_num = '{reng}'"""
+
+            try:
+                # ejecucion de script
+                cursor_sec.execute(query)
+                cursor_sec.commit()
+            except pyodbc.Error as error:
+                # error en la ejecucion
+                msg.print_error_msg(error)
+                status = 3
+                pass
+
+        cursor_sec.close()
+        con_sec.close()
+    
+    return status
+
 def search_order (cursor: Cursor, id):
     cursor.execute(f"select * from saPedidoVenta where doc_num = '{id}'")
     p = cursor.fetchone()
 
     return p
+
+def search_reng_order (cursor: Cursor, id, reng):
+    cursor.execute(f"select * from saPedidoVentaReng where doc_num = '{id}' and reng_num = {reng}")
+    new_reng = cursor.fetchone()
+
+    return new_reng
 
 def search_all_order_items (cursor: Cursor, id):
     cursor.execute(f"select * from saPedidoVentaReng where doc_num = '{id}'")

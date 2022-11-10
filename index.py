@@ -43,8 +43,8 @@ def timer(timer_runs):
 
         main()
 
-        with open('file.txt', 'a') as f:
-            f.write(f"Hola {i} -> {now.strftime('%m/%d/%Y %H:%M:%S')}\n")
+        with open('logs.txt', 'a') as f:
+            f.write(f"{i} -> {now.strftime('%d/%m/%Y %H:%M:%S')}\n")
             
         time.sleep(180)
 
@@ -300,7 +300,26 @@ def main():
                         msg.print_msg_result_update('Pedido', item.ItemID, item.CampoModificado, 'o', result)
 
                         if result == 1:
-                            sync_manager.update_item('ItemsModificar', item.ID)   
+                            sync_manager.update_item('ItemsModificar', item.ID)
+
+                elif item.Tipo == "PVR": # PEDIDO VENTA RENGLON
+
+                    index = str.rfind(item.ItemID, '-')
+                    ord = item.ItemID[0:index]
+                    reng = item.ItemID[index + 1:]
+
+                    p = order.search_order(cursor_main, ord)
+
+                    if p is None:
+                        msg.print_item_not_found('El pedido', ord)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+                        
+                        result = order.update_reng_order(item, ord, reng, connect_sec)
+                        msg.print_msg_result_update(f'Renglon N° {reng} del pedido', ord, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
             
             # modificando campo total neto en tabla factura de venta
             for total_inv in items_total_inv:
@@ -474,8 +493,8 @@ def main():
 
         time.sleep(3)
 
-main()
-# timer_runs = threading.Event()
-# timer_runs.set()
-# t = threading.Thread(target=timer, args=(timer_runs,))
-# t.start()
+# main()
+timer_runs = threading.Event()
+timer_runs.set()
+t = threading.Thread(target=timer, args=(timer_runs,))
+t.start()
