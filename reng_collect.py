@@ -219,3 +219,9 @@ def search_reng_tp_collect (cursor: Cursor, id, reng):
     new_reng = cursor.fetchone()
 
     return new_reng
+
+def search_reng_adel_collect (cursor: Cursor, num_doc):
+    cursor.execute(f"select * from saCobroDocReng where co_tipo_doc = 'ADEL' and nro_doc = '{num_doc}'")
+    adel = cursor.fetchone()
+
+    return adel

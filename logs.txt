@@ -1,0 +1,28 @@
+Factura 0000000015 agregada con éxito - 12/11/2022 17:18:59
+Documento de venta de la factura 0000000015 (saldo) actualizado con éxito - 12/11/2022 17:22:23
+Documento de venta de la factura 0000000015 (tipo_imp) actualizado con éxito - 12/11/2022 17:22:23
+Factura 0000000015 (saldo) actualizada con éxito - 12/11/2022 17:22:23
+Cobro 0000000029 agregado con éxito - 12/11/2022 17:22:23
+Cobro 0000000030 agregado con éxito - 12/11/2022 17:28:07
+Adelanto 0000000003 (saldo) actualizado con éxito - 12/11/2022 17:38:43
+Documento de venta de la factura 0000000015 (saldo) actualizado con éxito - 12/11/2022 17:38:43
+Factura 0000000015 (saldo) actualizada con éxito - 12/11/2022 17:38:43
+Cobro 0000000031 agregado con éxito - 12/11/2022 17:38:43
+Cobro 0000000029 eliminado con éxito - 12/11/2022 17:55:13
+Factura 0000000015 (saldo) actualizada con éxito - 12/11/2022 17:55:13
+Documento de venta de la factura 0000000015 (saldo) actualizado con éxito - 12/11/2022 17:55:13
+Cobro 0000000031 eliminado con éxito - 12/11/2022 17:59:43
+Adelanto 0000000003 (saldo) actualizado con éxito - 12/11/2022 17:59:43
+Documento de venta de la factura 0000000015 (saldo) actualizado con éxito - 12/11/2022 17:59:43
+Factura 0000000015 (saldo) actualizada con éxito - 12/11/2022 17:59:43
+Cobro 0000000030 eliminado con éxito - 12/11/2022 18:07:00
+Adelanto 0000000004 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 12/11/2022 18:28:22
+Factura 0000000015 (saldo) actualizada con éxito - 12/11/2022 18:28:22
+Documento de venta de la factura 0000000015 (saldo) actualizado con éxito - 12/11/2022 18:28:22
+Cobro 0000000032 agregado con éxito - 12/11/2022 18:28:22
+Cobro 0000000033 agregado con éxito - 12/11/2022 18:28:22
+Adelanto 0000000004 (saldo) actualizado con éxito - 12/11/2022 18:29:03
+Cobro 0000000033 eliminado con éxito - 12/11/2022 18:56:07
+Cobro 0000000032 eliminado con éxito - 12/11/2022 18:56:07
+Documento de venta de la factura 0000000015 (saldo) actualizado con éxito - 12/11/2022 18:56:07
+Factura 0000000015 (saldo) actualizada con éxito - 12/11/2022 18:56:07

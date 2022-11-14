@@ -1,5 +1,6 @@
 import pyodbc
 import socket
+import reng_collect
 import messages as msg
 from pyodbc import Cursor
 from sale_doc import search_sale_doc
@@ -120,6 +121,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
 
                     if doc.co_tipo_doc.rstrip() == 'IVAN': # retencion de iva
                         doc_iva = search_sale_doc(cursor_main, 'IVAN', doc.nro_doc)
+                        
                         sp_doc_iva = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'IVAN', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
                             @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
                             @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
@@ -147,6 +149,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                     
                     elif doc.co_tipo_doc.rstrip() == 'ISLR': # retencion de islr
                         doc_islr = search_sale_doc(cursor_main, 'ISLR', doc.nro_doc)
+                        
                         sp_doc_islr = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'ISLR', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
                             @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
                             @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
@@ -373,6 +376,17 @@ def delete_collect(item, connect_sec):
                         sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', None, doc.rowguid)
                         
                         cursor_sec.execute(sp_d, sp_d_params)
+
+                    elif doc.co_tipo_doc.rstrip() == 'ADEL':
+                        adel = reng_collect.search_reng_adel_collect(cursor_sec, doc.nro_doc)
+
+                        if adel is None:
+                            sp_d = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?, @tsvalidador = ?, @smaquina = ?, 
+                                @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
+                            """
+                            sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', None, doc.rowguid)
+                            
+                            cursor_sec.execute(sp_d, sp_d_params)
                 
                 # commit de script
                 con_sec.commit()

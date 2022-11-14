@@ -21,15 +21,15 @@ items_saldo_doc = []
 
 # conexiones
 connect_main = {
-    "server": "IT-MOV-91\SQLS2014SE",
-    "database": "DEMOA",
+    "server": "AC-10\SQLS2014SE",
+    "database": "PROFIT_2",
     "username": "sa",
     "password": "Soporte123456"
 }
 
 connect_sec = {
-    "server": "172.16.10.20\SQLS2014STD",
-    "database": "DEMOA",
+    "server": "AC-10\SQLS2014SE",
+    "database": "PROFIT_1",
     "username": "sa",
     "password": "Soporte123456"
 }
@@ -493,8 +493,8 @@ def main():
 
         time.sleep(3)
 
-# main()
-timer_runs = threading.Event()
-timer_runs.set()
-t = threading.Thread(target=timer, args=(timer_runs,))
-t.start()
+main()
+# timer_runs = threading.Event()
+# timer_runs.set()
+# t = threading.Thread(target=timer, args=(timer_runs,))
+# t.start()
