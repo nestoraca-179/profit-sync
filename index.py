@@ -21,15 +21,15 @@ items_saldo_doc = []
 
 # conexiones
 connect_main = {
-    "server": "AC-10\SQLS2014SE",
-    "database": "PROFIT_2",
+    "server": "IT-MOV-91\SQLS2014SE",
+    "database": "DEMOA",
     "username": "sa",
     "password": "Soporte123456"
 }
 
 connect_sec = {
-    "server": "AC-10\SQLS2014SE",
-    "database": "PROFIT_1",
+    "server": "VLN-SRV-AP-A1\SQLS2014STD",
+    "database": "DEMOA",
     "username": "sa",
     "password": "Soporte123456"
 }
@@ -37,10 +37,10 @@ connect_sec = {
 # TIMER
 def timer(timer_runs):
     i = 0
+    
     while timer_runs.is_set():
         i = i + 1
         now = datetime.now()
-
         main()
 
         with open('logs.txt', 'a') as f:

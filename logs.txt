@@ -26,3 +26,104 @@ Cobro 0000000033 eliminado con éxito - 12/11/2022 18:56:07
 Cobro 0000000032 eliminado con éxito - 12/11/2022 18:56:07
 Documento de venta de la factura 0000000015 (saldo) actualizado con éxito - 12/11/2022 18:56:07
 Factura 0000000015 (saldo) actualizada con éxito - 12/11/2022 18:56:07
+Renglon N° 1 del pedido 6000000001 (pendiente) actualizado con éxito - 14/11/2022 17:04:33
+Pedido 6000000001 (status) actualizado con éxito - 14/11/2022 17:04:33
+Renglon N° 2 del pedido 6000000001 (pendiente) actualizado con éxito - 14/11/2022 17:04:33
+Renglon N° 3 del pedido 6000000001 (pendiente) actualizado con éxito - 14/11/2022 17:04:33
+Renglon N° 4 del pedido 6000000001 (pendiente) actualizado con éxito - 14/11/2022 17:04:33
+Renglon N° 5 del pedido 6000000001 (pendiente) actualizado con éxito - 14/11/2022 17:04:33
+Pedido 6000000001 (status) actualizado con éxito - 14/11/2022 17:04:33
+Adelanto 0000000006 (saldo) actualizado con éxito - 14/11/2022 17:04:33
+Adelanto 0000000006 (co_us_mo) actualizado con éxito - 14/11/2022 17:04:33
+Adelanto 0000000006 (co_sucu_mo) actualizado con éxito - 14/11/2022 17:04:33
+Adelanto 0000000018 (saldo) actualizado con éxito - 14/11/2022 17:04:33
+Adelanto 0000000018 (co_us_mo) actualizado con éxito - 14/11/2022 17:04:33
+Adelanto 0000000018 (co_sucu_mo) actualizado con éxito - 14/11/2022 17:04:33
+Documento de venta de la factura 3000000013 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 14/11/2022 17:04:33
+Documento de venta de la factura 3000000013 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 14/11/2022 17:04:33
+Factura 3000000013 no se encuentra en la base secundaria, debe ser agregada y/o sincronizada primero - 14/11/2022 17:04:33
+Adelanto 3000000004 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 14/11/2022 17:04:33
+Documento de venta de la factura 3000000013 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 14/11/2022 17:04:33
+Factura 3000000013 no se encuentra en la base secundaria, debe ser agregada y/o sincronizada primero - 14/11/2022 17:04:33
+Factura 3000000013 agregada con éxito - 14/11/2022 17:04:33
+Cobro 3000000004 agregado con éxito - 14/11/2022 17:04:33
+Cobro 3000000005 agregado con éxito - 14/11/2022 17:04:33
+Cobro 3000000006 agregado con éxito - 14/11/2022 17:04:34
+Documento de venta de la factura 3000000013 (saldo) actualizado con éxito - 14/11/2022 17:04:38
+Documento de venta de la factura 3000000013 (tipo_imp) actualizado con éxito - 14/11/2022 17:04:38
+Factura 3000000013 (saldo) actualizada con éxito - 14/11/2022 17:04:38
+Adelanto 3000000004 (saldo) actualizado con éxito - 14/11/2022 17:04:38
+Documento de venta de la factura 3000000013 (saldo) actualizado con éxito - 14/11/2022 17:04:38
+Factura 3000000013 (saldo) actualizada con éxito - 14/11/2022 17:04:38
+Cobro 3000000006 eliminado con éxito - 15/11/2022 09:10:56
+Cobro 3000000005 eliminado con éxito - 15/11/2022 09:10:57
+Cobro 3000000004 eliminado con éxito - 15/11/2022 09:10:57
+Factura 3000000013 (saldo) actualizada con éxito - 15/11/2022 09:10:57
+Adelanto 0000000006 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 15/11/2022 09:10:57
+Adelanto 0000000018 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 15/11/2022 09:10:57
+Factura 3000000013 (saldo) actualizada con éxito - 15/11/2022 09:10:57
+Documento de venta de la factura 3000000013 (saldo) actualizado con éxito - 15/11/2022 09:10:57
+Documento de venta de la factura 3000000013 (saldo) actualizado con éxito - 15/11/2022 09:10:57
+Adelanto 0000000006 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 15/11/2022 09:11:01
+Adelanto 0000000018 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 15/11/2022 09:11:01
+Adelanto 0000000006 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 15/11/2022 09:11:05
+Adelanto 0000000018 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 15/11/2022 09:11:05
+Renglon N° 1 del pedido 0000000029 (pendiente) actualizado con éxito - 15/11/2022 09:37:43
+Pedido 0000000029 (status) actualizado con éxito - 15/11/2022 09:37:43
+Renglon N° 2 del pedido 0000000029 (pendiente) actualizado con éxito - 15/11/2022 09:37:43
+Renglon N° 3 del pedido 0000000029 (pendiente) actualizado con éxito - 15/11/2022 09:37:43
+Pedido 0000000029 (status) actualizado con éxito - 15/11/2022 09:37:43
+Documento de venta de la factura 3000000016 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 15/11/2022 09:37:43
+Documento de venta de la factura 3000000016 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 15/11/2022 09:37:43
+Factura 3000000016 no se encuentra en la base secundaria, debe ser agregada y/o sincronizada primero - 15/11/2022 09:37:43
+Factura 3000000016 agregada con éxito - 15/11/2022 09:37:44
+Cobro 3000000007 agregado con éxito - 15/11/2022 09:37:44
+Documento de venta de la factura 3000000016 (saldo) actualizado con éxito - 15/11/2022 09:37:51
+Documento de venta de la factura 3000000016 (tipo_imp) actualizado con éxito - 15/11/2022 09:37:51
+Factura 3000000016 (saldo) actualizada con éxito - 15/11/2022 09:37:51
+Cobro 3000000008 agregado con éxito - 15/11/2022 09:40:32
+Adelanto 3000000005 (saldo) actualizado con éxito - 15/11/2022 09:43:07
+Documento de venta de la factura 3000000016 (saldo) actualizado con éxito - 15/11/2022 09:43:07
+Factura 3000000016 (saldo) actualizada con éxito - 15/11/2022 09:43:07
+Cobro 3000000009 agregado con éxito - 15/11/2022 09:43:08
+Cobro 3000000009 (descrip) actualizado con éxito - 15/11/2022 15:49:46
+Cobro 3000000009 (descrip) actualizado con éxito - 15/11/2022 15:49:47
+Cobro 3000000009 (descrip) actualizado con éxito - 15/11/2022 15:52:06
+Renglon N° 1 del pedido 3000000021 (pendiente) actualizado con éxito - 15/11/2022 15:54:01
+Pedido 3000000021 (status) actualizado con éxito - 15/11/2022 15:54:02
+Renglon N° 2 del pedido 3000000021 (pendiente) actualizado con éxito - 15/11/2022 15:54:02
+Pedido 3000000021 (status) actualizado con éxito - 15/11/2022 15:54:03
+Factura 3000000017 agregada con éxito - 15/11/2022 15:54:03
+Factura 3000000017 (descrip) actualizada con éxito - 16/11/2022 10:02:02
+Factura 3000000018 agregada con éxito - 16/11/2022 10:02:02
+Renglon N° 1 del pedido 3000000021 (pendiente) actualizado con éxito - 16/11/2022 10:38:05
+Pedido 3000000021 (status) actualizado con éxito - 16/11/2022 10:38:05
+Renglon N° 2 del pedido 3000000021 (pendiente) actualizado con éxito - 16/11/2022 10:38:06
+Pedido 3000000021 (status) actualizado con éxito - 16/11/2022 10:38:06
+Factura 3000000020 agregada con éxito - 16/11/2022 10:38:07
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 13:57:06
+Factura 3000000020 (co_tran) actualizada con éxito - 16/11/2022 14:05:17
+Factura 3000000020 (co_tran) actualizada con éxito - 16/11/2022 14:11:11
+Factura 3000000020 (co_ven) actualizada con éxito - 16/11/2022 14:11:11
+Factura 3000000020 (co_cond) actualizada con éxito - 16/11/2022 14:11:12
+Documento de venta de la factura 3000000020 (co_ven) actualizado con éxito - 16/11/2022 14:11:13
+Factura 3000000020 (n_control) actualizada con éxito - 16/11/2022 14:12:47
+Documento de venta de la factura 3000000020 (n_control) actualizado con éxito - 16/11/2022 14:12:47
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 14:23:56
+Ha ocurrido un error estableciendo conexión con la base de datos secundaria - 16/11/2022 14:30:56
+Documento de venta de la factura 3000000020 (n_control) actualizado con éxito - 16/11/2022 14:30:56
+Factura 3000000020 (n_control) actualizada con éxito - 16/11/2022 14:31:23
+Ha ocurrido un error estableciendo conexión con la base de datos secundaria - 16/11/2022 14:34:10
+Documento de venta de la factura 3000000020 (n_control) actualizado con éxito - 16/11/2022 14:34:10
+Ha ocurrido un error estableciendo conexión con la base de datos secundaria - 16/11/2022 14:34:20
+Ha ocurrido un error estableciendo conexión con la base de datos secundaria - 16/11/2022 14:35:05
+Ha ocurrido un error estableciendo conexión con la base de datos secundaria - 16/11/2022 14:42:09
+Ha ocurrido un error estableciendo conexión con la base de datos secundaria - 16/11/2022 14:42:41
+Factura 3000000020 (n_control) actualizada con éxito - 16/11/2022 14:44:17
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 14:49:55
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 14:54:40
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 14:56:57
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 14:59:30
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 15:01:49
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 15:02:39
+Factura 3000000020 (descrip) actualizada con éxito - 16/11/2022 15:06:52

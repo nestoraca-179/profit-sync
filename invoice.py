@@ -156,7 +156,7 @@ def delete_invoice (item, connect_sec):
         cursor_sec = con_sec.cursor()
         inv = search_invoice(cursor_sec, item.ItemID)
         inv_items = reng_invoice.search_all_invoice_items(cursor_sec, item.ItemID)
-        inv_doc = sale_doc.search_sale_doc(cursor_sec, item.ItemID)
+        inv_doc = sale_doc.search_sale_doc(cursor_sec, 'FACT', item.ItemID)
 
         if inv is None:
             # la factura no esta en la base secundaria
@@ -183,7 +183,8 @@ def delete_invoice (item, connect_sec):
                     cursor_sec.execute(sp_inv_item, sp_inv_item_params)
 
                 cursor_sec.execute(sp_i_doc, sp_i_doc_params)
-                con_sec.commit()
+                cursor_sec.commit()
+
             except pyodbc.Error as error:
                 # error en la ejecucion
                 msg.print_error_msg(error)
