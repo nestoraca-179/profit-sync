@@ -23,14 +23,14 @@ def update_sale_doc(item, code, connect_sec):
         else:
 
             if item.NuevoValor is None:
-                query = f"""update saDocumentoVenta set {item.CampoModificado} = NULL
+                query = f"""update saDocumentoVenta set {item.CampoModificado} = NULL, co_us_mo = 'SYNC'
                             where co_tipo_doc = '{code}' and nro_doc = '{item.ItemID}'"""
             else:
                 if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                    query = f"""update saDocumentoVenta set {item.CampoModificado} = '{item.NuevoValor}'
+                    query = f"""update saDocumentoVenta set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC'
                                 where co_tipo_doc = '{code}' and nro_doc = '{item.ItemID}'"""
                 elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                    query = f"""update saDocumentoVenta set {item.CampoModificado} = {item.NuevoValor}
+                    query = f"""update saDocumentoVenta set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC'
                                 where co_tipo_doc = '{code}' and nro_doc = '{item.ItemID}'"""
 
             try:

@@ -10,8 +10,8 @@ import messages as msg
 import sync_manager as sm
 
 # librerias
-import pyodbc
 import time
+import pyodbc
 import threading
 from datetime import datetime
 

@@ -1,9 +1,9 @@
-from pyodbc import Cursor
 import pyodbc
 import socket
 import reng_invoice
 import sale_doc
 import messages as msg
+from pyodbc import Cursor
 
 def insert_invoice (i, items, doc, connect_sec):
     status = 1
@@ -37,7 +37,7 @@ def insert_invoice (i, items, doc, connect_sec):
                 i.fec_reg, i.fec_venc, i.status, i.tasa, i.porc_desc_glob, i.monto_desc_glob, i.porc_reca, i.monto_reca, i.saldo, i.total_bruto, 
                 i.monto_imp, i.monto_imp2, i.monto_imp3, i.otros1, i.otros2, i.otros3, i.total_neto, i.comentario, i.dir_ent, i.contrib, i.impresa, 
                 i.salestax, i.impfis, i.impfisfac, i.ven_ter, i.dis_cen, i.campo1, i.campo2, i.campo3, i.campo4, i.campo5, i.campo6, i.campo7, 
-                i.campo8, i.revisado, i.trasnfe, i.co_sucu_in, i.co_us_in, socket.gethostname())
+                i.campo8, i.revisado, i.trasnfe, i.co_sucu_in, 'SYNC', socket.gethostname())
             
             sp_doc = f"""exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = ?, @sDoc_Orig = ?, @sCo_Cli = ?, @sCo_Mone = ?, @sdFec_Reg = ?, 
                 @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, 
@@ -54,7 +54,7 @@ def insert_invoice (i, items, doc, connect_sec):
                 doc.comis1, doc.comis2, doc.comis3, doc.comis4, doc.comis5, doc.comis6, doc.otros1, doc.otros2, doc.otros3, doc.porc_desc_glob, 
                 doc.monto_desc_glob, doc.porc_reca, doc.monto_reca, doc.porc_imp, doc.porc_imp2, doc.porc_imp3, doc.salestax, doc.ven_ter, 
                 doc.fec_venc, doc.impfis, doc.impfisfac, doc.imp_nro_z, doc.tipo_origen, doc.campo1, doc.campo2, doc.campo3, doc.campo4, doc.campo5, 
-                doc.campo6, doc.campo7, doc.campo8, doc.revisado, doc.trasnfe, doc.co_sucu_in, doc.co_us_in, socket.gethostname())
+                doc.campo6, doc.campo7, doc.campo8, doc.revisado, doc.trasnfe, doc.co_sucu_in, 'SYNC', socket.gethostname())
 
             try:
                 # ingresando la factura
@@ -75,7 +75,7 @@ def insert_invoice (i, items, doc, connect_sec):
                         item.porc_imp2, item.porc_imp3, item.reng_neto, item.pendiente, item.pendiente2, item.tipo_doc, item.rowguid_doc, item.num_doc, 
                         item.monto_imp, item.monto_imp2, item.monto_imp3, item.total_dev, item.monto_dev, item.otros, item.comentario, item.monto_desc_glob, 
                         item.monto_reca_glob, item.otros1_glob, item.otros2_glob, item.otros3_glob, item.monto_imp_afec_glob, item.monto_imp2_afec_glob, 
-                        item.monto_imp3_afec_glob, item.reng_num, item.revisado, item.trasnfe, item.co_sucu_in, item.co_us_in, socket.gethostname())
+                        item.monto_imp3_afec_glob, item.reng_num, item.revisado, item.trasnfe, item.co_sucu_in, 'SYNC', socket.gethostname())
                     
                     cursor_sec.execute(sp_item, sp_item_params)
 
@@ -118,12 +118,14 @@ def update_invoice (item, connect_sec):
         else:
 
             if item.NuevoValor is None:
-                query = f"update saFacturaVenta set {item.CampoModificado} = NULL where doc_num = '{item.ItemID}'"
+                query = f"""update saFacturaVenta set {item.CampoModificado} = NULL, co_us_mo = 'SYNC' where doc_num = '{item.ItemID}'"""
             else:
                 if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                    query = f"update saFacturaVenta set {item.CampoModificado} = '{item.NuevoValor}' where doc_num = '{item.ItemID}'"
+                    query = f"""update saFacturaVenta set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC' 
+                                where doc_num = '{item.ItemID}'"""
                 elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                    query = f"update saFacturaVenta set {item.CampoModificado} = {item.NuevoValor} where doc_num = '{item.ItemID}'"
+                    query = f"""update saFacturaVenta set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC' 
+                                where doc_num = '{item.ItemID}'"""
 
             try:
                 # ejecucion de script

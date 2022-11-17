@@ -35,7 +35,7 @@ def insert_reng_invoice (item, connect_sec):
                 item.porc_imp2, item.porc_imp3, item.reng_neto, item.pendiente, item.pendiente2, item.tipo_doc, item.rowguid_doc, item.num_doc, 
                 item.monto_imp, item.monto_imp2, item.monto_imp3, item.total_dev, item.monto_dev, item.otros, item.comentario, item.monto_desc_glob, 
                 item.monto_reca_glob, item.otros1_glob, item.otros2_glob, item.otros3_glob, item.monto_imp_afec_glob, item.monto_imp2_afec_glob, 
-                item.monto_imp3_afec_glob, item.reng_num, item.revisado, item.trasnfe, item.co_sucu_in, item.co_us_in, socket.gethostname())
+                item.monto_imp3_afec_glob, item.reng_num, item.revisado, item.trasnfe, item.co_sucu_in, 'SYNC', socket.gethostname())
 
             try:
                 # ejecucion de script
@@ -73,14 +73,14 @@ def update_reng_invoice (item, fact, reng, connect_sec):
         else:
 
             if item.NuevoValor is None:
-                query = f"""update saFacturaVentaReng set {item.CampoModificado} = NULL
+                query = f"""update saFacturaVentaReng set {item.CampoModificado} = NULL, co_us_mo = 'SYNC'
                             where doc_num = '{fact}' and reng_num = '{reng}'"""
             else:
                 if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                    query = f"""update saFacturaVentaReng set {item.CampoModificado} = '{item.NuevoValor}'
+                    query = f"""update saFacturaVentaReng set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC'
                                 where doc_num = '{fact}' and reng_num = '{reng}'"""
                 elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                    query = f"""update saFacturaVentaReng set {item.CampoModificado} = {item.NuevoValor}
+                    query = f"""update saFacturaVentaReng set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC'
                                 where doc_num = '{fact}' and reng_num = '{reng}'"""
 
             try:

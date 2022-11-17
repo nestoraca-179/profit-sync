@@ -32,7 +32,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
             """
             sp_collect_params = (c.cob_num, c.recibo, c.co_cli, c.co_ven, c.co_mone, c.tasa, c.fecha, c.anulado, c.monto, c.dis_cen, 
                 c.descrip, c.campo1, c.campo2, c.campo3, c.campo4, c.campo5, c.campo6, c.campo7, c.campo8, c.revisado, c.trasnfe,
-                c.co_sucu_in, c.co_us_in, socket.gethostname())
+                c.co_sucu_in, 'SYNC', socket.gethostname())
 
             try:
                 rengs_iva = []
@@ -56,14 +56,6 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
 
                 # ingresando movimientos de caja
                 for m in movs_c:
-                    tipo_mov = 'MOVC_NUM'
-
-                    # cursor_sec.execute(f"""
-                    #    set nocount on
-                    #    exec pConsecutivoProximo @sCo_Consecutivo=N'{tipo_mov}', @sCo_Sucur=N'{c.co_sucu_in}'
-                    # """)
-                    # consec = cursor_sec.fetchone().ProximoConsecutivo
-                    # print(consec)
 
                     sp_mov = f"""exec pInsertarMovimientoCaja @smov_num = ?, @sdFecha = ?, @sdescrip = ?, @scod_caja = ?, @detasa = ?, 
                         @stipo_mov = ?, @sforma_pag = ?, @snum_pago = ?, @sco_ban = ?, @sco_tar = ?, @sco_vale = ?, 
@@ -75,20 +67,12 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                     sp_mov_params = (m.mov_num, m.fecha, 'Cobro ' + c.cob_num, m.cod_caja, m.tasa, m.tipo_mov, m.forma_pag, m.num_pago, 
                         m.co_ban, m.co_tar, m.co_vale, m.co_cta_ingr_egr, m.monto_h, m.saldo_ini, 'COBRO', m.doc_num, m.dep_num, 
                         m.anulado, m.depositado, 0, m.transferido, m.mov_nro, m.fecha_che, m.dis_cen, m.campo1, m.campo2, m.campo3, 
-                        m.campo4, m.campo5, m.campo6, m.campo7, m.campo8, m.revisado, m.trasnfe, m.co_sucu_in, m.co_us_in, socket.gethostname())
+                        m.campo4, m.campo5, m.campo6, m.campo7, m.campo8, m.revisado, m.trasnfe, m.co_sucu_in, 'SYNC', socket.gethostname())
 
                     cursor_sec.execute(sp_mov, sp_mov_params)
 
                 # ingresando movimientos de banco
                 for m in movs_b:
-                    tipo_mov = 'MOVB_NUM'
-
-                    # cursor_sec.execute(f"""
-                    #    set nocount on
-                    #    exec pConsecutivoProximo @sCo_Consecutivo=N'{tipo_mov}', @sCo_Sucur=N'{c.co_sucu_in}'
-                    # """)
-                    # consec = cursor_sec.fetchone().ProximoConsecutivo
-                    # print(consec)
 
                     sp_mov = f"""exec pInsertarMovimientoBanco @sMov_Num = ?, @sDescrip = ?, @sCod_Cta = ?, @sdFecha = ?, 
                         @deTasa = ?, @sTipo_Op = ?, @sDoc_Num = ?, @deMonto = ?, @sco_cta_ingr_egr = ?, @sOrigen = ?, @sCob_Pag = ?, @deIDB = ?, 
@@ -100,7 +84,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                     sp_mov_params = (m.mov_num, 'Cobro ' + c.cob_num, m.cod_cta, m.fecha, m.tasa, m.tipo_op, m.doc_num, m.monto_h, 
                         m.co_cta_ingr_egr, 'COBRO', m.cob_pag, m.idb, m.dep_num, m.anulado, 0, m.saldo_ini, m.ori_dep, m.dep_con, 
                         m.fec_con, m.cod_ingben, m.fecha_che, m.dis_cen, m.nro_transf_nomi, m.campo1, m.campo2, m.campo3, m.campo4, 
-                        m.campo5, m.campo6, m.campo7, m.campo8, m.revisado, m.trasnfe, m.co_sucu_in, m.co_us_in, socket.gethostname())
+                        m.campo5, m.campo6, m.campo7, m.campo8, m.revisado, m.trasnfe, m.co_sucu_in, 'SYNC', socket.gethostname())
 
                     cursor_sec.execute(sp_mov, sp_mov_params)
                 
@@ -117,7 +101,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                     """
                     sp_doc_params = (doc.cob_num, doc.co_tipo_doc, doc.nro_doc, doc.mont_cob, doc.tipo_origen, doc.dpcobro_porc_desc,
                         doc.dpcobro_monto, doc.monto_retencion_iva, doc.monto_retencion, doc.tipo_doc, doc.num_doc, doc.rowguid_reng_ori, 
-                        doc.rowguid, doc.reng_num, doc.revisado, doc.trasnfe, doc.co_sucu_in, doc.co_us_in, socket.gethostname())
+                        doc.rowguid, doc.reng_num, doc.revisado, doc.trasnfe, doc.co_sucu_in, 'SYNC', socket.gethostname())
 
                     if doc.co_tipo_doc.rstrip() == 'IVAN': # retencion de iva
                         doc_iva = search_sale_doc(cursor_main, 'IVAN', doc.nro_doc)
@@ -142,7 +126,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                             doc_iva.porc_imp2, doc_iva.porc_imp3, doc_iva.salestax, doc_iva.ven_ter, doc_iva.fec_venc, doc_iva.comis5, doc_iva.comis6, 
                             doc_iva.impfis, doc_iva.impfisfac, doc_iva.imp_nro_z, doc_iva.tipo_origen, doc_iva.campo1, doc_iva.campo2, doc_iva.campo3, 
                             doc_iva.campo4, doc_iva.campo5, doc_iva.campo6, doc_iva.campo7, doc_iva.campo8, doc_iva.revisado, doc_iva.trasnfe, 
-                            doc_iva.co_sucu_in, doc_iva.co_us_in, socket.gethostname())
+                            doc_iva.co_sucu_in, 'SYNC', socket.gethostname())
 
                         rengs_iva.append(doc.rowguid)
                         cursor_sec.execute(sp_doc_iva, sp_doc_iva_params)
@@ -170,7 +154,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                             doc_islr.porc_imp2, doc_islr.porc_imp3, doc_islr.salestax, doc_islr.ven_ter, doc_islr.fec_venc, doc_islr.comis5, doc_islr.comis6, 
                             doc_islr.impfis, doc_islr.impfisfac, doc_islr.imp_nro_z, doc_islr.tipo_origen, doc_islr.campo1, doc_islr.campo2, doc_islr.campo3, 
                             doc_islr.campo4, doc_islr.campo5, doc_islr.campo6, doc_islr.campo7, doc_islr.campo8, doc_islr.revisado, doc_islr.trasnfe, 
-                            doc_islr.co_sucu_in, doc_islr.co_us_in, socket.gethostname())
+                            doc_islr.co_sucu_in, 'SYNC', socket.gethostname())
 
                         rengs_islr.append(doc.rowguid)
                         cursor_sec.execute(sp_doc_islr, sp_doc_islr_params)
@@ -200,7 +184,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                             doc_adel.porc_imp2, doc_adel.porc_imp3, doc_adel.salestax, doc_adel.ven_ter, doc_adel.fec_venc, doc_adel.comis5, doc_adel.comis6, 
                             doc_adel.impfis, doc_adel.impfisfac, doc_adel.imp_nro_z, doc_adel.tipo_origen, doc_adel.campo1, doc_adel.campo2, doc_adel.campo3, 
                             doc_adel.campo4, doc_adel.campo5, doc_adel.campo6, doc_adel.campo7, doc_adel.campo8, doc_adel.revisado, doc_adel.trasnfe, 
-                            doc_adel.co_sucu_in, doc_adel.co_us_in, socket.gethostname())
+                            doc_adel.co_sucu_in, 'SYNC', socket.gethostname())
 
                             cursor_sec.execute(sp_doc_adel, sp_doc_adel_params)
                     
@@ -215,7 +199,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                     """
                     sp_tp_params = (tp.cob_num, tp.forma_pag, tp.mov_num_c, tp.mov_num_b, tp.num_doc, tp.devuelto, tp.mont_doc, tp.cod_cta, 
                         tp.cod_caja, tp.fecha_che, tp.co_ban, tp.co_tar, tp.co_vale, tp.reng_num, tp.revisado, tp.trasnfe, tp.co_sucu_in, 
-                        tp.co_us_in, socket.gethostname())
+                        'SYNC', socket.gethostname())
 
                     cursor_sec.execute(sp_tp, sp_tp_params)
 
@@ -233,7 +217,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                         r_iva.tipo_operacion, r_iva.tipo_documento, r_iva.rif_comprador, r_iva.numero_documento, r_iva.numero_control_documento, 
                         r_iva.monto_documento, r_iva.base_imponible, r_iva.monto_ret_imp, r_iva.numero_documento_afectado, r_iva.num_comprobante, 
                         r_iva.monto_excento, r_iva.alicuota, r_iva.numero_expediente, r_iva.reten_tercero, r_iva.reng_num, r_iva.revisado, 
-                        r_iva.trasnfe, r_iva.co_sucu_in, r_iva.co_us_in)
+                        r_iva.trasnfe, r_iva.co_sucu_in, 'SYNC')
                         
                     cursor_sec.execute(sp_reng_iva, sp_reng_iva_params)
 
@@ -247,7 +231,7 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                     """
                     sp_reng_islr_params = (r_islr.rowguid_reng_cob, r_islr.monto_reten, r_islr.sustraendo, r_islr.porc_retn, r_islr.monto_obj, 
                         r_islr.co_islr, r_islr.automatica, r_islr.monto, r_islr.rowguid_fact, r_islr.reng_num, r_islr.revisado, r_islr.trasnfe, 
-                        r_islr.co_sucu_in, r_islr.co_us_in)
+                        r_islr.co_sucu_in, 'SYNC')
 
                     cursor_sec.execute(sp_reng_islr, sp_reng_islr_params)
                 
@@ -285,10 +269,13 @@ def update_collect(item, connect_sec):
             # el cobro no esta en la base secundaria
             status = 2
         else:
-            if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                query = f"update saCobro set {item.CampoModificado} = '{item.NuevoValor}' where cob_num = '{item.ItemID}'"
-            elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                query = f"update saCobro set {item.CampoModificado} = {item.NuevoValor} where cob_num = '{item.ItemID}'"
+            if item.NuevoValor is None:
+                query = f"update saCobro set {item.CampoModificado} = NULL, co_us_mo = 'SYNC' where co_cli = '{item.ItemID}'"
+            else:
+                if item.TipoDato == 'string' or item.TipoDato == 'bool':
+                    query = f"update saCobro set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC' where cob_num = '{item.ItemID}'"
+                elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
+                    query = f"update saCobro set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC' where cob_num = '{item.ItemID}'"
 
             try:
                 # ejecucion de script

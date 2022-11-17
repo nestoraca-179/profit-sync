@@ -36,7 +36,7 @@ def insert_client (c, connect_sec):
                 c.lunes, c.martes, c.miercoles, c.jueves, c.viernes, c.sabado, c.domingo, c.direc1, c.direc2, c.dir_ent2, c.horar_caja, c.frecu_vist, 
                 c.telefonos, c.fax, c.respons, c.fecha_reg, c.tip_cli, c.serialp, c.puntaje, c.Id, c.mont_cre, c.co_mone, c.cond_pag, c.plaz_pag, 
                 c.desc_ppago, c.desc_glob, c.rif, c.contrib, c.dis_cen, c.nit, c.email, c.co_cta_ingr_egr, c.comentario, c.campo1, c.campo2, c.campo3, 
-                c.campo4, c.campo5, c.campo6, c.campo7, c.campo8, c.co_us_in, socket.gethostname(), c.revisado, c.trasnfe, c.co_sucu_in, c.juridico, 
+                c.campo4, c.campo5, c.campo6, c.campo7, c.campo8, 'SYNC', socket.gethostname(), c.revisado, c.trasnfe, c.co_sucu_in, c.juridico, 
                 c.tipo_adi, c.matriz, c.co_tab, c.tipo_per, c.co_pais, c.ciudad, c.zip, c.website, c.contribu_e, c.rete_regis_doc, c.porc_esp, 
                 c.email_alterno)
 
@@ -77,12 +77,12 @@ def update_client (item, connect_sec):
         else:
 
             if item.NuevoValor is None:
-                query = f"update saCliente set {item.CampoModificado} = NULL where co_cli = '{item.ItemID}'"
+                query = f"update saCliente set {item.CampoModificado} = NULL, co_us_mo = 'SYNC' where co_cli = '{item.ItemID}'"
             else:
                 if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                    query = f"update saCliente set {item.CampoModificado} = '{item.NuevoValor}' where co_cli = '{item.ItemID}'"
+                    query = f"update saCliente set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC' where co_cli = '{item.ItemID}'"
                 elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                    query = f"update saCliente set {item.CampoModificado} = {item.NuevoValor} where co_cli = '{item.ItemID}'"
+                    query = f"update saCliente set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC' where co_cli = '{item.ItemID}'"
 
             try:
                 # ejecucion de script

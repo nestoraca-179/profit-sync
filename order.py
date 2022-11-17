@@ -1,7 +1,7 @@
-from pyodbc import Cursor
 import pyodbc
 import socket
 import messages as msg
+from pyodbc import Cursor
 
 def insert_order (p, items, connect_sec):
     status = 1
@@ -35,7 +35,7 @@ def insert_order (p, items, connect_sec):
                 p.fec_reg, p.fec_venc, p.status, p.tasa, p.n_control, p.porc_desc_glob, p.monto_desc_glob, p.porc_reca, p.monto_reca, p.saldo, 
                 p.total_bruto, p.monto_imp, p.monto_imp3, p.otros1, p.otros2, p.otros3, p.monto_imp2, p.total_neto, p.comentario, p.dir_ent, 
                 p.contrib, p.impresa, p.salestax, p.impfis, p.impfisfac, p.ven_ter, p.dis_cen, p.campo1, p.campo2, p.campo3, p.campo4, p.campo5, 
-                p.campo6, p.campo7, p.campo8, p.revisado, p.trasnfe, p.co_sucu_in, p.co_us_in, socket.gethostname())
+                p.campo6, p.campo7, p.campo8, p.revisado, p.trasnfe, p.co_sucu_in, 'SYNC', socket.gethostname())
 
             try:
                 # ingresando el pedido
@@ -57,7 +57,7 @@ def insert_order (p, items, connect_sec):
                         item.porc_imp2, item.porc_imp3, item.reng_neto, item.pendiente, item.pendiente2, item.tipo_doc, item.rowguid_doc, item.num_doc, 
                         item.monto_imp, item.total_dev, item.monto_dev, item.otros, item.monto_imp2, item.monto_imp3, item.comentario, item.dis_cen, 
                         item.monto_desc_glob, item.monto_reca_glob, item.otros1_glob, item.otros2_glob, item.otros3_glob, item.monto_imp_afec_glob, 
-                        item.monto_imp2_afec_glob, item.monto_imp3_afec_glob, item.reng_num, item.revisado, item.trasnfe, item.co_sucu_in, item.co_us_in, 
+                        item.monto_imp2_afec_glob, item.monto_imp3_afec_glob, item.reng_num, item.revisado, item.trasnfe, item.co_sucu_in, 'SYNC', 
                         socket.gethostname())
                     
                     cursor_sec.execute(sp_item, sp_item_params)
@@ -98,12 +98,12 @@ def update_order (item, connect_sec):
         else:
 
             if item.NuevoValor is None:
-                query = f"update saPedidoVenta set {item.CampoModificado} = NULL where doc_num = '{item.ItemID}'"
+                query = f"update saPedidoVenta set {item.CampoModificado} = NULL, co_us_mo = 'SYNC' where doc_num = '{item.ItemID}'"
             else:
                 if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                    query = f"update saPedidoVenta set {item.CampoModificado} = '{item.NuevoValor}' where doc_num = '{item.ItemID}'"
+                    query = f"update saPedidoVenta set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC' where doc_num = '{item.ItemID}'"
                 elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                    query = f"update saPedidoVenta set {item.CampoModificado} = {item.NuevoValor} where doc_num = '{item.ItemID}'"
+                    query = f"update saPedidoVenta set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC' where doc_num = '{item.ItemID}'"
 
             try:
                 # ejecucion de script
@@ -141,14 +141,14 @@ def update_reng_order (item, ord, reng, connect_sec):
         else:
 
             if item.NuevoValor is None:
-                query = f"""update saPedidoVentaReng set {item.CampoModificado} = NULL
+                query = f"""update saPedidoVentaReng set {item.CampoModificado} = NULL, co_us_mo = 'SYNC'
                             where doc_num = '{ord}' and reng_num = '{reng}'"""
             else:
                 if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                    query = f"""update saPedidoVentaReng set {item.CampoModificado} = '{item.NuevoValor}'
+                    query = f"""update saPedidoVentaReng set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC'
                                 where doc_num = '{ord}' and reng_num = '{reng}'"""
                 elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                    query = f"""update saPedidoVentaReng set {item.CampoModificado} = {item.NuevoValor}
+                    query = f"""update saPedidoVentaReng set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC'
                                 where doc_num = '{ord}' and reng_num = '{reng}'"""
 
             try:
