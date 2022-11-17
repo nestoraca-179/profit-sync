@@ -1,7 +1,7 @@
-from pyodbc import Cursor
 import pyodbc
 import socket
 import messages as msg
+from pyodbc import Cursor
 
 def insert_reng_invoice (item, connect_sec):
     status = 1
@@ -40,7 +40,7 @@ def insert_reng_invoice (item, connect_sec):
             try:
                 # ejecucion de script
                 cursor_sec.execute(sp_item, sp_item_params)
-                con_sec.commit()
+                cursor_sec.commit()
             except pyodbc.Error as error:
                 # error en la ejecucion
                 msg.print_error_msg(error)

@@ -1,7 +1,7 @@
-from pyodbc import Cursor
 import pyodbc
 import socket
 import messages as msg
+from pyodbc import Cursor
 
 def insert_client (c, connect_sec):
     status = 1

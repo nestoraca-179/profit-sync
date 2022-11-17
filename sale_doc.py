@@ -1,6 +1,6 @@
-from pyodbc import Cursor
 import pyodbc
 import messages as msg
+from pyodbc import Cursor
 
 def update_sale_doc(item, code, connect_sec):
     status = 1

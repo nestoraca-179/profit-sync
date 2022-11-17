@@ -66,7 +66,7 @@ def print_end_sync():
 
 def __log_msg(msg):
     now = datetime.now()
-
     print(msg)
+    
     with open('logs.txt', 'a') as f:
         f.write(msg + f" - {now.strftime('%d/%m/%Y %H:%M:%S')}\n")
