@@ -166,6 +166,56 @@ def update_reng_order (item, ord, reng, connect_sec):
     
     return status
 
+def delete_order (item, connect_sec):
+    status = 1
+
+    try:
+        # intento de conexion a la base secundaria
+        con_sec = pyodbc.connect(f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={connect_sec["server"]}; DATABASE={connect_sec["database"]}; UID={connect_sec["username"]}; PWD={connect_sec["password"]}')
+        con_sec.autocommit = False
+    except:
+        # error al conectar a la base secundaria
+        status = 0
+    else:
+
+        # se inicializa el cursor y se busca el pedido y sus elementos
+        cursor_sec = con_sec.cursor()
+        ord = search_order(cursor_sec, item.ItemID)
+        ord_items = search_all_order_items(cursor_sec, item.ItemID)
+
+        if ord is None:
+            # el pedido no esta en la base secundaria
+            status = 2
+        else:
+            sp_o = f"exec pEliminarPedidoVenta @sdoc_numori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
+            sp_o_params = (ord.doc_num, ord.validador, socket.gethostname(), 'SYNC', None, ord.rowguid)
+
+            try:
+                # ejecucion de script
+                cursor_sec.execute(sp_o, sp_o_params)
+
+                for item in ord_items:
+                    sp_o_item = f"""exec pEliminarRenglonesPedidoVenta @sdoc_numori = ?, @ireng_numori = ?, @sco_us_mo = ?,
+                        @smaquina = ?, @sco_sucu_mo = ?, @growguid = ?
+                    """
+                    sp_o_item_params = (item.doc_num, item.reng_num, 'SYNC', socket.gethostname(), None, item.rowguid)
+
+                    cursor_sec.execute(sp_o_item, sp_o_item_params)
+
+                cursor_sec.commit()
+
+            except pyodbc.Error as error:
+                # error en la ejecucion
+                msg.print_error_msg(error)
+                con_sec.rollback()
+                status = 3
+                pass
+
+        cursor_sec.close()
+        con_sec.close()
+
+    return status
+
 def search_order (cursor: Cursor, id):
     cursor.execute(f"select * from saPedidoVenta where doc_num = '{id}'")
     p = cursor.fetchone()

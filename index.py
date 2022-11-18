@@ -28,7 +28,7 @@ connect_main = {
 }
 
 connect_sec = {
-    "server": "VLN-SRV-AP-A1\SQLS2014STD",
+    "server": "172.16.10.20\SQLS2014STD",
     "database": "DEMOA",
     "username": "sa",
     "password": "Soporte123456"
@@ -138,6 +138,14 @@ def main():
 
                         if result == 1 or result == 2:
                             sync_manager.update_item('ItemsEliminar', item.ID)
+
+                elif item.Tipo == "PV": # PEDIDO VENTA
+
+                    result = order.delete_order(item, connect_sec)
+                    msg.print_msg_result_delete('Pedido', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
         else:
             msg.print_no_items_to_delete()
 
