@@ -2,6 +2,7 @@
 import client
 import invoice
 import sale_doc
+import buy_doc
 import order
 import reng_invoice
 import collect
@@ -16,8 +17,10 @@ import threading
 from datetime import datetime
 
 # variables
-items_total_inv = []
-items_saldo_doc = []
+items_total_inv_v = []
+items_saldo_doc_v = []
+items_total_inv_c = []
+items_saldo_doc_c = []
 
 # conexiones
 connect_main = {
@@ -80,7 +83,7 @@ def main():
 
                 elif item.Tipo == "FV": # FACTURA VENTA
 
-                    result = invoice.delete_invoice(item, connect_sec)
+                    result = invoice.delete_sale_invoice(item, connect_sec)
                     msg.print_msg_result_delete('Factura', item.ItemID, 'a', result)
 
                     if result == 1 or result == 2:
@@ -106,20 +109,6 @@ def main():
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
 
-                elif item.Tipo == "COBDR": # COBRO DOC RENGLON
-
-                    index = str.rfind(item.ItemID, '-')
-                    cob = item.ItemID[0:index]
-                    reng = item.ItemID[index + 1:]
-
-                    c = collect.search_collect(cursor_main, cob)
-
-                    if c is None: # El cobro no esta en la base principal
-                        msg.print_item_not_found('El renglón DOC no puede ser eliminado ya que el cobro', cob)
-                        sync_manager.delete_item('ItemsEliminar', item.ID)
-                    else:
-                        print('FUNCION POR DEFINIR')
-
                 elif item.Tipo == "COBTR": # COBRO TP RENGLON
 
                     index = str.rfind(item.ItemID, '-')
@@ -143,6 +132,14 @@ def main():
 
                     result = order.delete_order(item, connect_sec)
                     msg.print_msg_result_delete('Pedido', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+
+                elif item.Tipo == "FC": # FACTURA COMPRA
+
+                    result = invoice.delete_buy_invoice(item, connect_sec)
+                    msg.print_msg_result_delete('Factura', item.ItemID, 'a', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -172,7 +169,7 @@ def main():
 
                 elif item.Tipo == "FV": # FACTURA VENTA
 
-                    i = invoice.search_invoice(cursor_main, item.ItemID)
+                    i = invoice.search_sale_invoice(cursor_main, item.ItemID)
 
                     if i is None:
                         msg.print_item_not_found('La factura', item.ItemID)
@@ -180,10 +177,10 @@ def main():
                     else:
 
                         if item.CampoModificado == "total_neto" and item.AntiguoValor > item.NuevoValor:
-                            items_total_inv.append(item)
+                            items_total_inv_v.append(item)
                         else:
 
-                            result = invoice.update_invoice(item, connect_sec)
+                            result = invoice.update_sale_invoice(item, connect_sec)
                             msg.print_msg_result_update('Factura', item.ItemID, item.CampoModificado, 'a', result)
 
                             if result == 1:
@@ -195,7 +192,7 @@ def main():
                     fact = item.ItemID[0:index]
                     reng = item.ItemID[index + 1:]
 
-                    i = invoice.search_invoice(cursor_main, fact)
+                    i = invoice.search_sale_invoice(cursor_main, fact)
 
                     if i is None:
                         msg.print_item_not_found('La factura', fact)
@@ -218,7 +215,7 @@ def main():
                     else:
 
                         if item.CampoModificado == "saldo" and item.AntiguoValor < item.NuevoValor:
-                            items_saldo_doc.append(item)
+                            items_saldo_doc_v.append(item)
                         else:
 
                             result = sale_doc.update_sale_doc(item, 'FACT', connect_sec)
@@ -328,21 +325,58 @@ def main():
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
+
+                elif item.Tipo == "FC": # FACTURA COMPRA
+
+                    i = invoice.search_buy_invoice(cursor_main, item.ItemID)
+
+                    if i is None:
+                        msg.print_item_not_found('La factura', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        if item.CampoModificado == "total_neto" and item.AntiguoValor > item.NuevoValor:
+                            items_total_inv_c.append(item)
+                        else:
+
+                            result = invoice.update_buy_invoice(item, connect_sec)
+                            msg.print_msg_result_update('Factura', item.ItemID, item.CampoModificado, 'a', result)
+
+                            if result == 1:
+                                sync_manager.update_item('ItemsModificar', item.ID)  
             
             # modificando campo total neto en tabla factura de venta
-            for total_inv in items_total_inv:
+            for total_inv in items_total_inv_v:
             
-                result = sale_doc.update_sale_doc(total_inv, 'FACT', connect_sec)
+                result = invoice.update_sale_invoice(total_inv, connect_sec)
                 msg.print_msg_result_update('Factura', total_inv.ItemID, total_inv.CampoModificado, 'a', result)
 
                 if result == 1:
                     sync_manager.update_item('ItemsModificar', total_inv.ID)
             
             # modificando campo saldo en tabla documento de venta
-            for saldo_doc in items_saldo_doc:
+            for saldo_doc in items_saldo_doc_v:
             
                 result = sale_doc.update_sale_doc(saldo_doc, 'FACT', connect_sec)
                 msg.print_msg_result_update('Documento de venta de la factura', saldo_doc.ItemID, saldo_doc.CampoModificado, 'o', result)
+
+                if result == 1:
+                    sync_manager.update_item('ItemsModificar', saldo_doc.ID)
+
+            # modificando campo total neto en tabla factura de compra
+            for total_inv in items_total_inv_c:
+            
+                result = invoice.update_buy_invoice(total_inv, connect_sec)
+                msg.print_msg_result_update('Factura', total_inv.ItemID, total_inv.CampoModificado, 'a', result)
+
+                if result == 1:
+                    sync_manager.update_item('ItemsModificar', total_inv.ID)
+
+            # modificando campo saldo en tabla documento de compra
+            for saldo_doc in items_saldo_doc_c:
+            
+                result = buy_doc.update_buy_doc(saldo_doc, 'FACT', connect_sec)
+                msg.print_msg_result_update('Documento de compra de la factura', saldo_doc.ItemID, saldo_doc.CampoModificado, 'o', result)
 
                 if result == 1:
                     sync_manager.update_item('ItemsModificar', saldo_doc.ID)
@@ -376,18 +410,18 @@ def main():
                 elif item.Tipo == "FV": # FACTURA VENTA
 
                     # busca la factura en la base principal
-                    i = invoice.search_invoice(cursor_main, item.ItemID)
+                    i = invoice.search_sale_invoice(cursor_main, item.ItemID)
 
                     if i is None: # error si la factura no esta en la base principal
                         msg.print_item_not_found('La factura', item.ItemID)
                         sync_manager.delete_item('ItemsAgregar', item.ID)
                     else:
 
-                        items = reng_invoice.search_all_invoice_items(cursor_main, item.ItemID) # items de la factura
+                        items = reng_invoice.search_all_invoice_items(cursor_main, item.ItemID, 'V') # items de la factura
                         doc = sale_doc.search_sale_doc(cursor_main, 'FACT', item.ItemID) # documento de venta de la factura
 
                         # se intenta registrar la factura
-                        result = invoice.insert_invoice(i, items, doc, connect_sec)
+                        result = invoice.insert_sale_invoice(i, items, doc, connect_sec)
                         msg.print_msg_result_insert('Factura', item.ItemID, 'a', result)
 
                         # se actualiza el registro en profit sync
@@ -402,7 +436,7 @@ def main():
                     reng = item.ItemID[index + 1:]
 
                     # busca la factura y el renglon en la base principal
-                    i = invoice.search_invoice(cursor_main, fact)
+                    i = invoice.search_sale_invoice(cursor_main, fact)
                     new_reng = reng_invoice.search_reng_invoice(cursor_main, fact, reng)
 
                     if i is None: # error si la factura no esta en la base principal
@@ -441,7 +475,7 @@ def main():
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:
                             sync_manager.update_item('ItemsAgregar', item.ID)
-
+                
                 elif item.Tipo == "COBTR": # COBRO TP RENGLON
 
                     # busca nro del cobro y nro de renglon
@@ -484,6 +518,27 @@ def main():
                         # se intenta registrar el pedido
                         result = order.insert_order(p, items, connect_sec)
                         msg.print_msg_result_insert('Pedido', item.ItemID, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+
+                elif item.Tipo == "FC": # FACTURA COMPRA
+
+                    # busca la factura en la base principal
+                    i = invoice.search_buy_invoice(cursor_main, item.ItemID)
+
+                    if i is None: # error si la factura no esta en la base principal
+                        msg.print_item_not_found('La factura', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        items = reng_invoice.search_all_invoice_items(cursor_main, item.ItemID, 'C') # items de la factura
+                        doc = buy_doc.search_buy_doc(cursor_main, 'FACT', item.ItemID) # documento de compra de la factura
+
+                        # se intenta registrar la factura
+                        result = invoice.insert_buy_invoice(i, items, doc, connect_sec)
+                        msg.print_msg_result_insert('Factura', item.ItemID, 'a', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:

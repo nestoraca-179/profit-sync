@@ -143,8 +143,14 @@ def search_reng_invoice (cursor: Cursor, id, reng):
 
     return new_reng
 
-def search_all_invoice_items (cursor: Cursor, id):
-    cursor.execute(f"select * from saFacturaVentaReng where doc_num = '{id}'")
+def search_all_invoice_items (cursor: Cursor, id, type):
+
+    if type == 'V':
+        table = "saFacturaVentaReng"
+    elif type == 'C':
+        table = "saFacturaCompraReng"
+
+    cursor.execute(f"select * from {table} where doc_num = '{id}'")
     items = cursor.fetchall()
 
     return items

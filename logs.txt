@@ -219,3 +219,83 @@ Pedido 3000000030 agregado con éxito - 18/11/2022 10:06:13
 Pedido 3000000030 agregado con éxito - 18/11/2022 10:14:16
 Renglon N° 1 de la factura 3000000021 no existe en la base secundaria - 18/11/2022 11:13:11
 Renglon N° 2 de la factura 3000000021 no existe en la base secundaria - 18/11/2022 11:13:11
+Pedido 3000000031 agregado con éxito - 18/11/2022 11:38:10
+Factura 3000000017 (descrip) actualizada con éxito - 18/11/2022 11:59:28
+Adelanto 3000000006 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 18/11/2022 14:35:11
+Documento de venta de la factura 3000000017 (saldo) actualizado con éxito - 18/11/2022 14:35:11
+Documento de venta de la factura 3000000017 (tipo_imp) actualizado con éxito - 18/11/2022 14:35:11
+Factura 3000000017 (saldo) actualizada con éxito - 18/11/2022 14:35:11
+Cobro 3000000010 agregado con éxito - 18/11/2022 14:35:12
+Cobro 3000000011 agregado con éxito - 18/11/2022 14:35:12
+Adelanto 3000000006 (saldo) actualizado con éxito - 18/11/2022 14:35:20
+Renglon N° 1 del pedido 0000000017 (pendiente) actualizado con éxito - 18/11/2022 15:06:19
+Pedido 0000000017 (status) actualizado con éxito - 18/11/2022 15:06:19
+Renglon N° 2 del pedido 0000000017 (pendiente) actualizado con éxito - 18/11/2022 15:06:20
+Renglon N° 3 del pedido 0000000017 (pendiente) actualizado con éxito - 18/11/2022 15:06:20
+Pedido 0000000017 (status) actualizado con éxito - 18/11/2022 15:06:20
+Cliente COR-003 (contrib) actualizado con éxito - 18/11/2022 15:06:20
+Cliente COR-003 (contribu_e) actualizado con éxito - 18/11/2022 15:06:20
+Cliente COR-003 (porc_esp) actualizado con éxito - 18/11/2022 15:06:20
+Cliente COR-003 (co_sucu_mo) actualizado con éxito - 18/11/2022 15:06:20
+Documento de venta de la factura 3000000022 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 18/11/2022 15:06:20
+Documento de venta de la factura 3000000022 no se encuentra en la base secundaria, debe ser agregado y/o sincronizado primero - 18/11/2022 15:06:20
+Factura 3000000022 no se encuentra en la base secundaria, debe ser agregada y/o sincronizada primero - 18/11/2022 15:06:20
+Factura 3000000022 agregada con éxito - 18/11/2022 15:06:20
+Cobro 3000000012 agregado con éxito - 18/11/2022 15:06:21
+Documento de venta de la factura 3000000022 (saldo) actualizado con éxito - 18/11/2022 15:06:28
+Documento de venta de la factura 3000000022 (tipo_imp) actualizado con éxito - 18/11/2022 15:06:28
+Factura 3000000022 (saldo) actualizada con éxito - 18/11/2022 15:06:28
+Factura 3000000023 agregada con éxito - 21/11/2022 16:14:20
+Renglon N° 2 de la factura 3000000023 eliminado con éxito - 21/11/2022 16:15:31
+Factura 3000000023 (total_bruto) actualizada con éxito - 21/11/2022 16:15:31
+Factura 3000000023 (monto_imp) actualizada con éxito - 21/11/2022 16:15:31
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The UPDATE statement conflicted with the CHECK constraint "CK_saFacturaVenta_saldo". The conflict occurred in database "DEMOA", table "dbo.saFacturaVenta". (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 21/11/2022 16:15:31
+Factura 3000000023 (total_neto) no pudo ser actualizada - 21/11/2022 16:15:31
+Factura 3000000023 (saldo) actualizada con éxito - 21/11/2022 16:15:31
+Renglon N° 3 de la factura 3000000023 (reng_num) actualizado con éxito - 21/11/2022 16:15:31
+Documento de venta de la factura 3000000023 (total_bruto) actualizado con éxito - 21/11/2022 16:15:31
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The UPDATE statement conflicted with the CHECK constraint "CK_saDocumentoVenta_saldo". The conflict occurred in database "DEMOA", table "dbo.saDocumentoVenta". (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 21/11/2022 16:15:31
+Documento de venta de la factura 3000000023 (total_neto) no pudo ser actualizado - 21/11/2022 16:15:31
+Documento de venta de la factura 3000000023 (monto_imp) actualizado con éxito - 21/11/2022 16:15:32
+Documento de venta de la factura 3000000023 (saldo) actualizado con éxito - 21/11/2022 16:15:32
+Factura 3000000023 (total_neto) actualizada con éxito - 21/11/2022 16:15:57
+Documento de venta de la factura 3000000023 (total_neto) actualizado con éxito - 21/11/2022 16:15:57
+Factura 3000000023 (total_bruto) actualizada con éxito - 21/11/2022 16:18:55
+Factura 3000000023 (monto_imp) actualizada con éxito - 21/11/2022 16:18:55
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The UPDATE statement conflicted with the CHECK constraint "CK_saFacturaVenta_saldo". The conflict occurred in database "DEMOA", table "dbo.saFacturaVenta". (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 21/11/2022 16:18:55
+Factura 3000000023 (saldo) no pudo ser actualizada - 21/11/2022 16:18:55
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The UPDATE statement conflicted with the CHECK constraint "CK_saDocumentoVenta_saldo". The conflict occurred in database "DEMOA", table "dbo.saDocumentoVenta". (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 21/11/2022 16:18:55
+Documento de venta de la factura 3000000023 (saldo) no pudo ser actualizado - 21/11/2022 16:18:55
+Documento de venta de la factura 3000000023 (total_bruto) actualizado con éxito - 21/11/2022 16:18:55
+Documento de venta de la factura 3000000023 (total_neto) actualizado con éxito - 21/11/2022 16:18:55
+Documento de venta de la factura 3000000023 (monto_imp) actualizado con éxito - 21/11/2022 16:18:55
+Factura 3000000023 (total_neto) actualizada con éxito - 21/11/2022 16:18:55
+Renglon N° 3 de la factura 3000000023 agregado con éxito - 21/11/2022 16:18:55
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The UPDATE statement conflicted with the CHECK constraint "CK_saFacturaVenta_saldo". The conflict occurred in database "DEMOA", table "dbo.saFacturaVenta". (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 21/11/2022 16:19:15
+Factura 3000000023 (saldo) no pudo ser actualizada - 21/11/2022 16:19:15
+Documento de venta de la factura 3000000023 (saldo) actualizado con éxito - 21/11/2022 16:19:15
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The UPDATE statement conflicted with the CHECK constraint "CK_saFacturaVenta_saldo". The conflict occurred in database "DEMOA", table "dbo.saFacturaVenta". (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 21/11/2022 16:19:19
+Factura 3000000023 (saldo) no pudo ser actualizada - 21/11/2022 16:19:19
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The UPDATE statement conflicted with the CHECK constraint "CK_saFacturaVenta_saldo". The conflict occurred in database "DEMOA", table "dbo.saFacturaVenta". (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 21/11/2022 16:19:32
+Factura 3000000023 (saldo) no pudo ser actualizada - 21/11/2022 16:19:32
+Factura 3000000024 agregada con éxito - 21/11/2022 16:23:43
+Renglon N° 1 de la factura 3000000024 eliminado con éxito - 21/11/2022 16:34:20
+Factura 3000000024 (total_bruto) actualizada con éxito - 21/11/2022 16:34:20
+Factura 3000000024 (monto_imp) actualizada con éxito - 21/11/2022 16:34:20
+Factura 3000000024 (saldo) actualizada con éxito - 21/11/2022 16:34:20
+Renglon N° 2 de la factura 3000000024 (reng_num) actualizado con éxito - 21/11/2022 16:34:20
+Documento de venta de la factura 3000000024 (saldo) actualizado con éxito - 21/11/2022 16:34:20
+Documento de venta de la factura 3000000024 (total_bruto) actualizado con éxito - 21/11/2022 16:34:20
+Documento de venta de la factura 3000000024 (total_neto) actualizado con éxito - 21/11/2022 16:34:20
+Documento de venta de la factura 3000000024 (monto_imp) actualizado con éxito - 21/11/2022 16:34:20
+Factura 3000000024 (total_neto) actualizada con éxito - 21/11/2022 16:34:20
+Factura 3000000024 (total_bruto) actualizada con éxito - 21/11/2022 16:44:46
+Factura 3000000024 (monto_imp) actualizada con éxito - 21/11/2022 16:44:46
+Factura 3000000024 (total_neto) actualizada con éxito - 21/11/2022 16:44:46
+Factura 3000000024 (saldo) actualizada con éxito - 21/11/2022 16:44:46
+Renglon N° 1 de la factura 3000000024 (reng_num) actualizado con éxito - 21/11/2022 16:44:46
+Documento de venta de la factura 3000000024 (total_bruto) actualizado con éxito - 21/11/2022 16:44:46
+Documento de venta de la factura 3000000024 (total_neto) actualizado con éxito - 21/11/2022 16:44:46
+Documento de venta de la factura 3000000024 (monto_imp) actualizado con éxito - 21/11/2022 16:44:46
+Documento de venta de la factura 3000000024 (saldo) actualizado con éxito - 21/11/2022 16:44:46
+Renglon N° 1 de la factura 3000000024 agregado con éxito - 21/11/2022 16:44:46
