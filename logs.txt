@@ -310,3 +310,6 @@ Tipo de precio 06 eliminado con éxito - 22/11/2022 10:51:48
 Moneda MNJ agregada con éxito - 22/11/2022 11:36:36
 Moneda MNJ (mone_des) actualizada con éxito - 22/11/2022 11:37:17
 Moneda MNJ eliminada con éxito - 22/11/2022 11:37:43
+Tipo de cliente 001 agregado con éxito - 22/11/2022 14:29:45
+Tipo cliente 001 (des_tipo) actualizado con éxito - 22/11/2022 14:34:21
+Tipo cliente 001 eliminado con éxito - 22/11/2022 14:39:38

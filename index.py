@@ -154,6 +154,14 @@ def main():
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
                 
+                elif item.Tipo == "TC": # TIPO CLIENTE
+                    
+                    result = type.delete_client_type(item, connect_sec)
+                    msg.print_msg_result_delete('Tipo cliente', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
                 elif item.Tipo == "FC": # FACTURA COMPRA
 
                     result = invoice.delete_buy_invoice(item, connect_sec)
@@ -370,6 +378,21 @@ def main():
 
                         result = currency.update_currency(item, connect_sec)
                         msg.print_msg_result_update('Moneda', item.ItemID, item.CampoModificado, 'a', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
+                elif item.Tipo == "TC": # TIPO CLIENTE
+
+                    t = type.search_client_type(cursor_main, item.ItemID)
+
+                    if t is None:
+                        msg.print_item_not_found('Tipo cliente', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = type.update_client_type(item, connect_sec)
+                        msg.print_msg_result_update('Tipo cliente', item.ItemID, item.CampoModificado, 'o', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -607,6 +630,24 @@ def main():
                         if result == 1 or result == 2:
                             sync_manager.update_item('ItemsAgregar', item.ID)
 
+                elif item.Tipo == "TC": # TIPO CLIENTE
+
+                    # busca el tipo de cliente en la base principal
+                    t = type.search_client_type(cursor_main, item.ItemID)
+
+                    if t is None: # error si el tipo de cliente no esta en la base principal
+                        msg.print_item_not_found('Tipo de cliente', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar el tipo de cliente
+                        result = type.insert_client_type(t, connect_sec)
+                        msg.print_msg_result_insert('Tipo de cliente', item.ItemID, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+                
                 elif item.Tipo == "FC": # FACTURA COMPRA
 
                     # busca la factura en la base principal

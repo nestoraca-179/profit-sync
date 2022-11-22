@@ -98,6 +98,114 @@ def insert_sale_invoice (i, items, doc, connect_sec):
 
     return status
 
+def update_sale_invoice (item, connect_sec):
+    status = 1
+
+    try:
+        # intento de conexion a la base secundaria
+        con_sec = pyodbc.connect(f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={connect_sec["server"]}; DATABASE={connect_sec["database"]}; UID={connect_sec["username"]}; PWD={connect_sec["password"]}')
+    except:
+        # error al conectar a la base secundaria
+        status = 0
+    else:
+
+        # se inicializa el cursor y se busca la factura
+        cursor_sec = con_sec.cursor()
+        inv = search_sale_invoice(cursor_sec, item.ItemID)
+
+        if inv is None:
+            # la factura no esta en la base secundaria
+            status = 2
+        else:
+
+            if item.NuevoValor is None:
+                query = f"""update saFacturaVenta set {item.CampoModificado} = NULL, co_us_mo = 'SYNC' where doc_num = '{item.ItemID}'"""
+            else:
+                if item.TipoDato == 'string' or item.TipoDato == 'bool':
+                    query = f"""update saFacturaVenta set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC' 
+                                where doc_num = '{item.ItemID}'"""
+                elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
+                    query = f"""update saFacturaVenta set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC' 
+                                where doc_num = '{item.ItemID}'"""
+
+            try:
+                # ejecucion de script
+                cursor_sec.execute(query)
+                cursor_sec.commit()
+            except pyodbc.Error as error:
+                # error en la ejecucion
+                msg.print_error_msg(error)
+                status = 3
+                pass
+
+        cursor_sec.close()
+        con_sec.close()
+    
+    return status
+
+def delete_sale_invoice (item, connect_sec):
+    status = 1
+
+    try:
+        # intento de conexion a la base secundaria
+        con_sec = pyodbc.connect(f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={connect_sec["server"]}; DATABASE={connect_sec["database"]}; UID={connect_sec["username"]}; PWD={connect_sec["password"]}')
+        con_sec.autocommit = False
+    except:
+        # error al conectar a la base secundaria
+        status = 0
+    else:
+
+        # se inicializa el cursor y se busca la factura y sus elementos
+        cursor_sec = con_sec.cursor()
+        inv = search_sale_invoice(cursor_sec, item.ItemID)
+        inv_items = reng_invoice.search_all_invoice_items(cursor_sec, item.ItemID, 'V')
+        inv_doc = sale_doc.search_sale_doc(cursor_sec, 'FACT', item.ItemID)
+
+        if inv is None:
+            # la factura no esta en la base secundaria
+            status = 2
+        else:
+            sp_i = f"exec pEliminarFacturaVenta @sdoc_numori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
+            sp_i_params = (inv.doc_num, inv.validador, socket.gethostname(), 'SYNC', None, inv.rowguid)
+
+            sp_i_doc = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?,
+                @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
+            """
+            sp_i_doc_params = ('FACT', inv_doc.nro_doc, inv_doc.validador, socket.gethostname(), 'SYNC', None, inv_doc.rowguid)
+
+            try:
+                # ejecucion de script
+                cursor_sec.execute(sp_i, sp_i_params)
+
+                for item in inv_items:
+                    sp_inv_item = f"""exec pEliminarRenglonesFacturaVenta @sdoc_numori = ?, @ireng_numori = ?, @sco_us_mo = ?,
+                        @smaquina = ?, @sco_sucu_mo = ?, @growguid = ?
+                    """
+                    sp_inv_item_params = (item.doc_num, item.reng_num, 'SYNC', socket.gethostname(), None, item.rowguid)
+
+                    cursor_sec.execute(sp_inv_item, sp_inv_item_params)
+
+                cursor_sec.execute(sp_i_doc, sp_i_doc_params)
+                cursor_sec.commit()
+
+            except pyodbc.Error as error:
+                # error en la ejecucion
+                msg.print_error_msg(error)
+                con_sec.rollback()
+                status = 3
+                pass
+
+        cursor_sec.close()
+        con_sec.close()
+
+    return status
+
+def search_sale_invoice (cursor: Cursor, id):
+    cursor.execute(f"select * from saFacturaVenta where doc_num = '{id}'")
+    i = cursor.fetchone()
+
+    return i
+
 def insert_buy_invoice (i, items, doc, connect_sec):
     status = 1
 
@@ -194,51 +302,6 @@ def insert_buy_invoice (i, items, doc, connect_sec):
 
     return status
 
-def update_sale_invoice (item, connect_sec):
-    status = 1
-
-    try:
-        # intento de conexion a la base secundaria
-        con_sec = pyodbc.connect(f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={connect_sec["server"]}; DATABASE={connect_sec["database"]}; UID={connect_sec["username"]}; PWD={connect_sec["password"]}')
-    except:
-        # error al conectar a la base secundaria
-        status = 0
-    else:
-
-        # se inicializa el cursor y se busca la factura
-        cursor_sec = con_sec.cursor()
-        inv = search_sale_invoice(cursor_sec, item.ItemID)
-
-        if inv is None:
-            # la factura no esta en la base secundaria
-            status = 2
-        else:
-
-            if item.NuevoValor is None:
-                query = f"""update saFacturaVenta set {item.CampoModificado} = NULL, co_us_mo = 'SYNC' where doc_num = '{item.ItemID}'"""
-            else:
-                if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                    query = f"""update saFacturaVenta set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC' 
-                                where doc_num = '{item.ItemID}'"""
-                elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                    query = f"""update saFacturaVenta set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC' 
-                                where doc_num = '{item.ItemID}'"""
-
-            try:
-                # ejecucion de script
-                cursor_sec.execute(query)
-                cursor_sec.commit()
-            except pyodbc.Error as error:
-                # error en la ejecucion
-                msg.print_error_msg(error)
-                status = 3
-                pass
-
-        cursor_sec.close()
-        con_sec.close()
-    
-    return status
-
 def update_buy_invoice (item, connect_sec):
     status = 1
 
@@ -282,63 +345,6 @@ def update_buy_invoice (item, connect_sec):
         cursor_sec.close()
         con_sec.close()
     
-    return status
-
-def delete_sale_invoice (item, connect_sec):
-    status = 1
-
-    try:
-        # intento de conexion a la base secundaria
-        con_sec = pyodbc.connect(f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={connect_sec["server"]}; DATABASE={connect_sec["database"]}; UID={connect_sec["username"]}; PWD={connect_sec["password"]}')
-        con_sec.autocommit = False
-    except:
-        # error al conectar a la base secundaria
-        status = 0
-    else:
-
-        # se inicializa el cursor y se busca la factura y sus elementos
-        cursor_sec = con_sec.cursor()
-        inv = search_sale_invoice(cursor_sec, item.ItemID)
-        inv_items = reng_invoice.search_all_invoice_items(cursor_sec, item.ItemID, 'V')
-        inv_doc = sale_doc.search_sale_doc(cursor_sec, 'FACT', item.ItemID)
-
-        if inv is None:
-            # la factura no esta en la base secundaria
-            status = 2
-        else:
-            sp_i = f"exec pEliminarFacturaVenta @sdoc_numori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
-            sp_i_params = (inv.doc_num, inv.validador, socket.gethostname(), 'SYNC', None, inv.rowguid)
-
-            sp_i_doc = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?,
-                @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
-            """
-            sp_i_doc_params = ('FACT', inv_doc.nro_doc, inv_doc.validador, socket.gethostname(), 'SYNC', None, inv_doc.rowguid)
-
-            try:
-                # ejecucion de script
-                cursor_sec.execute(sp_i, sp_i_params)
-
-                for item in inv_items:
-                    sp_inv_item = f"""exec pEliminarRenglonesFacturaVenta @sdoc_numori = ?, @ireng_numori = ?, @sco_us_mo = ?,
-                        @smaquina = ?, @sco_sucu_mo = ?, @growguid = ?
-                    """
-                    sp_inv_item_params = (item.doc_num, item.reng_num, 'SYNC', socket.gethostname(), None, item.rowguid)
-
-                    cursor_sec.execute(sp_inv_item, sp_inv_item_params)
-
-                cursor_sec.execute(sp_i_doc, sp_i_doc_params)
-                cursor_sec.commit()
-
-            except pyodbc.Error as error:
-                # error en la ejecucion
-                msg.print_error_msg(error)
-                con_sec.rollback()
-                status = 3
-                pass
-
-        cursor_sec.close()
-        con_sec.close()
-
     return status
 
 def delete_buy_invoice (item, connect_sec):
@@ -397,12 +403,6 @@ def delete_buy_invoice (item, connect_sec):
         con_sec.close()
 
     return status
-
-def search_sale_invoice (cursor: Cursor, id):
-    cursor.execute(f"select * from saFacturaVenta where doc_num = '{id}'")
-    i = cursor.fetchone()
-
-    return i
 
 def search_buy_invoice (cursor: Cursor, id):
     cursor.execute(f"select * from saFacturaCompra where doc_num = '{id}'")
