@@ -299,3 +299,11 @@ Documento de venta de la factura 3000000024 (total_neto) actualizado con éxito -
 Documento de venta de la factura 3000000024 (monto_imp) actualizado con éxito - 21/11/2022 16:44:46
 Documento de venta de la factura 3000000024 (saldo) actualizado con éxito - 21/11/2022 16:44:46
 Renglon N° 1 de la factura 3000000024 agregado con éxito - 21/11/2022 16:44:46
+Pedido 3000000032 agregado con éxito - 22/11/2022 09:16:09
+Factura 3000000018 (descrip) actualizada con éxito - 22/11/2022 09:23:21
+Tipo de precio 06 agregado con éxito - 22/11/2022 10:45:01
+Tipo de precio 06 (des_precio) actualizado con éxito - 22/11/2022 10:48:46
+Tipo de precio 06 eliminado con éxito - 22/11/2022 10:50:20
+Error => ('42000', "[42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Procedure or function 'pEliminarTipoPrecio' expects parameter '@sCo_PrecioOri', which was not supplied. (201) (SQLExecDirectW)") - 22/11/2022 10:51:26
+Tipo de precio 06 no pudo ser eliminado - 22/11/2022 10:51:26
+Tipo de precio 06 eliminado con éxito - 22/11/2022 10:51:48

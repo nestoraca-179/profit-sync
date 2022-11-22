@@ -7,6 +7,7 @@ import order
 import reng_invoice
 import collect
 import reng_collect
+import type
 import messages as msg
 import sync_manager as sm
 
@@ -136,6 +137,14 @@ def main():
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
 
+                elif item.Tipo == "TP": # TIPO PRECIO
+                    
+                    result = type.delete_price_type(item, connect_sec)
+                    msg.print_msg_result_delete('Tipo de precio', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
                 elif item.Tipo == "FC": # FACTURA COMPRA
 
                     result = invoice.delete_buy_invoice(item, connect_sec)
@@ -326,6 +335,21 @@ def main():
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
 
+                elif item.Tipo == "TP": # TIPO PRECIO
+
+                    t = type.search_price_type(cursor_main, item.ItemID)
+
+                    if t is None:
+                        msg.print_item_not_found('El tipo de precio', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = type.update_price_type(item, connect_sec)
+                        msg.print_msg_result_update('Tipo de precio', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
                 elif item.Tipo == "FC": # FACTURA COMPRA
 
                     i = invoice.search_buy_invoice(cursor_main, item.ItemID)
@@ -518,6 +542,24 @@ def main():
                         # se intenta registrar el pedido
                         result = order.insert_order(p, items, connect_sec)
                         msg.print_msg_result_insert('Pedido', item.ItemID, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+
+                elif item.Tipo == "TP": # TIPO PRECIO
+
+                    # busca el tipo de precio en la base principal
+                    t = type.search_price_type(cursor_main, item.ItemID)
+
+                    if t is None: # error si el tipo de precio no esta en la base principal
+                        msg.print_item_not_found('El tipo de precio', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar el tipo de precio
+                        result = type.insert_price_type(t, connect_sec)
+                        msg.print_msg_result_insert('Tipo de precio', item.ItemID, 'o', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:
