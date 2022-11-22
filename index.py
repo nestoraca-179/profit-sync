@@ -10,6 +10,7 @@ import reng_collect
 import type
 import currency
 import account
+import country
 import messages as msg
 import sync_manager as sm
 
@@ -167,6 +168,14 @@ def main():
                     
                     result = account.delete_account(item, connect_sec)
                     msg.print_msg_result_delete('Cuenta I/E', item.ItemID, 'a', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
+                elif item.Tipo == "PAI": # PAIS
+                    
+                    result = country.delete_country(item, connect_sec)
+                    msg.print_msg_result_delete('Pais', item.ItemID, 'o', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -417,6 +426,21 @@ def main():
 
                         result = account.update_account(item, connect_sec)
                         msg.print_msg_result_update('Cuenta I/E', item.ItemID, item.CampoModificado, 'a', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
+                elif item.Tipo == "PAI": # PAIS
+
+                    c = country.search_country(cursor_main, item.ItemID)
+
+                    if c is None:
+                        msg.print_item_not_found('Pais', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = country.update_country(item, connect_sec)
+                        msg.print_msg_result_update('Pais', item.ItemID, item.CampoModificado, 'o', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -685,6 +709,24 @@ def main():
                         # se intenta registrar la cuenta
                         result = account.insert_account(a, connect_sec)
                         msg.print_msg_result_insert('Cuenta I/E', item.ItemID, 'a', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+                
+                elif item.Tipo == "PAI": # PAIS
+
+                    # busca la cuenta en la base principal
+                    c = country.search_country(cursor_main, item.ItemID)
+
+                    if c is None: # error si el pais no esta en la base principal
+                        msg.print_item_not_found('Pais', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar el pais
+                        result = country.insert_country(c, connect_sec)
+                        msg.print_msg_result_insert('Pais', item.ItemID, 'o', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:

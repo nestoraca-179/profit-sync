@@ -316,3 +316,6 @@ Tipo cliente 001 eliminado con éxito - 22/11/2022 14:39:38
 Cuenta I/E 0001 agregada con éxito - 22/11/2022 15:53:50
 Cuenta I/E 0001 (descrip) actualizado con éxito - 22/11/2022 16:22:27
 Cuenta I/E 0001 eliminada con éxito - 22/11/2022 16:25:14
+Pais 00 agregado con éxito - 22/11/2022 17:11:29
+Pais 00 (pais_des) actualizado con éxito - 22/11/2022 17:13:53
+Pais 00 eliminado con éxito - 22/11/2022 17:16:12
