@@ -3,7 +3,7 @@ import socket
 import messages as msg
 from pyodbc import Cursor
 
-def insert_currency (c, connect_sec):
+def insert_account (a, connect_sec):
     status = 1
 
     try:
@@ -14,19 +14,20 @@ def insert_currency (c, connect_sec):
         status = 0
     else:
 
-        # se inicializa el cursor y se busca la moneda
+        # se inicializa el cursor y se busca la cuenta
         cursor_sec = con_sec.cursor()
-        mon = search_currency(cursor_sec, c.co_mone)
+        acc = search_account(cursor_sec, a.co_cta_ingr_egr)
 
-        if mon is not None:
-            # la moneda ya esta en la base secundaria
+        if acc is not None:
+            # la cuenta ya esta en la base secundaria
             status = 2
         else:
-            sp = f"""exec pInsertarMoneda @sCo_Mone = ?, @sMone_Des = ?, @deCambio = ?, @bRelacion = ?, @sCampo1 = ?, @sCampo2 = ?, @sCampo3 = ?, @sCampo4 = ?, 
-                @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, @sco_us_in = ?, @sMaquina = ?
+            sp = f"""exec pInsertarCuentaIngreso @sco_cta_ingr_egr = ?, @sDescrip = ?, @sCo_Islr = ?, @sDis_Cen = ?, @sCampo1 = ?, @sCampo2 = ?, 
+                @sCampo3 = ?, @sCampo4 = ?, @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, 
+                @sco_us_in = ?, @sMaquina = ?
             """
-            params = (c.co_mone, c.mone_des, c.cambio, c.relacion, c.campo1, c.campo2, c.campo3, c.campo4, c.campo5, c.campo6, c.campo7, c.campo8, 
-                c.revisado, c.trasnfe, c.co_sucu_in, 'SYNC', socket.gethostname())
+            params = (a.co_cta_ingr_egr, a.descrip, a.co_islr, a.dis_cen, a.campo1, a.campo2, a.campo3, a.campo4, a.campo5, a.campo6, a.campo7, 
+                a.campo8, a.revisado, a.trasnfe, a.co_sucu_in, 'SYNC', socket.gethostname())
 
             try:
                 # ejecucion de script
@@ -44,7 +45,7 @@ def insert_currency (c, connect_sec):
 
     return status
 
-def update_currency (item, connect_sec):
+def update_account (item, connect_sec):
     status = 1
 
     try:
@@ -55,22 +56,22 @@ def update_currency (item, connect_sec):
         status = 0
     else:
 
-        # se inicializa el cursor y se busca la moneda
+        # se inicializa el cursor y se busca la cuenta
         cursor_sec = con_sec.cursor()
-        c = search_currency(cursor_sec, item.ItemID)
+        a = search_account(cursor_sec, item.ItemID)
 
-        if c is None:
-            # la moneda no esta en la base secundaria
+        if a is None:
+            # la cuenta no esta en la base secundaria
             status = 2
         else:
 
             if item.NuevoValor is None:
-                query = f"update saMoneda set {item.CampoModificado} = NULL, co_us_mo = 'SYNC' where co_mone = '{item.ItemID}'"
+                query = f"update saCuentaIngEgr set {item.CampoModificado} = NULL, co_us_mo = 'SYNC' where co_cta_ingr_egr = '{item.ItemID}'"
             else:
                 if item.TipoDato == 'string' or item.TipoDato == 'bool':
-                    query = f"update saMoneda set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC' where co_mone = '{item.ItemID}'"
+                    query = f"update saCuentaIngEgr set {item.CampoModificado} = '{item.NuevoValor}', co_us_mo = 'SYNC' where co_cta_ingr_egr = '{item.ItemID}'"
                 elif item.TipoDato == 'int' or item.TipoDato == 'decimal':
-                    query = f"update saMoneda set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC' where co_mone = '{item.ItemID}'"
+                    query = f"update saCuentaIngEgr set {item.CampoModificado} = {item.NuevoValor}, co_us_mo = 'SYNC' where co_cta_ingr_egr = '{item.ItemID}'"
 
             try:
                 # ejecucion de script
@@ -87,7 +88,7 @@ def update_currency (item, connect_sec):
     
     return status
 
-def delete_currency (item, connect_sec):
+def delete_account (item, connect_sec):
     status = 1
 
     try:
@@ -98,17 +99,17 @@ def delete_currency (item, connect_sec):
         status = 0
     else:
 
-        # se inicializa el cursor y se busca la moneda
+        # se inicializa el cursor y se busca la cuenta
         cursor_sec = con_sec.cursor()
-        c = search_currency(cursor_sec, item.ItemID)
+        a = search_account(cursor_sec, item.ItemID)
 
-        if c is None:
-            # la moneda no esta en la base secundaria
+        if a is None:
+            # la cuenta no esta en la base secundaria
             status = 2
         else:
 
-            sp = f"exec pEliminarMoneda @sco_moneori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
-            params = (c.co_mone, c.validador, socket.gethostname(), 'SYNC', c.co_sucu_mo, c.rowguid)
+            sp = f"exec pEliminarCuentaIngreso @sco_cta_ingr_egrori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
+            params = (a.co_cta_ingr_egr, a.validador, socket.gethostname(), 'SYNC', a.co_sucu_mo, a.rowguid)
 
             try:
                 # ejecucion de script
@@ -125,8 +126,8 @@ def delete_currency (item, connect_sec):
 
     return status
 
-def search_currency (cursor: Cursor, id):
-    cursor.execute(f"select * from saMoneda where co_mone = '{id}'")
+def search_account (cursor: Cursor, id):
+    cursor.execute(f"select * from saCuentaIngEgr where co_cta_ingr_egr = '{id}'")
     c = cursor.fetchone()
 
     return c

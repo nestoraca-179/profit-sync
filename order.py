@@ -188,7 +188,7 @@ def delete_order (item, connect_sec):
             status = 2
         else:
             sp_o = f"exec pEliminarPedidoVenta @sdoc_numori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
-            sp_o_params = (ord.doc_num, ord.validador, socket.gethostname(), 'SYNC', None, ord.rowguid)
+            sp_o_params = (ord.doc_num, ord.validador, socket.gethostname(), 'SYNC', ord.co_sucu_mo, ord.rowguid)
 
             try:
                 # ejecucion de script

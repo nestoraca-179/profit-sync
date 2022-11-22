@@ -166,12 +166,12 @@ def delete_sale_invoice (item, connect_sec):
             status = 2
         else:
             sp_i = f"exec pEliminarFacturaVenta @sdoc_numori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
-            sp_i_params = (inv.doc_num, inv.validador, socket.gethostname(), 'SYNC', None, inv.rowguid)
+            sp_i_params = (inv.doc_num, inv.validador, socket.gethostname(), 'SYNC', inv.co_sucu_mo, inv.rowguid)
 
             sp_i_doc = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?,
                 @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
             """
-            sp_i_doc_params = ('FACT', inv_doc.nro_doc, inv_doc.validador, socket.gethostname(), 'SYNC', None, inv_doc.rowguid)
+            sp_i_doc_params = ('FACT', inv_doc.nro_doc, inv_doc.validador, socket.gethostname(), 'SYNC', inv.co_sucu_mo, inv_doc.rowguid)
 
             try:
                 # ejecucion de script
@@ -181,7 +181,7 @@ def delete_sale_invoice (item, connect_sec):
                     sp_inv_item = f"""exec pEliminarRenglonesFacturaVenta @sdoc_numori = ?, @ireng_numori = ?, @sco_us_mo = ?,
                         @smaquina = ?, @sco_sucu_mo = ?, @growguid = ?
                     """
-                    sp_inv_item_params = (item.doc_num, item.reng_num, 'SYNC', socket.gethostname(), None, item.rowguid)
+                    sp_inv_item_params = (item.doc_num, item.reng_num, 'SYNC', socket.gethostname(), item.co_sucu_mo, item.rowguid)
 
                     cursor_sec.execute(sp_inv_item, sp_inv_item_params)
 
@@ -370,12 +370,12 @@ def delete_buy_invoice (item, connect_sec):
             status = 2
         else:
             sp_i = f"exec pEliminarFacturaCompra @sdoc_numori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
-            sp_i_params = (inv.doc_num, inv.validador, socket.gethostname(), 'SYNC', None, inv.rowguid)
+            sp_i_params = (inv.doc_num, inv.validador, socket.gethostname(), 'SYNC', inv.co_sucu_mo, inv.rowguid)
 
             sp_i_doc = f"""exec pEliminarDocumentoCompra @sco_tipo_docori = ?, @snro_docori = ?,
                 @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
             """
-            sp_i_doc_params = ('FACT', inv_doc.nro_doc, inv_doc.validador, socket.gethostname(), 'SYNC', None, inv_doc.rowguid)
+            sp_i_doc_params = ('FACT', inv_doc.nro_doc, inv_doc.validador, socket.gethostname(), 'SYNC', inv.co_sucu_mo, inv_doc.rowguid)
 
             try:
                 # ejecucion de script
@@ -385,7 +385,7 @@ def delete_buy_invoice (item, connect_sec):
                     sp_inv_item = f"""exec pEliminarRenglonesFacturaCompra @sdoc_numori = ?, @ireng_numori = ?, @sco_us_mo = ?,
                         @smaquina = ?, @sco_sucu_mo = ?, @growguid = ?
                     """
-                    sp_inv_item_params = (item.doc_num, item.reng_num, 'SYNC', socket.gethostname(), None, item.rowguid)
+                    sp_inv_item_params = (item.doc_num, item.reng_num, 'SYNC', socket.gethostname(), item.co_sucu_mo, item.rowguid)
 
                     cursor_sec.execute(sp_inv_item, sp_inv_item_params)
 

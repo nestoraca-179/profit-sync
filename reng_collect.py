@@ -181,7 +181,7 @@ def delete_reng_tp_collect (cob, reng, connect_sec):
             status = 2
         else:
             sp_r = f"exec pEliminarRenglonesTPCobro @sCob_NumOri = ?, @iRENG_NUMOri = ?, @growguid = ?, @sCo_Us_Mo = ?, @sMaquina = ?, @sCo_Sucu_Mo = ?"
-            sp_r_params = (r.cob_num, r.reng_num, r.rowguid, 'SYNC', socket.gethostname(), None)
+            sp_r_params = (r.cob_num, r.reng_num, r.rowguid, 'SYNC', socket.gethostname(), r.co_sucu_mo)
 
             try:
                 

@@ -315,7 +315,7 @@ def delete_collect(item, connect_sec):
             status = 2
         else:
             sp_c = f"exec pEliminarCobro @scob_numori = ?, @tsvalidador = ?, @growguid = ?, @sco_us_mo = ?, @smaquina = ?, @sco_sucu_mo = ?"
-            sp_c_params = (cob.cob_num, cob.validador, cob.rowguid, 'SYNC', socket.gethostname(), None)
+            sp_c_params = (cob.cob_num, cob.validador, cob.rowguid, 'SYNC', socket.gethostname(), cob.co_sucu_mo)
 
             try:
                 # actualizando saldos de caja
@@ -360,7 +360,7 @@ def delete_collect(item, connect_sec):
                         sp_d = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?, @tsvalidador = ?, @smaquina = ?, 
                             @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
                         """
-                        sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', None, doc.rowguid)
+                        sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', w.co_sucu_mo, doc.rowguid)
                         
                         cursor_sec.execute(sp_d, sp_d_params)
 
@@ -371,7 +371,7 @@ def delete_collect(item, connect_sec):
                             sp_d = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?, @tsvalidador = ?, @smaquina = ?, 
                                 @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
                             """
-                            sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', None, doc.rowguid)
+                            sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', w.co_sucu_mo, doc.rowguid)
                             
                             cursor_sec.execute(sp_d, sp_d_params)
                 

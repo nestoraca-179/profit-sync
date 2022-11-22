@@ -120,7 +120,7 @@ def delete_client (item, connect_sec):
         else:
 
             sp = f"exec pEliminarCliente @sco_cliori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
-            params = (c.co_cli, c.validador, socket.gethostname(), 'SYNC', None, c.rowguid)
+            params = (c.co_cli, c.validador, socket.gethostname(), 'SYNC', c.co_sucu_mo, c.rowguid)
 
             try:
                 # ejecucion de script

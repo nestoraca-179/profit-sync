@@ -9,6 +9,7 @@ import collect
 import reng_collect
 import type
 import currency
+import account
 import messages as msg
 import sync_manager as sm
 
@@ -158,6 +159,14 @@ def main():
                     
                     result = type.delete_client_type(item, connect_sec)
                     msg.print_msg_result_delete('Tipo cliente', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
+                elif item.Tipo == "CUE": # CUENTA I/E
+                    
+                    result = account.delete_account(item, connect_sec)
+                    msg.print_msg_result_delete('Cuenta I/E', item.ItemID, 'a', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -393,6 +402,21 @@ def main():
 
                         result = type.update_client_type(item, connect_sec)
                         msg.print_msg_result_update('Tipo cliente', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
+                elif item.Tipo == "CUE": # CUENTA I/E
+
+                    a = account.search_account(cursor_main, item.ItemID)
+
+                    if a is None:
+                        msg.print_item_not_found('Cuenta I/E', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = account.update_account(item, connect_sec)
+                        msg.print_msg_result_update('Cuenta I/E', item.ItemID, item.CampoModificado, 'a', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -643,6 +667,24 @@ def main():
                         # se intenta registrar el tipo de cliente
                         result = type.insert_client_type(t, connect_sec)
                         msg.print_msg_result_insert('Tipo de cliente', item.ItemID, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+                
+                elif item.Tipo == "CUE": # CUENTA I/E
+
+                    # busca la cuenta en la base principal
+                    a = account.search_account(cursor_main, item.ItemID)
+
+                    if a is None: # error si la cuenta no esta en la base principal
+                        msg.print_item_not_found('Cuenta I/E', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar la cuenta
+                        result = account.insert_account(a, connect_sec)
+                        msg.print_msg_result_insert('Cuenta I/E', item.ItemID, 'a', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:

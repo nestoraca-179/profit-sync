@@ -120,7 +120,7 @@ def delete_reng_invoice (fact, reng, connect_sec):
             sp_r = f"""exec pEliminarRenglonesFacturaVenta @sdoc_numori = ?, @ireng_numori = ?, @sco_us_mo = ?, @smaquina = ?, 
                 @sco_sucu_mo = ?, @growguid = ?
             """
-            sp_r_params = (fact, reng, 'SYNC', socket.gethostname(), None, r.rowguid)
+            sp_r_params = (fact, reng, 'SYNC', socket.gethostname(), r.co_sucu_mo, r.rowguid)
 
             try:
                 # ejecucion de script

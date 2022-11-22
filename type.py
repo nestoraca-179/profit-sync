@@ -109,7 +109,7 @@ def delete_price_type (item, connect_sec):
         else:
 
             sp = f"exec pEliminarTipoPrecio @sco_precioori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
-            params = (t.co_precio, t.validador, socket.gethostname(), 'SYNC', None, t.rowguid)
+            params = (t.co_precio, t.validador, socket.gethostname(), 'SYNC', t.co_sucu_mo, t.rowguid)
 
             try:
                 # ejecucion de script
@@ -237,7 +237,7 @@ def delete_client_type (item, connect_sec):
         else:
 
             sp = f"exec pEliminarTipoCliente @stip_cliori = ?, @tsvalidador = ?, @smaquina = ?, @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?"
-            params = (t.tip_cli, t.validador, socket.gethostname(), 'SYNC', None, t.rowguid)
+            params = (t.tip_cli, t.validador, socket.gethostname(), 'SYNC', t.co_sucu_mo, t.rowguid)
 
             try:
                 # ejecucion de script
