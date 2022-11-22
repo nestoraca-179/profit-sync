@@ -8,6 +8,7 @@ import reng_invoice
 import collect
 import reng_collect
 import type
+import currency
 import messages as msg
 import sync_manager as sm
 
@@ -141,6 +142,14 @@ def main():
                     
                     result = type.delete_price_type(item, connect_sec)
                     msg.print_msg_result_delete('Tipo de precio', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
+                elif item.Tipo == "MON": # MONEDA
+                    
+                    result = currency.delete_currency(item, connect_sec)
+                    msg.print_msg_result_delete('Moneda', item.ItemID, 'a', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -346,6 +355,21 @@ def main():
 
                         result = type.update_price_type(item, connect_sec)
                         msg.print_msg_result_update('Tipo de precio', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+
+                elif item.Tipo == "MON": # MONEDA
+
+                    c = currency.search_currency(cursor_main, item.ItemID)
+
+                    if c is None:
+                        msg.print_item_not_found('Moneda', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = currency.update_currency(item, connect_sec)
+                        msg.print_msg_result_update('Moneda', item.ItemID, item.CampoModificado, 'a', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -560,6 +584,24 @@ def main():
                         # se intenta registrar el tipo de precio
                         result = type.insert_price_type(t, connect_sec)
                         msg.print_msg_result_insert('Tipo de precio', item.ItemID, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+
+                elif item.Tipo == "MON": # MONEDA
+
+                    # busca la moneda en la base principal
+                    c = currency.search_currency(cursor_main, item.ItemID)
+
+                    if c is None: # error si la moneda no esta en la base principal
+                        msg.print_item_not_found('Moneda', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar la moneda
+                        result = currency.insert_currency(c, connect_sec)
+                        msg.print_msg_result_insert('Moneda', item.ItemID, 'a', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:
