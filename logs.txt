@@ -319,3 +319,8 @@ Cuenta I/E 0001 eliminada con éxito - 22/11/2022 16:25:14
 Pais 00 agregado con éxito - 22/11/2022 17:11:29
 Pais 00 (pais_des) actualizado con éxito - 22/11/2022 17:13:53
 Pais 00 eliminado con éxito - 22/11/2022 17:16:12
+Segmento 00 agregado con éxito - 23/11/2022 10:33:23
+Segmento 00 (seg_des) actualizado con éxito - 23/11/2022 10:39:25
+Error => ('42000', "[42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Procedure or function 'pEliminarPais' expects parameter '@sCo_PaisOri', which was not supplied. (201) (SQLExecDirectW)") - 23/11/2022 10:40:38
+Segmento 00 no pudo ser eliminado - 23/11/2022 10:40:38
+Segmento 00 eliminado con éxito - 23/11/2022 10:40:54

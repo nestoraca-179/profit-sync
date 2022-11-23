@@ -11,6 +11,7 @@ import type
 import currency
 import account
 import country
+import segment
 import messages as msg
 import sync_manager as sm
 
@@ -176,6 +177,14 @@ def main():
                     
                     result = country.delete_country(item, connect_sec)
                     msg.print_msg_result_delete('Pais', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
+                elif item.Tipo == "SEG": # SEGMENTO
+                    
+                    result = segment.delete_segment(item, connect_sec)
+                    msg.print_msg_result_delete('Segmento', item.ItemID, 'o', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -441,6 +450,21 @@ def main():
 
                         result = country.update_country(item, connect_sec)
                         msg.print_msg_result_update('Pais', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
+                elif item.Tipo == "SEG": # SEGMENTO
+
+                    s = segment.search_segment(cursor_main, item.ItemID)
+
+                    if s is None:
+                        msg.print_item_not_found('Segmento', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = segment.update_segment(item, connect_sec)
+                        msg.print_msg_result_update('Segmento', item.ItemID, item.CampoModificado, 'o', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -727,6 +751,24 @@ def main():
                         # se intenta registrar el pais
                         result = country.insert_country(c, connect_sec)
                         msg.print_msg_result_insert('Pais', item.ItemID, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+                
+                elif item.Tipo == "SEG": # SEGMENTO
+
+                    # busca la cuenta en la base principal
+                    s = segment.search_segment(cursor_main, item.ItemID)
+
+                    if s is None: # error si el segmento no esta en la base principal
+                        msg.print_item_not_found('Segmento', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar el segmento
+                        result = segment.insert_segment(s, connect_sec)
+                        msg.print_msg_result_insert('Segmento', item.ItemID, 'o', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:
