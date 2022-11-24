@@ -14,6 +14,7 @@ import country
 import segment
 import zone
 import seller
+import cond
 import messages as msg
 import sync_manager as sm
 
@@ -203,6 +204,14 @@ def main():
                     
                     result = seller.delete_seller(item, connect_sec)
                     msg.print_msg_result_delete('Vendedor', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
+                elif item.Tipo == "COND": # CONDICION PAGO
+                    
+                    result = cond.delete_cond(item, connect_sec)
+                    msg.print_msg_result_delete('Condicion pago', item.ItemID, 'a', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -513,6 +522,21 @@ def main():
 
                         result = seller.update_seller(item, connect_sec)
                         msg.print_msg_result_update('Vendedor', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
+                elif item.Tipo == "COND": # CONDICION PAGO
+
+                    c = cond.search_cond(cursor_main, item.ItemID)
+
+                    if c is None:
+                        msg.print_item_not_found('Condicion pago', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = cond.update_cond(item, connect_sec)
+                        msg.print_msg_result_update('Condicion pago', item.ItemID, item.CampoModificado, 'a', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -853,6 +877,24 @@ def main():
                         # se intenta registrar el vendedor
                         result = seller.insert_seller(s, connect_sec)
                         msg.print_msg_result_insert('Vendedor', item.ItemID, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+                
+                elif item.Tipo == "COND": # CONDICION PAGO
+
+                    # busca la condicion de pago en la base principal
+                    c = cond.search_cond(cursor_main, item.ItemID)
+
+                    if c is None: # error si la condicion de pago no esta en la base principal
+                        msg.print_item_not_found('Condicion pago', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar la condicion de pago
+                        result = cond.insert_cond(c, connect_sec)
+                        msg.print_msg_result_insert('Condicion pago', item.ItemID, 'a', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:

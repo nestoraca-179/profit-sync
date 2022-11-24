@@ -331,3 +331,6 @@ Vendedor 001001 agregado con éxito - 24/11/2022 15:52:20
 Vendedor 001001 (co_zon) actualizado con éxito - 24/11/2022 15:52:51
 Vendedor 001001 no existe en la base secundaria - 24/11/2022 15:53:06
 Vendedor 001001 eliminado con éxito - 24/11/2022 15:55:04
+Condicion pago 00 agregada con éxito - 24/11/2022 16:17:10
+Condicion pago 00 (cond_des) actualizada con éxito - 24/11/2022 16:19:18
+Condicion pago 00 eliminada con éxito - 24/11/2022 16:19:48
