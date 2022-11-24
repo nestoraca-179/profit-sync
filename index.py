@@ -13,6 +13,7 @@ import account
 import country
 import segment
 import zone
+import seller
 import messages as msg
 import sync_manager as sm
 
@@ -194,6 +195,14 @@ def main():
                     
                     result = zone.delete_zone(item, connect_sec)
                     msg.print_msg_result_delete('Zona', item.ItemID, 'a', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
+                elif item.Tipo == "VEN": # VENDEDOR
+                    
+                    result = seller.delete_seller(item, connect_sec)
+                    msg.print_msg_result_delete('Vendedor', item.ItemID, 'o', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -493,6 +502,21 @@ def main():
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
                 
+                elif item.Tipo == "VEN": # VENDEDOR
+
+                    s = seller.search_seller(cursor_main, item.ItemID)
+
+                    if s is None:
+                        msg.print_item_not_found('Vendedor', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = seller.update_seller(item, connect_sec)
+                        msg.print_msg_result_update('Vendedor', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
                 elif item.Tipo == "FC": # FACTURA COMPRA
 
                     i = invoice.search_buy_invoice(cursor_main, item.ItemID)
@@ -764,7 +788,7 @@ def main():
                 
                 elif item.Tipo == "PAI": # PAIS
 
-                    # busca la cuenta en la base principal
+                    # busca el pais en la base principal
                     c = country.search_country(cursor_main, item.ItemID)
 
                     if c is None: # error si el pais no esta en la base principal
@@ -782,7 +806,7 @@ def main():
                 
                 elif item.Tipo == "SEG": # SEGMENTO
 
-                    # busca la cuenta en la base principal
+                    # busca el segmento en la base principal
                     s = segment.search_segment(cursor_main, item.ItemID)
 
                     if s is None: # error si el segmento no esta en la base principal
@@ -811,6 +835,24 @@ def main():
                         # se intenta registrar la zona
                         result = zone.insert_zone(z, connect_sec)
                         msg.print_msg_result_insert('Zona', item.ItemID, 'a', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+                
+                elif item.Tipo == "VEN": # VENDEDOR
+
+                    # busca el vendedor en la base principal
+                    s = seller.search_seller(cursor_main, item.ItemID)
+
+                    if s is None: # error si el vendedor no esta en la base principal
+                        msg.print_item_not_found('Vendedor', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar el vendedor
+                        result = seller.insert_seller(s, connect_sec)
+                        msg.print_msg_result_insert('Vendedor', item.ItemID, 'o', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:
