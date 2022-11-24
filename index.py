@@ -12,6 +12,7 @@ import currency
 import account
 import country
 import segment
+import zone
 import messages as msg
 import sync_manager as sm
 
@@ -185,6 +186,14 @@ def main():
                     
                     result = segment.delete_segment(item, connect_sec)
                     msg.print_msg_result_delete('Segmento', item.ItemID, 'o', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
+                elif item.Tipo == "ZON": # MONEDA
+                    
+                    result = zone.delete_zone(item, connect_sec)
+                    msg.print_msg_result_delete('Zona', item.ItemID, 'a', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -465,6 +474,21 @@ def main():
 
                         result = segment.update_segment(item, connect_sec)
                         msg.print_msg_result_update('Segmento', item.ItemID, item.CampoModificado, 'o', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
+                elif item.Tipo == "ZON": # ZONA
+
+                    z = zone.search_zone(cursor_main, item.ItemID)
+
+                    if z is None:
+                        msg.print_item_not_found('Zona', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = zone.update_zone(item, connect_sec)
+                        msg.print_msg_result_update('Zona', item.ItemID, item.CampoModificado, 'a', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -769,6 +793,24 @@ def main():
                         # se intenta registrar el segmento
                         result = segment.insert_segment(s, connect_sec)
                         msg.print_msg_result_insert('Segmento', item.ItemID, 'o', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+                
+                elif item.Tipo == "ZON": # ZONA
+
+                    # busca la zona en la base principal
+                    z = zone.search_zone(cursor_main, item.ItemID)
+
+                    if z is None: # error si la zona no esta en la base principal
+                        msg.print_item_not_found('Zona', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar la zona
+                        result = zone.insert_zone(z, connect_sec)
+                        msg.print_msg_result_insert('Zona', item.ItemID, 'a', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:

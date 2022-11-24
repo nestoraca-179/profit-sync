@@ -324,3 +324,6 @@ Segmento 00 (seg_des) actualizado con éxito - 23/11/2022 10:39:25
 Error => ('42000', "[42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Procedure or function 'pEliminarPais' expects parameter '@sCo_PaisOri', which was not supplied. (201) (SQLExecDirectW)") - 23/11/2022 10:40:38
 Segmento 00 no pudo ser eliminado - 23/11/2022 10:40:38
 Segmento 00 eliminado con éxito - 23/11/2022 10:40:54
+Zona 00 agregada con éxito - 24/11/2022 15:12:49
+Zona 00 (zon_des) actualizada con éxito - 24/11/2022 15:14:25
+Zona 00 eliminada con éxito - 24/11/2022 15:15:07
