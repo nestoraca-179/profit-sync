@@ -15,6 +15,7 @@ import segment
 import zone
 import seller
 import cond
+import transport
 import messages as msg
 import sync_manager as sm
 
@@ -212,6 +213,14 @@ def main():
                     
                     result = cond.delete_cond(item, connect_sec)
                     msg.print_msg_result_delete('Condicion pago', item.ItemID, 'a', result)
+
+                    if result == 1 or result == 2:
+                        sync_manager.update_item('ItemsEliminar', item.ID)
+                
+                elif item.Tipo == "TRA": # TRANSPORTE
+                    
+                    result = transport.delete_transport(item, connect_sec)
+                    msg.print_msg_result_delete('Transporte', item.ItemID, 'o', result)
 
                     if result == 1 or result == 2:
                         sync_manager.update_item('ItemsEliminar', item.ID)
@@ -537,6 +546,21 @@ def main():
 
                         result = cond.update_cond(item, connect_sec)
                         msg.print_msg_result_update('Condicion pago', item.ItemID, item.CampoModificado, 'a', result)
+
+                        if result == 1:
+                            sync_manager.update_item('ItemsModificar', item.ID)
+                
+                elif item.Tipo == "TRA": # TRANSPORTE
+
+                    t = transport.search_transport(cursor_main, item.ItemID)
+
+                    if t is None:
+                        msg.print_item_not_found('Transporte', item.ItemID)
+                        sync_manager.delete_item('ItemsModificar', item.ID)
+                    else:
+
+                        result = transport.update_transport(item, connect_sec)
+                        msg.print_msg_result_update('Transporte', item.ItemID, item.CampoModificado, 'o', result)
 
                         if result == 1:
                             sync_manager.update_item('ItemsModificar', item.ID)
@@ -895,6 +919,24 @@ def main():
                         # se intenta registrar la condicion de pago
                         result = cond.insert_cond(c, connect_sec)
                         msg.print_msg_result_insert('Condicion pago', item.ItemID, 'a', result)
+
+                        # se actualiza el registro en profit sync
+                        if result == 1 or result == 2:
+                            sync_manager.update_item('ItemsAgregar', item.ID)
+                
+                elif item.Tipo == "TRA": # TRANSPORTE
+
+                    # busca el transporte en la base principal
+                    t = transport.search_transport(cursor_main, item.ItemID)
+
+                    if t is None: # error si el transporte no esta en la base principal
+                        msg.print_item_not_found('Transporte', item.ItemID)
+                        sync_manager.delete_item('ItemsAgregar', item.ID)
+                    else:
+
+                        # se intenta registrar el transporte
+                        result = transport.insert_transport(t, connect_sec)
+                        msg.print_msg_result_insert('Transporte', item.ItemID, 'o', result)
 
                         # se actualiza el registro en profit sync
                         if result == 1 or result == 2:

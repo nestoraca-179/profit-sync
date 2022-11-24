@@ -334,3 +334,9 @@ Vendedor 001001 eliminado con éxito - 24/11/2022 15:55:04
 Condicion pago 00 agregada con éxito - 24/11/2022 16:17:10
 Condicion pago 00 (cond_des) actualizada con éxito - 24/11/2022 16:19:18
 Condicion pago 00 eliminada con éxito - 24/11/2022 16:19:48
+Transporte 00 agregado con éxito - 24/11/2022 17:50:19
+Vendedor 00 (des_tran) actualizado con éxito - 24/11/2022 17:54:16
+Transporte 00 (des_tran) actualizado con éxito - 24/11/2022 17:55:00
+Error => ('42000', "[42000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Procedure or function 'pEliminarTransporte' expects parameter '@sCo_TranOri', which was not supplied. (201) (SQLExecDirectW)") - 24/11/2022 17:55:12
+Transporte 00 no pudo ser eliminado - 24/11/2022 17:55:12
+Transporte 00 eliminado con éxito - 24/11/2022 17:55:26
