@@ -87,16 +87,20 @@ def main():
                     result = client.delete_client(item, connect_sec)
                     msg.print_msg_result_delete('Cliente', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
 
                 elif item.Tipo == "FV": # FACTURA VENTA
 
                     result = invoice.delete_sale_invoice(item, connect_sec)
                     msg.print_msg_result_delete('Factura', item.ItemID, 'a', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
 
                 elif item.Tipo == "FVR": # FACTURA VENTA RENGLON
 
@@ -107,16 +111,20 @@ def main():
                     result = reng_invoice.delete_reng_invoice(fact, reng, connect_sec)
                     msg.print_msg_result_delete(f'Renglon N° {reng} de la factura', fact, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
 
                 elif item.Tipo == "COB": # COBRO
 
                     result = collect.delete_collect(item, connect_sec)
                     msg.print_msg_result_delete('Cobro', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
 
                 elif item.Tipo == "COBTR": # COBRO TP RENGLON
 
@@ -134,96 +142,120 @@ def main():
                         result = reng_collect.delete_reng_tp_collect(cob, reng, connect_sec)
                         msg.print_msg_result_delete(f'Renglon TP N° {reng} del cobro', cob, 'o', result)
 
-                        if result == 1 or result == 2:
+                        if result == 1:
                             sync_manager.update_item('ItemsEliminar', item.ID)
+                        elif result == 2:
+                            sync_manager.delete_item('ItemsEliminar', item.ID)
 
                 elif item.Tipo == "PV": # PEDIDO VENTA
 
                     result = order.delete_order(item, connect_sec)
                     msg.print_msg_result_delete('Pedido', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
 
                 elif item.Tipo == "TP": # TIPO PRECIO
                     
                     result = type.delete_price_type(item, connect_sec)
                     msg.print_msg_result_delete('Tipo de precio', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "MON": # MONEDA
                     
                     result = currency.delete_currency(item, connect_sec)
                     msg.print_msg_result_delete('Moneda', item.ItemID, 'a', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "TC": # TIPO CLIENTE
                     
                     result = type.delete_client_type(item, connect_sec)
                     msg.print_msg_result_delete('Tipo cliente', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "CUE": # CUENTA I/E
                     
                     result = account.delete_account(item, connect_sec)
                     msg.print_msg_result_delete('Cuenta I/E', item.ItemID, 'a', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "PAI": # PAIS
                     
                     result = country.delete_country(item, connect_sec)
                     msg.print_msg_result_delete('Pais', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "SEG": # SEGMENTO
                     
                     result = segment.delete_segment(item, connect_sec)
                     msg.print_msg_result_delete('Segmento', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "ZON": # MONEDA
                     
                     result = zone.delete_zone(item, connect_sec)
                     msg.print_msg_result_delete('Zona', item.ItemID, 'a', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "VEN": # VENDEDOR
                     
                     result = seller.delete_seller(item, connect_sec)
                     msg.print_msg_result_delete('Vendedor', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "COND": # CONDICION PAGO
                     
                     result = cond.delete_cond(item, connect_sec)
                     msg.print_msg_result_delete('Condicion pago', item.ItemID, 'a', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "TRA": # TRANSPORTE
                     
                     result = transport.delete_transport(item, connect_sec)
                     msg.print_msg_result_delete('Transporte', item.ItemID, 'o', result)
 
-                    if result == 1 or result == 2:
+                    if result == 1:
                         sync_manager.update_item('ItemsEliminar', item.ID)
+                    elif result == 2:
+                        sync_manager.delete_item('ItemsEliminar', item.ID)
                 
                 elif item.Tipo == "FC": # FACTURA COMPRA
 
