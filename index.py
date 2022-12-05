@@ -345,7 +345,7 @@ def main():
                             if result == 1:
                                 sync_manager.update_item('ItemsModificar', item.ID)
 
-                elif item.Tipo == "ADE": # DOCUMENTO VENTA ADELANTO
+                elif item.Tipo == "ADEV": # DOCUMENTO VENTA ADELANTO
 
                     d = sale_doc.search_sale_doc(cursor_main, 'ADEL', item.ItemID)
 

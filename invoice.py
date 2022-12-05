@@ -227,35 +227,35 @@ def insert_buy_invoice (i, items, doc, connect_sec):
             status = 2
         else:
             sp_invoice = f"""exec pInsertarFacturaCompra @sDoc_Num = ?, @sNro_Fact = ?, @sDescrip = ?, @sCo_Prov = ?, @sCo_Cta_Ingr_Egr = ?, 
-                @sCo_Mone = ?, @sCo_Cond = ?, @sN_Control = ?, @sPorc_Desc_Glob = ?, @sdFec_Emis = ?, @sdFec_Venc = ?, @sdFec_Reg = ?, @bAnulado = ?, 
-                @sStatus = ?, @deTasa = ?, @sPorc_Reca = ?, @deSaldo = ?, @deTotal_Bruto = ?, @deTotal_Neto = ?, @deMonto_Desc_Glob = ?, 
-                @deMonto_Reca = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, @deMonto_Imp3 = ?, @sDir_Ent = ?, 
-                @sComentario = ?, @bImpresa = ?, @sSalesTax = ?, @sDis_Cen = ?, @bnac = ?, @sCampo1 = ?, @sCampo2 = ?, @sCampo3 = ?, @sCampo4 = ?, 
-                @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, @sco_us_in = ?, @sMaquina = ?
+                @sCo_Mone = ?, @sCo_Cond = ?, @sN_Control = ?, @sPorc_Desc_Glob = ?, @sdFec_Emis = ?, @sdFec_Venc = ?, @sdFec_Reg = ?, 
+                @bAnulado = ?, @sStatus = ?, @deTasa = ?, @sPorc_Reca = ?, @deSaldo = ?, @deTotal_Bruto = ?, @deTotal_Neto = ?, 
+                @deMonto_Desc_Glob = ?, @deMonto_Reca = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, 
+                @deMonto_Imp3 = ?, @sDir_Ent = ?, @sComentario = ?, @bImpresa = ?, @sSalesTax = ?, @sDis_Cen = ?, @bnac = ?, @sCampo1 = ?, 
+                @sCampo2 = ?, @sCampo3 = ?, @sCampo4 = ?, @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, 
+                @sco_sucu_in = ?, @sco_us_in = ?, @sMaquina = ?
             """
-            sp_invoice_params = (i.doc_num, i.nro_fact, i.descrip, i.co_prov, i.co_cta_ingr_egr, i.co_mone, i.co_cond, i.n_control, i.porc_desc_glob, 
-                i.fec_emis, i.fec_venc, i.fec_reg, i.anulado, i.status, i.tasa, i.porc_reca, i.saldo, i.total_bruto, i.total_neto, i.monto_desc_glob, 
-                i.monto_reca, i.otros1, i.otros2, i.otros3, i.monto_imp, i.monto_imp2, i.monto_imp3, i.dir_ent, i.comentario, i.impresa, i.salestax, 
-                i.dis_cen, i.bnac, i.campo1, i.campo2, i.campo3, i.campo4, i.campo5, i.campo6, i.campo7, i.campo8, i.revisado, i.trasnfe, i.co_sucu_in, 
-                i.co_us_in, socket.gethostname())
+            sp_invoice_params = (i.doc_num, i.nro_fact, i.descrip, i.co_prov, i.co_cta_ingr_egr, i.co_mone, i.co_cond, i.n_control, 
+                i.porc_desc_glob, i.fec_emis, i.fec_venc, i.fec_reg, i.anulado, i.status, i.tasa, i.porc_reca, i.saldo, i.total_bruto, 
+                i.total_neto, i.monto_desc_glob,   i.monto_reca, i.otros1, i.otros2, i.otros3, i.monto_imp, i.monto_imp2, i.monto_imp3, 
+                i.dir_ent, i.comentario, i.impresa, i.salestax, i.dis_cen, i.nac, i.campo1, i.campo2, i.campo3, i.campo4, i.campo5, i.campo6, 
+                i.campo7, i.campo8, i.revisado, i.trasnfe, i.co_sucu_in, 'SYNC', socket.gethostname())
             
             sp_doc = f"""exec pInsertarDocumentoCompra @sNro_Doc = ?, @sCo_Tipo_Doc = ?, @sCo_Prov = ?, @sCo_Cta_Ingr_Egr = ?, @sCo_Mone = ?, 
                 @sTipo_Imp = ?, @sTipo_Imp2 = ?, @sTipo_Imp3 = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @sMov_Ban = ?, @bAut = ?, 
                 @iPagar = ?, @sNro_Fact = ?, @sObserva = ?, @sDoc_Orig = ?, @sNro_Orig = ?, @iTipo_Origen = ?, @sNro_Che = ?, @deTasa = ?, 
                 @dePorc_Imp = ?, @dePorc_Imp2 = ?, @dePorc_Imp3 = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, @deMonto_Imp3 = ?, @deTotal_Bruto = ?, 
-                @sPorc_Desc_Glob = ?, @deMonto_Desc_Glob = ?, @sPorc_Reca = ?, @deMonto_Reca = 0, @deTotal_Neto = ?, @deSaldo = ?, @sDis_Cen = ?, 
+                @sPorc_Desc_Glob = ?, @deMonto_Desc_Glob = ?, @sPorc_Reca = ?, @deMonto_Reca = ?, @deTotal_Neto = ?, @deSaldo = ?, @sDis_Cen = ?, 
                 @deAdicional = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @sN_Control = ?, @sSalestax = ?, @sProv_Ter = ?, @iReng_Ter = ?, 
                 @sPro_Pago = ?, @sdFec_Venc = ?, @sNum_Comprobante = ?, @bnac = ?, @sCampo1 = ?, @sCampo2 = ?, @sCampo3 = ?, @sCampo4 = ?, 
-                @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, @sco_us_in = ?, 
-                @sMaquina = ?
+                @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, @sco_us_in = ?, @sMaquina = ?
             """
-            sp_doc_params = (doc.nro_doc, 'FACT', doc.co_prov, doc.co_cta_ingr_egr, doc.co_mone, doc.tipo_imp, doc.tipo_imp2, doc.tipo_imp3, 
-                doc.fec_reg, doc.fec_emis, doc.anulado, doc.mov_ban, doc.aut, doc.pagar, doc.nro_fact, doc.observa, doc.doc_orig, doc.nro_orig, 
-                doc.tipo_origen, doc.nro_che, doc.tasa, doc.porc_imp, doc.porc_imp2, doc.porc_imp3, doc.monto_imp, doc.monto_imp2, doc.monto_imp3, 
-                doc.total_bruto, doc.porc_desc_glob, doc.monto_desc_glob, doc.porc_reca, doc.monto_reca, doc.total_neto, doc.saldo, doc.dis_cen, 
-                doc.adicional, doc.otros1, doc.otros2, doc.otros3, doc.n_control, doc.salestax, doc.prov_ter, doc.reng_ter, doc.pro_pago, 
-                doc.fec_venc, doc.num_comprobante, doc.nac, doc.campo1, doc.campo2, doc.campo3, doc.campo4, doc.campo5, doc.campo6, doc.campo7, 
-                doc.campo8, doc.revisado, doc.trasnfe, doc.co_sucu_in, 'SYNC', socket.gethostname())
+            sp_doc_params = (doc.nro_doc, doc.co_tipo_doc, doc.co_prov, doc.co_cta_ingr_egr, doc.co_mone, doc.tipo_imp, doc.tipo_imp2, 
+                doc.tipo_imp3, doc.fec_reg, doc.fec_emis, doc.anulado, doc.mov_ban, doc.aut, doc.pagar, doc.nro_fact, doc.observa, 
+                doc.doc_orig, doc.nro_orig, doc.tipo_origen, doc.nro_che, doc.tasa, doc.porc_imp, doc.porc_imp2, doc.porc_imp3, doc.monto_imp, 
+                doc.monto_imp2, doc.monto_imp3, doc.total_bruto, doc.porc_desc_glob, doc.monto_desc_glob, doc.porc_reca, doc.monto_reca, 
+                doc.total_neto, doc.saldo, doc.dis_cen, doc.adicional, doc.otros1, doc.otros2, doc.otros3, doc.n_control, doc.salestax, 
+                doc.prov_ter, doc.reng_ter, doc.pro_pago, doc.fec_venc, doc.num_comprobante, doc.nac, doc.campo1, doc.campo2, doc.campo3, 
+                doc.campo4, doc.campo5, doc.campo6, doc.campo7, doc.campo8, doc.revisado, doc.trasnfe, doc.co_sucu_in, 'SYNC', socket.gethostname())
 
             try:
                 # ingresando la factura

@@ -1,3 +1,6 @@
 Segmento 0 agregado con éxito - 01/12/2022 14:24:27
 Segmento 0 no existe en la base secundaria - 01/12/2022 14:24:58
 Segmento 0 eliminado con éxito - 01/12/2022 14:36:55
+Factura 0000000073 agregada con éxito - 01/12/2022 15:36:45
+Factura 0000000073 (descrip) actualizada con éxito - 01/12/2022 15:51:55
+Factura 0000000073 eliminada con éxito - 01/12/2022 15:52:24
