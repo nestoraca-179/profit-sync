@@ -160,10 +160,10 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                         cursor_sec.execute(sp_doc_islr, sp_doc_islr_params)
 
                     elif doc.co_tipo_doc.rstrip() == 'ADEL': # adelanto
-                        doc_adel = search_sale_doc(cursor_main, 'ADEL', doc.nro_doc)
-                        doc_secu = search_sale_doc(cursor_sec, 'ADEL', doc.nro_doc)
+                        doc_adel1 = search_sale_doc(cursor_main, 'ADEL', doc.nro_doc)
+                        doc_adel2 = search_sale_doc(cursor_sec, 'ADEL', doc.nro_doc)
 
-                        if doc_secu is None:
+                        if doc_adel2 is None:
                             sp_doc_adel = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'ADEL', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
                                 @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
                                 @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
@@ -175,18 +175,47 @@ def insert_collect(c, rengs_doc, rengs_tp, cursor_main: Cursor, connect_sec):
                                 @sCampo4 = ?, @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, 
                                 @sco_us_in = ?, @sMaquina = ?
                             """
-                            sp_doc_adel_params = (doc_adel.nro_doc, doc_adel.co_cli, doc_adel.co_mone, doc_adel.fec_reg, doc_adel.fec_emis, doc_adel.anulado, 
-                            doc_adel.adicional, doc_adel.mov_ban, doc_adel.aut, doc_adel.contrib, doc_adel.observa, doc_adel.nro_orig, doc_adel.nro_che,
-                            doc_adel.co_ven, doc_adel.co_cta_ingr_egr, doc_adel.tasa, doc_adel.tipo_imp, doc_adel.total_bruto, doc_adel.total_neto, 
-                            doc_adel.monto_reca, doc_adel.monto_imp, doc_adel.monto_imp2, doc_adel.monto_imp3, doc_adel.saldo, doc_adel.n_control, 
-                            doc_adel.num_comprobante, doc_adel.dis_cen, doc_adel.comis1, doc_adel.comis2, doc_adel.comis3, doc_adel.comis4, doc_adel.otros1, 
-                            doc_adel.otros2, doc_adel.otros3, doc_adel.porc_desc_glob, doc_adel.monto_desc_glob, doc_adel.porc_reca, doc_adel.porc_imp, 
-                            doc_adel.porc_imp2, doc_adel.porc_imp3, doc_adel.salestax, doc_adel.ven_ter, doc_adel.fec_venc, doc_adel.comis5, doc_adel.comis6, 
-                            doc_adel.impfis, doc_adel.impfisfac, doc_adel.imp_nro_z, doc_adel.tipo_origen, doc_adel.campo1, doc_adel.campo2, doc_adel.campo3, 
-                            doc_adel.campo4, doc_adel.campo5, doc_adel.campo6, doc_adel.campo7, doc_adel.campo8, doc_adel.revisado, doc_adel.trasnfe, 
-                            doc_adel.co_sucu_in, 'SYNC', socket.gethostname())
-
+                            sp_doc_adel_params = (doc_adel1.nro_doc, doc_adel1.co_cli, doc_adel1.co_mone, doc_adel1.fec_reg, doc_adel1.fec_emis, doc_adel1.anulado, 
+                                doc_adel1.adicional, doc_adel1.mov_ban, doc_adel1.aut, doc_adel1.contrib, doc_adel1.observa, doc_adel1.nro_orig, doc_adel1.nro_che,
+                                doc_adel1.co_ven, doc_adel1.co_cta_ingr_egr, doc_adel1.tasa, doc_adel1.tipo_imp, doc_adel1.total_bruto, doc_adel1.total_neto, 
+                                doc_adel1.monto_reca, doc_adel1.monto_imp, doc_adel1.monto_imp2, doc_adel1.monto_imp3, doc_adel1.saldo, doc_adel1.n_control, 
+                                doc_adel1.num_comprobante, doc_adel1.dis_cen, doc_adel1.comis1, doc_adel1.comis2, doc_adel1.comis3, doc_adel1.comis4, doc_adel1.otros1, 
+                                doc_adel1.otros2, doc_adel1.otros3, doc_adel1.porc_desc_glob, doc_adel1.monto_desc_glob, doc_adel1.porc_reca, doc_adel1.porc_imp, 
+                                doc_adel1.porc_imp2, doc_adel1.porc_imp3, doc_adel1.salestax, doc_adel1.ven_ter, doc_adel1.fec_venc, doc_adel1.comis5, doc_adel1.comis6, 
+                                doc_adel1.impfis, doc_adel1.impfisfac, doc_adel1.imp_nro_z, doc_adel1.tipo_origen, doc_adel1.campo1, doc_adel1.campo2, doc_adel1.campo3, 
+                                doc_adel1.campo4, doc_adel1.campo5, doc_adel1.campo6, doc_adel1.campo7, doc_adel1.campo8, doc_adel1.revisado, doc_adel1.trasnfe, 
+                                doc_adel1.co_sucu_in, 'SYNC', socket.gethostname())
+ 
                             cursor_sec.execute(sp_doc_adel, sp_doc_adel_params)
+
+                    elif doc.co_tipo_doc.rstrip() == 'N/CR': # nota de credito
+                        doc_ncr1 = search_sale_doc(cursor_main, 'N/CR', doc.nro_doc)
+                        doc_ncr2 = search_sale_doc(cursor_sec, 'N/CR', doc.nro_doc)
+
+                        if doc_ncr2 is None:
+                            sp_doc_ncr = """exec pInsertarDocumentoVenta @sNro_Doc = ?, @sCo_Tipo_Doc = 'N/CR', @sDoc_Orig = 'COBRO', @sCo_Cli = ?, 
+                                @sCo_Mone = ?, @sdFec_Reg = ?, @sdFec_Emis = ?, @bAnulado = ?, @deAdicional = ?, @sMov_Ban = ?, @bAut = ?, @bContrib = ?, 
+                                @sObserva = ?, @sNro_Orig = ?, @sNro_Che = ?, @sCo_Ven = ?, @sCo_Cta_Ingr_Egr = ?, @deTasa = ?, @sTipo_Imp = ?, 
+                                @deTotal_Bruto = ?, @deTotal_Neto = ?, @deMonto_Reca = ?, @deMonto_Imp = ?, @deMonto_Imp2 = ?, @deMonto_Imp3 = ?, 
+                                @deSaldo = ?, @sN_Control = ?, @sNum_Comprobante = ?, @sDis_Cen = ?, @deComis1 = ?, @deComis2 = ?, @deComis3 = ?, 
+                                @deComis4 = ?, @deOtros1 = ?, @deOtros2 = ?, @deOtros3 = ?, @sPorc_Desc_Glob = ?, @deMonto_Desc_Glob = ?, @sPorc_Reca = ?, 
+                                @dePorc_Imp = ?, @dePorc_Imp2 = ?, @dePorc_Imp3 = ?, @sSalestax = ?, @bVen_Ter = ?, @sdFec_Venc = ?, @deComis5 = ?, 
+                                @deComis6 = ?, @sImpFis = ?, @sImpFisFac = ?, @sImp_Nro_Z = ?, @iTipo_Origen = ?, @sCampo1 = ?, @sCampo2 = ?, @sCampo3 = ?,
+                                @sCampo4 = ?, @sCampo5 = ?, @sCampo6 = ?, @sCampo7 = ?, @sCampo8 = ?, @sRevisado = ?, @sTrasnfe = ?, @sco_sucu_in = ?, 
+                                @sco_us_in = ?, @sMaquina = ?
+                            """
+                            sp_doc_ncr_params = (doc_ncr1.nro_doc, doc_ncr1.co_cli, doc_ncr1.co_mone, doc_ncr1.fec_reg, doc_ncr1.fec_emis, doc_ncr1.anulado, 
+                                doc_ncr1.adicional, doc_ncr1.mov_ban, doc_ncr1.aut, doc_ncr1.contrib, doc_ncr1.observa, doc_ncr1.nro_orig, doc_ncr1.nro_che,
+                                doc_ncr1.co_ven, doc_ncr1.co_cta_ingr_egr, doc_ncr1.tasa, doc_ncr1.tipo_imp, doc_ncr1.total_bruto, doc_ncr1.total_neto, 
+                                doc_ncr1.monto_reca, doc_ncr1.monto_imp, doc_ncr1.monto_imp2, doc_ncr1.monto_imp3, doc_ncr1.saldo, doc_ncr1.n_control, 
+                                doc_ncr1.num_comprobante, doc_ncr1.dis_cen, doc_ncr1.comis1, doc_ncr1.comis2, doc_ncr1.comis3, doc_ncr1.comis4, doc_ncr1.otros1, 
+                                doc_ncr1.otros2, doc_ncr1.otros3, doc_ncr1.porc_desc_glob, doc_ncr1.monto_desc_glob, doc_ncr1.porc_reca, doc_ncr1.porc_imp, 
+                                doc_ncr1.porc_imp2, doc_ncr1.porc_imp3, doc_ncr1.salestax, doc_ncr1.ven_ter, doc_ncr1.fec_venc, doc_ncr1.comis5, doc_ncr1.comis6, 
+                                doc_ncr1.impfis, doc_ncr1.impfisfac, doc_ncr1.imp_nro_z, doc_ncr1.tipo_origen, doc_ncr1.campo1, doc_ncr1.campo2, doc_ncr1.campo3, 
+                                doc_ncr1.campo4, doc_ncr1.campo5, doc_ncr1.campo6, doc_ncr1.campo7, doc_ncr1.campo8, doc_ncr1.revisado, doc_ncr1.trasnfe, 
+                                doc_ncr1.co_sucu_in, 'SYNC', socket.gethostname())
+
+                            cursor_sec.execute(sp_doc_ncr, sp_doc_ncr_params)
                     
                     cursor_sec.execute(sp_doc, sp_doc_params)
 
@@ -360,7 +389,7 @@ def delete_collect(item, connect_sec):
                         sp_d = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?, @tsvalidador = ?, @smaquina = ?, 
                             @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
                         """
-                        sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', w.co_sucu_mo, doc.rowguid)
+                        sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', doc.co_sucu_mo, doc.rowguid)
                         
                         cursor_sec.execute(sp_d, sp_d_params)
 
@@ -371,7 +400,7 @@ def delete_collect(item, connect_sec):
                             sp_d = f"""exec pEliminarDocumentoVenta @sco_tipo_docori = ?, @snro_docori = ?, @tsvalidador = ?, @smaquina = ?, 
                                 @sco_us_mo = ?, @sco_sucu_mo = ?, @growguid = ?
                             """
-                            sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', w.co_sucu_mo, doc.rowguid)
+                            sp_d_params = (doc.co_tipo_doc, doc.nro_doc, validador, socket.gethostname(), 'SYNC', doc.co_sucu_mo, doc.rowguid)
                             
                             cursor_sec.execute(sp_d, sp_d_params)
                 

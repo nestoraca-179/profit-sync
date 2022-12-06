@@ -34,14 +34,14 @@ items_saldo_doc_c = []
 # conexiones
 connect_main = {
     "server": "IT-MOV-91\SQLS2014SE",
-    "database": "DEMOA",
+    "database": "PP2K12_ISH_ADM",
     "username": "sa",
     "password": "Soporte123456"
 }
 
 connect_sec = {
     "server": "172.16.10.20\SQLS2014STD",
-    "database": "DEMOA",
+    "database": "ISH_1",
     "username": "sa",
     "password": "Soporte123456"
 }

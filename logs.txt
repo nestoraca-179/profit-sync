@@ -4,3 +4,174 @@ Segmento 0 eliminado con éxito - 01/12/2022 14:36:55
 Factura 0000000073 agregada con éxito - 01/12/2022 15:36:45
 Factura 0000000073 (descrip) actualizada con éxito - 01/12/2022 15:51:55
 Factura 0000000073 eliminada con éxito - 01/12/2022 15:52:24
+Renglon N° 1 del pedido 10013522 (pendiente) actualizado con éxito - 05/12/2022 11:07:10
+Pedido 10013522 (status) actualizado con éxito - 05/12/2022 11:07:10
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:07:13
+Factura 198667 no pudo ser agregada - 05/12/2022 11:07:13
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:09:43
+Factura 198667 no pudo ser agregada - 05/12/2022 11:09:43
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:11:21
+Factura 198667 no pudo ser agregada - 05/12/2022 11:11:21
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:12:32
+Factura 198667 no pudo ser agregada - 05/12/2022 11:12:32
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:14:16
+Factura 198667 no pudo ser agregada - 05/12/2022 11:14:16
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:15:19
+Factura 198667 no pudo ser agregada - 05/12/2022 11:15:19
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:16:50
+Factura 198667 no pudo ser agregada - 05/12/2022 11:16:50
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:20:19
+Factura 198667 no pudo ser agregada - 05/12/2022 11:20:19
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:21:18
+Factura 198667 no pudo ser agregada - 05/12/2022 11:21:18
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:25:48
+Factura 198667 no pudo ser agregada - 05/12/2022 11:25:48
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:29:04
+Factura 198667 no pudo ser agregada - 05/12/2022 11:29:04
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:31:59
+Factura 198667 no pudo ser agregada - 05/12/2022 11:31:59
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:32:18
+Factura 198667 no pudo ser agregada - 05/12/2022 11:32:18
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:40:58
+Factura 198667 no pudo ser agregada - 05/12/2022 11:40:58
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:42:42
+Factura 198667 no pudo ser agregada - 05/12/2022 11:42:42
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:49:17
+Factura 198667 no pudo ser agregada - 05/12/2022 11:49:17
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 11:49:32
+Factura 198667 no pudo ser agregada - 05/12/2022 11:49:32
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:11:26
+Factura 198667 no pudo ser agregada - 05/12/2022 12:11:26
+Factura 198667 ya fue sincronizada anteriormente - 05/12/2022 12:11:52
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:15:13
+Factura 198667 no pudo ser agregada - 05/12/2022 12:15:13
+Factura 198667 agregada con éxito - 05/12/2022 12:18:12
+Factura 198667 ya fue sincronizada anteriormente - 05/12/2022 12:22:37
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:23:15
+Factura 198667 no pudo ser agregada - 05/12/2022 12:23:15
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:24:12
+Factura 198667 no pudo ser agregada - 05/12/2022 12:24:12
+Factura 198667 agregada con éxito - 05/12/2022 12:26:30
+Renglon N° 1 del pedido 10013574 (pendiente) actualizado con éxito - 05/12/2022 12:30:43
+Pedido 10013574 (status) actualizado con éxito - 05/12/2022 12:30:43
+Factura 198668 agregada con éxito - 05/12/2022 12:30:44
+Renglon N° 1 del pedido 10013593 (pendiente) actualizado con éxito - 05/12/2022 12:33:42
+Pedido 10013593 (status) actualizado con éxito - 05/12/2022 12:33:42
+Factura 198669 agregada con éxito - 05/12/2022 12:33:43
+Renglon N° 1 del pedido 10013494 (pendiente) actualizado con éxito - 05/12/2022 12:38:11
+Pedido 10013494 (status) actualizado con éxito - 05/12/2022 12:38:11
+Factura 198670 agregada con éxito - 05/12/2022 12:38:12
+Renglon N° 1 del pedido 10013504 (pendiente) actualizado con éxito - 05/12/2022 12:40:43
+Pedido 10013504 (status) actualizado con éxito - 05/12/2022 12:40:43
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:40:45
+Factura 198671 no pudo ser agregada - 05/12/2022 12:40:45
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:41:10
+Factura 198671 no pudo ser agregada - 05/12/2022 12:41:10
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:41:52
+Factura 198671 no pudo ser agregada - 05/12/2022 12:41:52
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:42:22
+Factura 198671 no pudo ser agregada - 05/12/2022 12:42:22
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:47:04
+Factura 198671 no pudo ser agregada - 05/12/2022 12:47:04
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:49:23
+Factura 198671 no pudo ser agregada - 05/12/2022 12:49:23
+Factura 198671 agregada con éxito - 05/12/2022 12:51:05
+Renglon N° 1 del pedido 10013441 (pendiente) actualizado con éxito - 05/12/2022 12:52:46
+Pedido 10013441 (status) actualizado con éxito - 05/12/2022 12:52:46
+Factura 198672 agregada con éxito - 05/12/2022 12:52:47
+Renglon N° 1 del pedido 10013227 (pendiente) actualizado con éxito - 05/12/2022 12:54:01
+Pedido 10013227 (status) actualizado con éxito - 05/12/2022 12:54:01
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:54:01
+Factura 198673 no pudo ser agregada - 05/12/2022 12:54:01
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:56:01
+Factura 198673 no pudo ser agregada - 05/12/2022 12:56:01
+Factura 198673 agregada con éxito - 05/12/2022 12:56:18
+Renglon N° 1 del pedido 10013156 (pendiente) actualizado con éxito - 05/12/2022 12:57:33
+Pedido 10013156 (status) actualizado con éxito - 05/12/2022 12:57:33
+Factura 198674 agregada con éxito - 05/12/2022 12:57:34
+Renglon N° 1 del pedido 10013087 (pendiente) actualizado con éxito - 05/12/2022 12:58:53
+Pedido 10013087 (status) actualizado con éxito - 05/12/2022 12:58:53
+Factura 198675 agregada con éxito - 05/12/2022 12:58:54
+Renglon N° 1 del pedido 10013029 (pendiente) actualizado con éxito - 05/12/2022 12:59:21
+Pedido 10013029 (status) actualizado con éxito - 05/12/2022 12:59:21
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 12:59:21
+Factura 198676 no pudo ser agregada - 05/12/2022 12:59:21
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:00:11
+Factura 198676 no pudo ser agregada - 05/12/2022 13:00:11
+Error => ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot drop the table 'TempTableDE', because it does not exist or you do not have permission. (3701) (SQLExecDirectW)") - 05/12/2022 13:01:09
+Factura 198676 no pudo ser agregada - 05/12/2022 13:01:09
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:02:42
+Factura 198676 no pudo ser agregada - 05/12/2022 13:02:42
+Error => ('42S01', "[42S01] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]There is already an object named 'TempTableDE' in the database. (2714) (SQLExecDirectW)") - 05/12/2022 13:04:41
+Factura 198676 no pudo ser agregada - 05/12/2022 13:04:41
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:05:31
+Factura 198676 no pudo ser agregada - 05/12/2022 13:05:31
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:10:05
+Factura 198676 no pudo ser agregada - 05/12/2022 13:10:05
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:11:16
+Factura 198676 no pudo ser agregada - 05/12/2022 13:11:16
+Error => ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot drop the table 'TempTableDE', because it does not exist or you do not have permission. (3701) (SQLExecDirectW)") - 05/12/2022 13:11:33
+Factura 198676 no pudo ser agregada - 05/12/2022 13:11:33
+Error => ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot drop the table 'TempTableDE', because it does not exist or you do not have permission. (3701) (SQLExecDirectW)") - 05/12/2022 13:12:05
+Factura 198676 no pudo ser agregada - 05/12/2022 13:12:05
+Error => ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot drop the table 'TempTableDE', because it does not exist or you do not have permission. (3701) (SQLExecDirectW)") - 05/12/2022 13:14:45
+Factura 198676 no pudo ser agregada - 05/12/2022 13:14:45
+Error => ('42S02', "[42S02] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Cannot drop the table 'TempTableDE', because it does not exist or you do not have permission. (3701) (SQLExecDirectW)") - 05/12/2022 13:16:17
+Factura 198676 no pudo ser agregada - 05/12/2022 13:16:17
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:17:05
+Factura 198676 no pudo ser agregada - 05/12/2022 13:17:05
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:20:26
+Factura 198676 no pudo ser agregada - 05/12/2022 13:20:26
+Factura 198676 agregada con éxito - 05/12/2022 13:20:47
+Renglon N° 1 del pedido 10013050 (pendiente) actualizado con éxito - 05/12/2022 13:24:51
+Pedido 10013050 (status) actualizado con éxito - 05/12/2022 13:24:51
+Factura 198677 agregada con éxito - 05/12/2022 13:24:52
+Renglon N° 1 del pedido 10012912 (pendiente) actualizado con éxito - 05/12/2022 13:29:19
+Pedido 10012912 (status) actualizado con éxito - 05/12/2022 13:29:19
+Factura 198678 agregada con éxito - 05/12/2022 13:29:20
+Renglon N° 1 del pedido 10012913 (pendiente) actualizado con éxito - 05/12/2022 13:35:16
+Pedido 10012913 (status) actualizado con éxito - 05/12/2022 13:35:16
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:35:17
+Factura 198679 no pudo ser agregada - 05/12/2022 13:35:17
+Factura 198679 agregada con éxito - 05/12/2022 13:36:21
+Renglon N° 1 del pedido 10012914 (pendiente) actualizado con éxito - 05/12/2022 13:37:30
+Pedido 10012914 (status) actualizado con éxito - 05/12/2022 13:37:30
+Factura 198680 agregada con éxito - 05/12/2022 13:37:31
+Renglon N° 1 del pedido 10012834 (pendiente) actualizado con éxito - 05/12/2022 13:38:05
+Pedido 10012834 (status) actualizado con éxito - 05/12/2022 13:38:05
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:38:05
+Factura 198681 no pudo ser agregada - 05/12/2022 13:38:05
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 13:49:57
+Factura 198681 no pudo ser agregada - 05/12/2022 13:49:57
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 14:04:24
+Factura 198681 no pudo ser agregada - 05/12/2022 14:04:24
+Error => ('42S01', "[42S01] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]There is already an object named 'TempTableDE' in the database. (2714) (SQLExecDirectW)") - 05/12/2022 14:08:26
+Factura 198681 no pudo ser agregada - 05/12/2022 14:08:26
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 14:10:32
+Factura 198681 no pudo ser agregada - 05/12/2022 14:10:32
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 14:14:10
+Factura 198681 no pudo ser agregada - 05/12/2022 14:14:10
+Factura 198681 agregada con éxito - 05/12/2022 14:17:15
+Renglon N° 1 del pedido 10012862 (pendiente) actualizado con éxito - 05/12/2022 14:19:55
+Pedido 10012862 (status) actualizado con éxito - 05/12/2022 14:19:55
+Factura 198682 agregada con éxito - 05/12/2022 14:19:56
+Renglon N° 1 del pedido 10012863 (pendiente) actualizado con éxito - 05/12/2022 14:20:31
+Pedido 10012863 (status) actualizado con éxito - 05/12/2022 14:20:31
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 14:20:33
+Factura 198683 no pudo ser agregada - 05/12/2022 14:20:33
+Error => ('42S01', "[42S01] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]There is already an object named 'TempTableDE' in the database. (2714) (SQLExecDirectW)") - 05/12/2022 14:21:32
+Factura 198683 no pudo ser agregada - 05/12/2022 14:21:32
+Factura 198683 agregada con éxito - 05/12/2022 14:25:20
+Renglon N° 1 del pedido 10012767 (pendiente) actualizado con éxito - 05/12/2022 14:26:04
+Pedido 10012767 (status) actualizado con éxito - 05/12/2022 14:26:04
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 14:26:05
+Factura 198684 no pudo ser agregada - 05/12/2022 14:26:05
+Error => ('23000', '[23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The INSERT statement conflicted with the FOREIGN KEY constraint "FK_saFacturaVentaReng_saFacturaVenta". The conflict occurred in database "ISH_1", table "dbo.saFacturaVenta", column \'doc_num\'. (547) (SQLExecDirectW); [23000] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]The statement has been terminated. (3621)') - 05/12/2022 14:27:50
+Factura 198684 no pudo ser agregada - 05/12/2022 14:27:50
+Factura 198684 agregada con éxito - 05/12/2022 14:29:37
+Renglon N° 1 del pedido 10012606 (pendiente) actualizado con éxito - 05/12/2022 14:56:38
+Pedido 10012606 (status) actualizado con éxito - 05/12/2022 14:56:38
+Factura 198685 agregada con éxito - 05/12/2022 14:56:39
+Renglon N° 1 del pedido 10012609 (pendiente) actualizado con éxito - 05/12/2022 15:12:38
+Pedido 10012609 (status) actualizado con éxito - 05/12/2022 15:12:38
+Factura 198686 agregada con éxito - 05/12/2022 15:12:38
